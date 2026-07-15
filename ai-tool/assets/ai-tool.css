@@ -320,6 +320,110 @@ table.dv-table tr:hover td { background: #1a1a22; }
 .dv-empty-row td { text-align: center; color: #6f6f7a; padding: 24px; }
 .dv-footer { display: flex; justify-content: space-between; padding: 10px 16px; font-size: 0.78rem; color: #7d7d88; background: #131318; border-top: 1px solid #2a2a33; }
 
+/* ===== TradeLogViewer 데모 ===== */
+.tl-toolbar input, .tl-toolbar select { min-width: 0; }
+.tl-search { display: flex; gap: 6px; }
+.tl-search input { flex: 1; min-width: 120px; }
+
+.tl-type-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.tl-type-chip {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  border: 1px solid #35353f;
+  background: #1c1c24;
+  color: #9a9aa6;
+  white-space: nowrap;
+}
+.tl-type-chip.active.tl-type-start { background: rgba(59,130,246,0.18); border-color: #3b82f6; color: #93c5fd; }
+.tl-type-chip.active.tl-type-success { background: rgba(34,197,94,0.18); border-color: #22c55e; color: #86efac; }
+.tl-type-chip.active.tl-type-settle { background: rgba(168,85,247,0.18); border-color: #a855f7; color: #d8b4fe; }
+.tl-type-chip.active.tl-type-cancel { background: rgba(249,115,22,0.18); border-color: #f97316; color: #fdba74; }
+.tl-type-chip.active.tl-type-neutral { background: rgba(156,163,175,0.18); border-color: #9ca3af; color: #d1d5db; }
+
+.tl-type-badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; }
+.tl-type-badge.tl-type-start { background: rgba(59,130,246,0.18); color: #93c5fd; }
+.tl-type-badge.tl-type-success { background: rgba(34,197,94,0.18); color: #86efac; }
+.tl-type-badge.tl-type-settle { background: rgba(168,85,247,0.18); color: #d8b4fe; }
+.tl-type-badge.tl-type-cancel { background: rgba(249,115,22,0.18); color: #fdba74; }
+.tl-type-badge.tl-type-neutral { background: rgba(156,163,175,0.18); color: #d1d5db; }
+
+.tl-match-toggle { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: #c8c8d2; cursor: pointer; white-space: nowrap; }
+
+.tl-stat-row { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 16px; background: #131318; border-bottom: 1px solid #2a2a33; }
+.tl-stat-chip { background: #1c1c24; border: 1px solid #2a2a33; border-radius: 8px; padding: 8px 14px; min-width: 100px; }
+.tl-stat-chip .num { font-size: 1.15rem; font-weight: 700; color: #8b8bf5; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.tl-stat-chip .label { font-size: 0.72rem; color: #7d7d88; margin-top: 2px; }
+
+.tl-tabs { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 16px 0; }
+.tl-tab { padding: 6px 14px; border-radius: 999px; background: #22222b; color: #c8c8d0; font-size: 0.85rem; cursor: pointer; white-space: nowrap; }
+.tl-tab.active { background: #6366f1; color: #fff; }
+
+.tl-tab-content { padding: 16px; }
+.tl-tab-content h4 { margin: 0 0 10px; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: #9a9aa6; }
+
+.tl-analysis-list { display: flex; flex-direction: column; gap: 6px; }
+.tl-analysis-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  background: #1a1a22;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.tl-analysis-item:hover { background: #20202a; }
+.tl-analysis-rank { width: 20px; flex-shrink: 0; text-align: center; font-weight: 700; color: #6f6f7a; }
+.tl-analysis-rank.top { color: #fbbf24; }
+.tl-analysis-name { flex: 1; color: #dcdce2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tl-analysis-value { color: #b7b7c2; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.tl-analysis-empty { color: #6f6f7a; font-size: 0.85rem; padding: 10px 0; }
+
+.tl-price-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #22222b; font-size: 0.85rem; }
+.tl-price-rarity { width: 92px; flex-shrink: 0; font-weight: 600; }
+.tl-price-avg { color: #eaeaf0; font-weight: 600; min-width: 90px; }
+.tl-price-range { color: #7d7d88; font-size: 0.78rem; flex: 1; }
+.tl-price-count { color: #7d7d88; font-size: 0.78rem; flex-shrink: 0; }
+
+.tl-range-row { display: flex; align-items: center; gap: 10px; padding: 5px 0; font-size: 0.82rem; }
+.tl-range-label { width: 110px; flex-shrink: 0; color: #c8c8d2; }
+.tl-range-track { flex: 1; height: 8px; background: #1c1c24; border-radius: 4px; overflow: hidden; }
+.tl-range-fill { height: 100%; background: #6366f1; }
+.tl-range-value { width: 90px; flex-shrink: 0; text-align: right; color: #7d7d88; }
+
+.tl-timeline { display: flex; align-items: flex-end; gap: 3px; height: 140px; padding: 4px 0; }
+.tl-timeline-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 4px; }
+.tl-timeline-bar { width: 100%; background: #6366f1; border-radius: 2px 2px 0 0; min-height: 2px; }
+.tl-timeline-hour { font-size: 0.62rem; color: #6f6f7a; }
+
+.tl-detail-panel {
+  margin: 0 16px 16px;
+  padding: 14px 16px;
+  background: #1a1a22;
+  border: 1px solid #2a2a33;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #c8c8d2;
+}
+.tl-detail-panel .empty { color: #6f6f7a; }
+.tl-detail-panel .tl-detail-title { font-weight: 600; color: #eaeaf0; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.tl-detail-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #24242d; }
+.tl-detail-row:last-child { border-bottom: none; }
+.tl-detail-row span:first-child { color: #8a8a94; }
+
+.tl-table-wrap { overflow-x: auto; max-height: 380px; overflow-y: auto; border-top: 1px solid #2a2a33; }
+table.tl-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+table.tl-table th {
+  position: sticky; top: 0; background: #16161c; color: #9a9aa6; text-align: left;
+  padding: 9px 14px; font-weight: 600; border-bottom: 1px solid #2a2a33; white-space: nowrap;
+}
+table.tl-table td { padding: 8px 14px; border-bottom: 1px solid #1e1e26; color: #d0d0d8; }
+table.tl-table tr { cursor: pointer; }
+table.tl-table tr:hover td { background: #1a1a22; }
+table.tl-table tr.selected td { background: #22222f; }
+
 /* ===== AI 협업 프로세스 카드 ===== */
 .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 20px; }
 .process-card {
@@ -331,6 +435,28 @@ table.dv-table tr:hover td { background: #1a1a22; }
 .process-card h3 { margin: 0 0 8px; font-size: 0.98rem; }
 .process-card p { margin: 0; font-size: 0.88rem; color: var(--color-text-muted); }
 .process-card .tag-row { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ===== 실사용 예시 스크린샷 ===== */
+.real-use-block { margin-top: 24px; }
+.real-use-label {
+  display: inline-block;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.real-use-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.real-use-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.real-use-card img { width: 100%; display: block; }
+.real-use-card .caption { padding: 10px 14px; font-size: 0.82rem; color: var(--color-text-muted); }
 
 /* ===== 안내 문구 ===== */
 .note-box {

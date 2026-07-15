@@ -128,6 +128,16 @@
 
       <div class="mg-history" id="mgHistory"></div>
     </div>
+
+    <div class="real-use-block">
+      <span class="real-use-label">📸 실사용 예시</span>
+      <div class="real-use-grid">
+        <div class="real-use-card">
+          <img src="assets/screenshots/mapgenie-real-use.png" alt="맵지니 실사용 화면 - 드링크 검색으로 드랍 포인트 확인" loading="lazy" />
+          <p class="caption">사내에서 실제로 사용 중인 맵지니 화면. "드링크"로 검색해 병원 수술실 맵 위에 드랍 포인트만 필터링해 보여주는 모습입니다.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ===== 핵심 데모 ② DataViewer ===== -->
@@ -172,6 +182,98 @@
       String 테이블에 없어 이름이 끊긴 데이터를, <code>RefCount</code>의 "0건 (미사용)"은 어떤 Item도 참조하지 않는
       미사용 데이터를 뜻합니다. 실제 업무에서도 이런 표시로 대량의 테이블 중 정리가 필요한 항목을 빠르게 찾아냈습니다.
       표 우측 하단 표시 개수 옆의 <strong>Error N건</strong>이 현재 탭에 몇 건의 이상이 있는지 바로 보여줍니다.
+    </div>
+
+    <div class="real-use-block">
+      <span class="real-use-label">📸 실사용 예시</span>
+      <div class="real-use-grid">
+        <div class="real-use-card">
+          <img src="assets/screenshots/dataviewer-real-use-global-search.png" alt="데이터 조회 실사용 화면 - 키 값 검색을 통한 사용처 확인" loading="lazy" />
+          <p class="caption">키 값 하나로 166개 전체 테이블을 검색해 42개 테이블·800건의 사용처를 한 번에 확인하는 실제 화면입니다.</p>
+        </div>
+        <div class="real-use-card">
+          <img src="assets/screenshots/dataviewer-real-use-item-search.png" alt="데이터 조회 실사용 화면 - 아이템 스폰 그룹에서 아이템 이름 검색" loading="lazy" />
+          <p class="caption">아이템 이름으로 스폰 그룹 테이블을 검색해 해당 아이템의 실제 획득처(드랍 경로)를 추적하는 실제 화면입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 핵심 데모 ③ TradeLogViewer ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">DEMO 03 · TradeLogViewer</p>
+    <h2>거래소 원시 로그를 경제 분석 대시보드로 바꾸는 도구</h2>
+    <p class="tool-desc">
+      기획자·매니저도 OpenSearch 없이 시각적으로 정리된 정보를 볼 수 있어야 했는데, OpenSearch 기본 제공 대시보드만으로는
+      원하는 방식의 시각화에 한계가 있어 직접 개발했습니다. 개발 중 거래 <strong>등록</strong> 로그만 보면 "최고가 매물"에
+      실제로 안 팔린 아이템이 섞여 나오는 문제를 발견해, <code>TradeId</code>로 등록·구매 로그를 매칭해 실제로 체결된
+      거래만 걸러내도록 수정했습니다. 아래 데모에서 우측 상단 <strong>"체결된 거래만 보기"</strong> 토글을 꺼보면 그
+      차이를 직접 확인할 수 있습니다.
+      <strong>로그 데이터는 실제 서비스 로그가 아닌 데모용으로 가상 재구성했습니다.</strong>
+    </p>
+
+    <div class="tool-frame tl-app">
+      <div class="tool-toolbar">
+        <div class="tl-search">
+          <input type="text" id="tlItemSearch" placeholder="아이템명 검색 (예: 손전등)" />
+        </div>
+        <div class="tl-search">
+          <input type="text" id="tlUserSearch" placeholder="구매자 검색 (예: 한밤의그림자)" />
+        </div>
+        <select id="tlRaritySelect">
+          <option value="">전체 등급</option>
+        </select>
+        <button class="tool-btn" id="tlResetBtn">초기화</button>
+      </div>
+      <div class="tool-toolbar">
+        <div class="tl-type-filters" id="tlTypeFilters"></div>
+        <label class="tl-match-toggle">
+          <input type="checkbox" id="tlMatchToggle" checked />
+          체결된 거래만 보기 (개요 · 최고가 순위 기준)
+        </label>
+      </div>
+
+      <div class="tl-stat-row" id="tlStatRow"></div>
+
+      <div class="tl-tabs" id="tlTabs">
+        <div class="tl-tab active" data-tab="overview">개요</div>
+        <div class="tl-tab" data-tab="items">인기아이템</div>
+        <div class="tl-tab" data-tab="price">가격분석</div>
+        <div class="tl-tab" data-tab="users">유저활동</div>
+        <div class="tl-tab" data-tab="timeline">시간대</div>
+      </div>
+      <div class="tl-tab-content" id="tlTabContent"></div>
+
+      <div class="tl-detail-panel" id="tlDetailPanel"><span class="empty">로그를 클릭하면 상세 정보가 표시됩니다.</span></div>
+
+      <div class="tl-table-wrap">
+        <table class="tl-table">
+          <thead>
+            <tr>
+              <th>시간</th><th>유형</th><th>아이템</th><th>등급</th><th>수량</th><th>가격</th><th>거래ID</th><th>구매자</th>
+            </tr>
+          </thead>
+          <tbody id="tlTableBody"></tbody>
+        </table>
+      </div>
+      <div class="dv-footer"><span id="tlCount"></span><span>가상 샘플 로그 · 실제 서비스 데이터 아님</span></div>
+    </div>
+
+    <div class="note-box">
+      <strong>🔍 "체결된 거래만 보기" 토글 안내</strong> — 토글을 끄면 <strong>등록가 기준</strong> 최고가 TOP 5를 보여줍니다.
+      등록만 되고 실제로는 안 팔리거나 회수·만료된 매물도 순위에 섞여, 실제와 다른 순위가 나올 수 있습니다. 토글을 켜면
+      <code>TradeId</code>로 구매 로그와 매칭된, <strong>실제로 체결된 거래</strong>만 집계합니다. 개발 중 실제로 겪었던
+      데이터 착시 문제를 그대로 재현한 것입니다.
+    </div>
+
+    <div class="real-use-block">
+      <span class="real-use-label">📸 실사용 예시</span>
+      <div class="real-use-grid">
+        <div class="real-use-card">
+          <img src="assets/screenshots/tradelogviewer-real-use.png" alt="거래소 로그 분석 실사용 화면 - 개요 탭" loading="lazy" />
+          <p class="caption">사내에서 실제로 사용 중인 거래소 로그 분석 화면입니다. 로그 검색 결과는 비밀 유지를 위해 포함하지 않았습니다.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -221,7 +323,9 @@
 <script src="assets/map-data.js"></script>
 <script src="assets/map-drop-data.js"></script>
 <script src="assets/item-data.js"></script>
+<script src="assets/trade-log-data.js"></script>
 <script src="assets/ai-tool.js"></script>
+<script src="assets/trade-log.js"></script>
 
 </body>
 </html>

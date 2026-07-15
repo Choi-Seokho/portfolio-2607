@@ -204,6 +204,23 @@ img { max-width: 100%; display: block; }
   margin-bottom: 12px;
 }
 
+.section-card .icon.icon-gun {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.section-card .icon.icon-gun svg {
+  width: 2.35rem;
+  height: 0.89rem;
+  flex-shrink: 0;
+  fill: var(--color-accent);
+  transform: rotate(-32deg);
+}
+
 .section-card h2 {
   font-size: 1.05rem;
   margin: 0 0 6px;
