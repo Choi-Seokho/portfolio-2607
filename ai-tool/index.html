@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>AI 활용 사례 | 최석호 포트폴리오</title>
+<link rel="stylesheet" href="../assets/css/style.css" />
+<link rel="stylesheet" href="assets/ai-tool.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="brand" href="../index.html">최석호 포트폴리오</a>
+    <ul>
+      <li><a class="nav-link" href="../index.html">소개</a></li>
+      <li><a class="nav-link" href="../resume/index.html">이력서</a></li>
+      <li><a class="nav-link" href="../career/index.html">경력기술서</a></li>
+      <li><a class="nav-link active" href="../prototypes/index.html">프로젝트</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="page">
+  <nav class="subtab-nav">
+    <a href="../prototypes/index.html">🎮 기획 및 프로토타입</a>
+    <a class="active" href="index.html">🤖 AI 툴 활용</a>
+  </nav>
+
+  <div class="content-header">
+    <p class="eyebrow">AI TOOL</p>
+    <h1>Claude Code로 게임 데이터 관리 툴 구축·확장하기</h1>
+    <p>OneWayTicketStudio에서 Claude Code를 개인 생산성 도구가 아니라, 기획팀이 함께 쓰는 데이터/QA 자동화 인프라로 확장했습니다. 아래 데모는 실제 사내 도구(TMW Design Tool)를 서버 없이, 가상 데이터로 재구성한 정적 버전입니다.</p>
+    <div class="stat-row">
+      <div class="stat-chip"><div class="num">30+</div><div class="label">제작한 UI 모듈</div></div>
+      <div class="stat-chip"><div class="num">2</div><div class="label">자체 구축 MCP 서버</div></div>
+      <div class="stat-chip"><div class="num">20+</div><div class="label">Claude Code 스킬</div></div>
+      <div class="stat-chip"><div class="num">52</div><div class="label">누적 세션 로그</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 활용 프로세스 타임라인 ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">PROCESS</p>
+    <h2>AI 활용 프로세스 타임라인</h2>
+    <p class="tool-desc">단발성 코드 생성이 아니라, 세션이 쌓일수록 도구 자체가 스스로를 개선해 나가는 구조를 만들었습니다.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">세션 히스토리 체계화</span><span class="period">2025-12-31</span></div>
+        <p class="project-desc">CLAUDE.md + 날짜별 세션 로그(.claude/session-logs/) 구조를 도입해, 매 세션이 이전 맥락을 이어받도록 함. 이후 모든 작업의 기록·재현이 가능해짐.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">MCP 서버 자체 구축</span><span class="period">2026-01</span></div>
+        <p class="project-desc">Perforce/UE5 C++ 소스를 분석하는 <code>tmw-analyzer</code>, Confluence 기획서를 검색·검증하는 <code>confluence-mcp-server</code>를 TypeScript로 직접 구현해 Claude의 지식 범위를 사내 코드/문서까지 확장.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">반복 작업의 스킬화</span><span class="period">2026-01 ~ 02</span></div>
+        <p class="project-desc">로그 뷰어 모듈을 4번 손으로 반복 제작한 뒤 <code>BaseLogViewer</code> 공통 클래스로 추출, <code>/new-log-viewer</code> 스킬로 자동 생성 전환. 세션 로그 자체를 분석해 스킬 후보를 뽑는 <code>session-insights</code> 메타 스킬까지 구축.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">데이터 이상 탐지</span><span class="period">2026-03</span></div>
+        <p class="project-desc">경제 대시보드 집계 로직을 점검하다 로그 필드 불일치(<code>@timestamp</code> vs <code>Time</code>)로 코인 수입이 실제의 1/10로 과소 집계되던 문제를 발견·수정.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">독립 실행형 QA 툴</span><span class="period">2026-04</span></div>
+        <p class="project-desc">Claude Code 세션 없이도 동작하는 Perforce diff 기반 QA 리포트 툴(bat + PowerShell + Node)을 산출 — AI로 만든 도구가 AI 없이도 팀에서 굴러가는 단계까지 확장.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 핵심 데모 ① MapGenie ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">DEMO 01 · MapGenie</p>
+    <h2>맵 위에 스폰 데이터를 시각화하는 도구</h2>
+    <p class="tool-desc">
+      레벨 맵 이미지 위에 아이템/몬스터/기믹 스폰 위치를 겹쳐 보여주는 도구입니다. 검색 버그 수정 → 검색 캐싱 →
+      타입별 필터 오버레이 → SVG 아이콘 도입 → Enum 연동 한글 표시 → 드롭테이블 연동 순으로, 여러 세션에 걸쳐 점진적으로 다듬었습니다.
+      상자·아이템 스포너를 클릭하면 등급별 드롭 확률과 드롭 아이템 목록이 표시되고, 아이템 이름으로 검색하면
+      해당 아이템을 드롭하는 오브젝트만 지도에 필터링되어 표시됩니다.
+      <strong>맵 이미지는 실제 사용 중인 레벨 디자인 블루프린트이며, 스폰 위치/드롭 데이터는 데모용으로 가상 재구성했습니다.</strong>
+    </p>
+
+    <div class="tool-frame mg-app">
+      <div class="tool-toolbar">
+        <div class="mg-floor-tabs" id="mgFloorTabs"></div>
+        <div class="mg-search">
+          <input type="text" id="mgSearchInput" placeholder="스폰 이름 검색 (예: 좀비, 상자, 탈출)" />
+          <button class="tool-btn primary" id="mgSearchBtn">검색</button>
+        </div>
+        <button class="tool-btn" id="mgResetBtn">전체 초기화</button>
+      </div>
+
+      <div class="mg-demo-body">
+        <div class="mg-viewport" id="mgViewport">
+          <div class="mg-stage" id="mgStage">
+            <img id="mgMapImage" alt="레벨 맵" draggable="false" />
+          </div>
+          <div class="mg-hint">드래그로 이동 · 휠로 확대/축소</div>
+          <div class="mg-zoom-controls">
+            <button class="tool-btn" id="mgZoomIn">+</button>
+            <button class="tool-btn" id="mgZoomOut">–</button>
+            <button class="tool-btn" id="mgZoomReset">⟳</button>
+          </div>
+        </div>
+
+        <aside class="mg-side" id="mgSide">
+          <div class="mg-filter-panel">
+            <h4>타입 필터</h4>
+            <label class="mg-filter-all-row">
+              <input type="checkbox" id="mgFilterAll" checked>
+              <span>전체 <span id="mgFilterAllCount"></span></span>
+            </label>
+            <div id="mgFilterList"></div>
+          </div>
+          <div class="mg-filter-panel mg-item-search-panel">
+            <h4>아이템 드롭 검색</h4>
+            <div class="mg-item-search-row">
+              <input type="text" id="mgItemSearchInput" placeholder="아이템명 검색 (예: 손전등)" />
+              <button class="tool-btn" id="mgItemSearchBtn">검색</button>
+            </div>
+            <div class="mg-item-search-hint" id="mgItemSearchHint">검색한 아이템을 드롭하는 오브젝트만 지도에 표시됩니다.</div>
+          </div>
+          <div class="mg-detail-panel" id="mgDetailPanel"></div>
+        </aside>
+      </div>
+
+      <div class="mg-history" id="mgHistory"></div>
+    </div>
+  </section>
+
+  <!-- ===== 핵심 데모 ② DataViewer ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">DEMO 02 · DataViewer</p>
+    <h2>JSON 게임 데이터를 SQL처럼 조회하는 도구</h2>
+    <p class="tool-desc">
+      이 도구의 핵심은 단순 조회가 아니라, <strong>키 값 하나를 전체 테이블 대상으로 한 번에 검색해 참조 무결성을 확인하는 것</strong>이었습니다.
+      아이템 이름은 <code>Item.BaseID → BaseItem.StringTableID → String.Korean</code> 3단계를 거쳐야 완성되는데,
+      이 체인 어딘가가 끊기거나 안 쓰이는 데이터가 남아있어도 겉으로는 티가 안 납니다. 아래 데모는 그 체인을 재현하고,
+      키 검색으로 끊긴 참조·미사용 데이터를 실제로 찾아냅니다.
+      <strong>테이블·컬럼명·데이터는 전부 가칭으로 재구성한 샘플입니다 (실제 게임 스키마 아님).</strong>
+    </p>
+
+    <div class="tool-frame dv-app">
+      <div class="tool-toolbar dv-global-search-bar">
+        <span class="dv-table-tag">전역 키 검색</span>
+        <input type="text" id="dvGlobalSearchInput" placeholder="Index / BaseID / StringID / 분류명 등 (예: 1009, ItemName_1008, 1010)" />
+        <button class="tool-btn primary" id="dvGlobalSearchBtn">전체 테이블 검색</button>
+        <button class="tool-btn" id="dvGlobalResetBtn">초기화</button>
+      </div>
+
+      <div class="tool-toolbar">
+        <div class="dv-tabs" id="dvTabs"></div>
+        <select id="dvRaritySelect">
+          <option value="">전체 등급 (Item 탭 전용)</option>
+        </select>
+      </div>
+      <div class="dv-table-wrap">
+        <table class="dv-table">
+          <thead>
+            <tr id="dvHeaderRow"></tr>
+          </thead>
+          <tbody id="dvTableBody"></tbody>
+        </table>
+      </div>
+      <div class="dv-footer"><span><span id="dvCount"></span><span id="dvErrorCount" class="dv-error-count"></span></span><span>가상 샘플 데이터 · 실제 스키마 아님</span></div>
+    </div>
+
+    <div class="note-box">
+      <strong>🟠 주황색 표시 안내</strong> — <code>ResolvedName</code>의 "String 없음"은 참조하는 StringTableID가
+      String 테이블에 없어 이름이 끊긴 데이터를, <code>RefCount</code>의 "0건 (미사용)"은 어떤 Item도 참조하지 않는
+      미사용 데이터를 뜻합니다. 실제 업무에서도 이런 표시로 대량의 테이블 중 정리가 필요한 항목을 빠르게 찾아냈습니다.
+      표 우측 하단 표시 개수 옆의 <strong>Error N건</strong>이 현재 탭에 몇 건의 이상이 있는지 바로 보여줍니다.
+    </div>
+  </section>
+
+  <!-- ===== AI 협업 프로세스 상세 ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">HOW</p>
+    <h2>AI 협업 프로세스 상세</h2>
+    <p class="tool-desc">코드를 대신 짜주는 도구가 아니라, 반복되는 개발/QA/문서화 프로세스를 함께 설계하고 자동화하는 파트너로 활용했습니다.</p>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <h3>🔌 자체 MCP 서버 2개</h3>
+        <p><code>tmw-analyzer</code>는 Perforce의 UE5 C++ 헤더에서 Enum/Struct를 조회하고, <code>confluence-mcp-server</code>는 기존 기획서를 검색·정합성 검증합니다. Claude의 지식 범위를 사내 코드베이스와 문서까지 넓힌 사례입니다.</p>
+        <div class="tag-row"><span class="tag">TypeScript</span><span class="tag">@modelcontextprotocol/sdk</span></div>
+      </div>
+      <div class="process-card">
+        <h3>🔁 반복 작업 → 전용 스킬</h3>
+        <p>로그 뷰어, UI 모듈처럼 구조가 비슷한 작업을 4~5번 반복한 뒤 공통 베이스 클래스로 추출하고, <code>/new-log-viewer</code> · <code>/new-module</code> 같은 슬래시 커맨드로 고정했습니다.</p>
+        <div class="tag-row"><span class="tag">BaseLogViewer</span><span class="tag">BaseModule</span></div>
+      </div>
+      <div class="process-card">
+        <h3>🪞 세션 로그 자기분석</h3>
+        <p><code>session-insights</code> 스킬은 최근 세션 로그를 스스로 분석해 반복 패턴과 스킬 후보를 추출합니다. 실제로 이 스킬의 예시 출력이 <code>/new-log-viewer</code> 완성 사례를 담고 있는, 메타적인 자기개선 루프입니다.</p>
+        <div class="tag-row"><span class="tag">세션 로그 52개</span></div>
+      </div>
+      <div class="process-card">
+        <h3>🧩 웹 개발 밖으로 확장</h3>
+        <p>기획팀 실무자를 위한 Excel/VBA 기반 데이터 편집기 5종(스폰 에디터, 크래프트 에디터 등)을 제작·유지보수하며, 한글 인코딩 처리 같은 패턴을 여러 툴에 재사용했습니다.</p>
+        <div class="tag-row"><span class="tag">VBA</span><span class="tag">비개발자용 툴</span></div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>안내</strong> — 이 페이지의 데모는 실제 서비스 데이터가 아닌 재구성된 가상 데이터로 동작합니다.
+      MapGenie의 배경 맵 이미지는 실제 레벨 디자인 자료를 사용했으며, 회사 대표 컨펌 후 최종 공개됩니다.
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오입니다. 검색엔진 노출을 차단합니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../assets/js/back-to-top.js"></script>
+
+<script src="assets/map-data.js"></script>
+<script src="assets/map-drop-data.js"></script>
+<script src="assets/item-data.js"></script>
+<script src="assets/ai-tool.js"></script>
+
+</body>
+</html>

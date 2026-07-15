@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMW - Daily Mission Prototype v4</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg-primary: #0b0b0f; --bg-secondary: #101015; --bg-tertiary: #161620;
+  --bg-card: #0e0e14; --bg-panel: #0d0d12;
+  --gold: #D4A843; --gold-bright: #F0C850; --gold-dim: #8B7230;
+  --gold-glow: rgba(212, 168, 67, 0.3);
+  --border-default: #1e1e28; --border-hover: #2e2e3a;
+  --text-primary: #d8d8de; --text-secondary: #78788a; --text-dim: #454560;
+  --status-online: #22c55e; --badge-red: #ef4444;
+  --toast-success: rgba(34, 197, 94, 0.12); --toast-error: rgba(239, 68, 68, 0.12);
+  --toast-info: rgba(59, 130, 246, 0.12); --toast-warning: rgba(245, 158, 11, 0.12);
+  --rarity-common: #e5e7eb; --rarity-uncommon: #22c55e;
+  --rarity-rare: #3b82f6; --rarity-epic: #a855f7; --rarity-legendary: #f97316;
+}
+body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg-primary); color: var(--text-primary); overflow: hidden; height: 100vh; user-select: none; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideRight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes popupIn { from { opacity: 0; transform: scale(0.88) translateY(16px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes toastIn { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes checkPop { 0% { transform: scale(0); } 60% { transform: scale(1.3); } 100% { transform: scale(1); } }
+@keyframes milestoneUnlock { 0% { transform: scale(1); } 30% { transform: scale(1.08); filter: brightness(1.3); } 100% { transform: scale(1); } }
+@keyframes rewardReveal { 0% { transform: scale(0.5) rotateY(90deg); opacity: 0; } 50% { transform: scale(1.1) rotateY(0deg); opacity: 1; } 100% { transform: scale(1) rotateY(0deg); opacity: 1; } }
+@keyframes boxOpen { 0% { transform: scale(1); } 20% { transform: scale(1.15) rotate(-3deg); } 40% { transform: scale(0.95) rotate(2deg); } 60% { transform: scale(1.05); } 100% { transform: scale(1); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+@keyframes glowPulse { 0%,100% { box-shadow: 0 0 8px rgba(212,168,67,0.2); } 50% { box-shadow: 0 0 16px rgba(212,168,67,0.4); } }
+@keyframes rerollSpin {
+  0% { transform: rotateX(0deg); opacity: 1; }
+  30% { transform: rotateX(90deg); opacity: 0; }
+  50% { transform: rotateX(90deg); opacity: 0; }
+  80% { transform: rotateX(0deg); opacity: 1; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+@keyframes rerollGlow {
+  0% { box-shadow: none; }
+  30% { box-shadow: 0 0 20px rgba(99,102,241,0.4), inset 0 0 15px rgba(99,102,241,0.1); }
+  70% { box-shadow: 0 0 20px rgba(99,102,241,0.4), inset 0 0 15px rgba(99,102,241,0.1); }
+  100% { box-shadow: none; }
+}
+@keyframes rerollIconSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes contentExpand { from { opacity: 0; max-height: 0; transform: translateY(-8px); } to { opacity: 1; max-height: 800px; transform: translateY(0); } }
+@keyframes contentCollapse { from { opacity: 1; max-height: 800px; transform: translateY(0); } to { opacity: 0; max-height: 0; transform: translateY(-8px); } }
+@keyframes floatingIn { from { opacity: 0; transform: translateX(-50%) translateY(12px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@keyframes floatingOut { from { opacity: 1; transform: translateX(-50%) translateY(0); } to { opacity: 0; transform: translateX(-50%) translateY(-8px); } }
+
+.scroll-area::-webkit-scrollbar { width: 5px; }
+.scroll-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 3px; }
+.scroll-area::-webkit-scrollbar-track { background: transparent; }
+
+/* Tooltip (fixed positioning via React) */
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useCallback, useEffect, useMemo, useRef } = React;
+
+// ═══════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════
+const CLASSES = ['Brick', 'Crow', 'Lockdown', 'Bartender'];
+const CLASS_ICONS = { Brick: '🧱', Crow: '🐦‍⬛', Lockdown: '🔒', Bartender: '🍸' };
+const CLASS_COLORS = { Brick: '#ef4444', Crow: '#3b82f6', Lockdown: '#22c55e', Bartender: '#f59e0b' };
+
+const NAV_ITEMS = [
+  { id: 'play', name: '플레이' }, { id: 'character', name: '캐릭터' },
+  { id: 'storage', name: '창고' }, { id: 'vendor', name: '벤더' },
+  { id: 'craft', name: '제작대', beta: true }, { id: 'rank', name: '랭킹' },
+  { id: 'trade', name: '거래' }, { id: 'customize', name: '커스텀' },
+  { id: 'shop', name: '상점' },
+];
+
+// ═══════════════════════════════════════════════════════════
+// 미션 오브젝티브 시스템
+// ═══════════════════════════════════════════════════════════
+//
+// 기존 EMissionObjectiveType 기반 + 일일미션용 확장
+//
+// ── 오브젝티브 파라미터 규칙 ──
+// 각 타입별로 objective 필드의 의미가 달라짐:
+//
+// | Type                     | param1              | param2               | 비고                           |
+// |--------------------------|---------------------|----------------------|--------------------------------|
+// | KillMonsterType          | EMonsterType        | —                    | 기존. 타입별 처치               |
+// | KillMonsterId            | MonsterBaseID       | —                    | 기존. 특정 몬스터 처치           |
+// | KillMonsterWithWeapon    | WeaponBaseID        | MonsterBaseID (0=any)| 신규. 무기 지정 몬스터 처치       |
+// | KillPlayer               | —                   | —                    | 기존. 아무 플레이어 처치          |
+// | KillPlayerClass          | ECharacterClassType | —                    | 신규. 특정 직업 처치              |
+// | KillPlayerWithWeapon     | WeaponBaseID        | ECharacterClassType(0=any) | 신규. 무기 지정 플레이어 처치 |
+// | AcquireItem              | ItemBaseID          | —                    | 신규. 아이템 획득 (제출 X)        |
+// | CraftSpecificItem        | ItemBaseID          | —                    | 신규. 특정 아이템 제작            |
+// | SearchItem / Escape / CraftItem / OpenContainer / ... | — | — | 기존 (파라미터 불필요)           |
+//
+// ═══════════════════════════════════════════════════════════
+
+const MISSION_TYPES = {
+  // 기존
+  KillMonsterType: { label: '처치' }, SearchItem: { label: '서칭' },
+  Escape: { label: '탈출' }, CraftItem: { label: '제작' },
+  OpenContainer: { label: '컨테이너' }, KillPlayer: { label: 'PvP' },
+  UseMedicalItem: { label: '회복' }, SellToVendor: { label: '판매' },
+  DealDamage: { label: '피해량' }, SurviveMinutes: { label: '생존' },
+  DiscoverArea: { label: '탐색' }, SpentCurrency: { label: '소비' },
+  TradeMarket: { label: '거래소' }, ExtractWithLoot: { label: '루팅 탈출' },
+  GambleItem: { label: '겜블' },
+  // 신규 (일일미션 확장)
+  KillMonsterId: { label: '특정 몬스터' },
+  KillMonsterWithWeapon: { label: '무기 지정 처치' },
+  KillPlayerClass: { label: '직업 PvP' },
+  KillPlayerWithWeapon: { label: '무기 PvP' },
+  AcquireItem: { label: '아이템 획득' },
+  CraftSpecificItem: { label: '지정 제작' },
+};
+
+// ── 목업용 참조 데이터 (실제로는 DT_BaseItem, DT_Monster 등에서 조회) ──
+const REF_WEAPONS = {
+  10001: '전투 소총', 10002: '산탄총', 10003: '저격 소총',
+  10004: '도끼', 10005: '야구 방망이', 10006: '크로스보우',
+};
+const REF_MONSTERS = {
+  20001: '페럴 워커', 20002: '스크리처', 20003: '엘리트 러너', 20004: '차저',
+};
+const REF_ITEMS = {
+  30001: '강철 파편', 30002: '전자 부품', 30003: '고급 붕대',
+  30004: '에피네프린', 30005: '방탄 플레이트',
+};
+
+// ═══════════════════════════════════════════════════════════
+// 범용 보상 시스템 (3계층 분리)
+// ═══════════════════════════════════════════════════════════
+//
+// [Layer 1] DT_RewardBox — 보상 상자 정의 (비주얼 + 메타데이터)
+//   어떤 시스템이든 boxId만 참조하면 보상 지급 가능
+//   category: 'mission' | 'milestone' | 'class_level' | 'event' | ...
+//   classFilter: null(공용) | 'Brick' | 'Crow' | ... (클래스 전용)
+//
+// [Layer 2] DT_RandomSpawnKey — 슬롯별 확률 정의
+//   각 슬롯은 독립 롤 → 1~N개 결과
+//   notSpawnRatio: 빈 결과 확률 (1000 기준, 0=보장)
+//   groupId: DT_ItemSpawnGroup 참조
+//
+// [Layer 3] DT_ItemSpawnGroup — 가중 아이템 풀
+//   rate: 가중치, min/max: 수량 범위
+//
+// 참조 체인: DT_RewardBox.spawnKeyId → DT_RandomSpawnKey → groupId → DT_ItemSpawnGroup
+// ═══════════════════════════════════════════════════════════
+
+// ─── [Layer 3] DT_ItemSpawnGroup ─────────────────────
+const DT_ItemSpawnGroup = {
+  // 무기류
+  GRP_WPN_MAIN: [
+    { name: '전투 소총', rarity: 'Rare', rate: 250, min: 1, max: 1 },
+    { name: '산탄총', rarity: 'Uncommon', rate: 350, min: 1, max: 1 },
+    { name: '저격 소총', rarity: 'Epic', rate: 100, min: 1, max: 1 },
+    { name: '근접 무기', rarity: 'Common', rate: 300, min: 1, max: 1 },
+  ],
+  GRP_WPN_SUB: [
+    { name: '탄약 팩', rarity: 'Common', rate: 500, min: 2, max: 5 },
+    { name: '무기 부품', rarity: 'Uncommon', rate: 300, min: 1, max: 3 },
+    { name: '권총 부품', rarity: 'Common', rate: 200, min: 1, max: 2 },
+  ],
+  // 방어구류
+  GRP_ARM_MAIN: [
+    { name: '방탄 조끼', rarity: 'Rare', rate: 250, min: 1, max: 1 },
+    { name: '전투 헬멧', rarity: 'Uncommon', rate: 350, min: 1, max: 1 },
+    { name: '특수 방탄복', rarity: 'Epic', rate: 100, min: 1, max: 1 },
+    { name: '강화 장갑', rarity: 'Common', rate: 300, min: 1, max: 1 },
+  ],
+  GRP_ARM_SUB: [
+    { name: '무릎 보호대', rarity: 'Common', rate: 400, min: 1, max: 2 },
+    { name: '방탄 플레이트', rarity: 'Uncommon', rate: 350, min: 1, max: 1 },
+    { name: '수리 패치', rarity: 'Common', rate: 250, min: 2, max: 4 },
+  ],
+  // 지원/의료
+  GRP_SUP_MAIN: [
+    { name: '고급 붕대', rarity: 'Uncommon', rate: 300, min: 1, max: 2 },
+    { name: '진통제', rarity: 'Common', rate: 350, min: 1, max: 3 },
+    { name: '수술 키트', rarity: 'Rare', rate: 200, min: 1, max: 1 },
+    { name: '에피네프린', rarity: 'Epic', rate: 150, min: 1, max: 1 },
+  ],
+  GRP_SUP_SUB: [
+    { name: '응급 처치 키트', rarity: 'Common', rate: 500, min: 1, max: 2 },
+    { name: '지혈제', rarity: 'Uncommon', rate: 300, min: 1, max: 1 },
+    { name: '항생제', rarity: 'Common', rate: 200, min: 2, max: 4 },
+  ],
+  // 재료
+  GRP_MAT_MAIN: [
+    { name: '강철 파편', rarity: 'Common', rate: 300, min: 2, max: 5 },
+    { name: '전자 부품', rarity: 'Uncommon', rate: 300, min: 1, max: 3 },
+    { name: '희귀 광물', rarity: 'Rare', rate: 200, min: 1, max: 1 },
+    { name: '고급 합금', rarity: 'Epic', rate: 100, min: 1, max: 1 },
+    { name: '나사/볼트 세트', rarity: 'Common', rate: 100, min: 3, max: 6 },
+  ],
+  GRP_MAT_SUB: [
+    { name: '접착제', rarity: 'Common', rate: 400, min: 1, max: 3 },
+    { name: '회로 기판', rarity: 'Uncommon', rate: 350, min: 1, max: 2 },
+    { name: '특수 용접봉', rarity: 'Rare', rate: 250, min: 1, max: 1 },
+  ],
+  // 마일스톤 — 일반
+  GRP_MS_NORMAL_1: [
+    { name: '붕대', rarity: 'Common', rate: 400, min: 2, max: 4 },
+    { name: '탄약 팩', rarity: 'Common', rate: 350, min: 1, max: 3 },
+    { name: '수리 도구', rarity: 'Uncommon', rate: 250, min: 1, max: 1 },
+  ],
+  GRP_MS_NORMAL_2: [
+    { name: '체력 회복제', rarity: 'Uncommon', rate: 500, min: 1, max: 2 },
+    { name: '진통제', rarity: 'Common', rate: 500, min: 1, max: 3 },
+  ],
+  // 마일스톤 — 고급
+  GRP_MS_PREMIUM_1: [
+    { name: '레어 무기 파츠', rarity: 'Rare', rate: 300, min: 1, max: 1 },
+    { name: '에픽 방어구 조각', rarity: 'Epic', rate: 200, min: 1, max: 1 },
+    { name: '고급 수리 키트', rarity: 'Rare', rate: 300, min: 1, max: 2 },
+    { name: '전설 재료', rarity: 'Legendary', rate: 50, min: 1, max: 1 },
+    { name: '특수 탄약', rarity: 'Epic', rate: 150, min: 1, max: 2 },
+  ],
+  GRP_MS_PREMIUM_2: [
+    { name: '고급 합금', rarity: 'Epic', rate: 400, min: 1, max: 2 },
+    { name: '희귀 광물', rarity: 'Rare', rate: 400, min: 1, max: 3 },
+    { name: '전자 부품', rarity: 'Uncommon', rate: 200, min: 2, max: 4 },
+  ],
+  GRP_MS_PREMIUM_3: [
+    { name: '전설 재료', rarity: 'Legendary', rate: 300, min: 1, max: 1 },
+    { name: '에픽 방어구 조각', rarity: 'Epic', rate: 700, min: 1, max: 1 },
+  ],
+};
+
+// ─── [Layer 2] DT_RandomSpawnKey ─────────────────────
+const DT_RandomSpawnKey = {
+  SK_WPN:        { slots: [{ notSpawnRatio: 0, groupId: 'GRP_WPN_MAIN' }, { notSpawnRatio: 400, groupId: 'GRP_WPN_SUB' }] },
+  SK_ARM:        { slots: [{ notSpawnRatio: 0, groupId: 'GRP_ARM_MAIN' }, { notSpawnRatio: 350, groupId: 'GRP_ARM_SUB' }] },
+  SK_SUP:        { slots: [{ notSpawnRatio: 0, groupId: 'GRP_SUP_MAIN' }, { notSpawnRatio: 300, groupId: 'GRP_SUP_SUB' }] },
+  SK_MAT:        { slots: [{ notSpawnRatio: 0, groupId: 'GRP_MAT_MAIN' }, { notSpawnRatio: 350, groupId: 'GRP_MAT_SUB' }] },
+  SK_MS_NORMAL:  { slots: [{ notSpawnRatio: 0, groupId: 'GRP_MS_NORMAL_1' }, { notSpawnRatio: 200, groupId: 'GRP_MS_NORMAL_2' }] },
+  SK_MS_PREMIUM: { slots: [{ notSpawnRatio: 0, groupId: 'GRP_MS_PREMIUM_1' }, { notSpawnRatio: 200, groupId: 'GRP_MS_PREMIUM_2' }, { notSpawnRatio: 500, groupId: 'GRP_MS_PREMIUM_3' }] },
+};
+
+// ─── [Layer 1] DT_RewardBox — 범용 보상 상자 정의 ────
+// 어떤 시스템이든 boxId로 참조 가능
+const DT_RewardBox = {
+  // ── 일일 미션 보상 ──
+  BOX_WPN:  { name: '무기 상자',   icon: '⚔️', grade: 'Rare',      description: '다양한 무기류가 들어있는 상자',           spawnKeyId: 'SK_WPN',  category: 'mission', classFilter: null },
+  BOX_ARM:  { name: '방어구 상자', icon: '🛡️', grade: 'Rare',      description: '방어구와 보호 장비가 들어있는 상자',       spawnKeyId: 'SK_ARM',  category: 'mission', classFilter: null },
+  BOX_SUP:  { name: '지원 상자',   icon: '💊', grade: 'Uncommon',  description: '의료품과 지원 아이템이 들어있는 상자',     spawnKeyId: 'SK_SUP',  category: 'mission', classFilter: null },
+  BOX_MAT:  { name: '재료 상자',   icon: '🔧', grade: 'Uncommon',  description: '제작 재료와 부품이 들어있는 상자',         spawnKeyId: 'SK_MAT',  category: 'mission', classFilter: null },
+  // ── 마일스톤 보상 ──
+  BOX_MS_NORMAL:  { name: '일반 보급품', icon: '📦', grade: 'Uncommon', description: '기본적인 생존 물자가 들어있는 보급품',  spawnKeyId: 'SK_MS_NORMAL',  category: 'milestone', classFilter: null },
+  BOX_MS_PREMIUM: { name: '고급 보급품', icon: '🎁', grade: 'Epic',     description: '희귀한 장비와 고급 물자가 들어있는 보급품', spawnKeyId: 'SK_MS_PREMIUM', category: 'milestone', classFilter: null },
+  // ── 예시: 클래스별 레벨업 보상 (다른 시스템에서 활용) ──
+  // BOX_BRICK_LV10: { name: 'Brick 전용 상자', icon: '🧱', grade: 'Rare', ..., spawnKeyId: 'SK_WPN', category: 'class_level', classFilter: 'Brick' },
+};
+
+const RARITY_COLORS = { Junk:'#9ca3af', Common:'#e5e7eb', Uncommon:'#22c55e', Rare:'#3b82f6', Epic:'#c084fc', Legendary:'#f97316' };
+const RARITY_ORDER = ['Junk', 'Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'];
+
+// 슬롯들에서 등급 범위(최소~최대) 산출
+function getRarityRange(slots) {
+  let minIdx = RARITY_ORDER.length, maxIdx = -1;
+  for (const slot of slots) {
+    for (const item of slot.group) {
+      const idx = RARITY_ORDER.indexOf(item.rarity);
+      if (idx >= 0) { minIdx = Math.min(minIdx, idx); maxIdx = Math.max(maxIdx, idx); }
+    }
+  }
+  if (maxIdx < 0) return null;
+  return { min: RARITY_ORDER[minIdx], max: RARITY_ORDER[maxIdx] };
+}
+
+// Grade → 파생 색상 유틸
+function getBoxColor(box) { return RARITY_COLORS[box?.grade] || '#888'; }
+function getBoxBg(box) { const c = getBoxColor(box); return `${c}28`; }       // 16% opacity
+function getBoxBorder(box) { const c = getBoxColor(box); return `${c}50`; }   // 31% opacity
+
+// ─── 일일 미션 데이터 (boxId로 보상 참조) ────────────
+const INITIAL_MISSIONS = [
+  { id: 1, slot: 1, type: 'KillMonsterWithWeapon', description: '산탄총으로 몬스터 5마리 처치', current: 0, target: 5, rewardBoxId: 'BOX_WPN', objective: { param1: 10002, param2: 0 } },
+  { id: 2, slot: 2, type: 'AcquireItem', description: '강철 파편 5개 획득', current: 0, target: 5, rewardBoxId: 'BOX_MAT', objective: { param1: 30001 } },
+  { id: 3, slot: 3, type: 'CraftSpecificItem', description: '고급 붕대 2개 제작', current: 0, target: 2, rewardBoxId: 'BOX_SUP', objective: { param1: 30003 } },
+  { id: 4, slot: 4, type: 'Escape', description: '탈출 1회 성공', current: 0, target: 1, rewardBoxId: 'BOX_ARM' },
+  { id: 5, slot: 5, type: 'KillPlayerClass', description: 'Brick 직업 플레이어 1명 처치', current: 0, target: 1, rewardBoxId: 'BOX_ARM', objective: { param1: 1 } },
+];
+
+const MILESTONES = [
+  { required: 3, boxId: 'BOX_MS_NORMAL', label: '3개 완료' },
+  { required: 5, boxId: 'BOX_MS_PREMIUM', label: '올 클리어' },
+];
+
+// ── 미션 풀 (슬롯별 랜덤 선택) ─────────────────────
+// objective: { param1, param2 } — 타입별 파라미터 (위 주석표 참조)
+// 기존 타입은 objective 생략 가능 (파라미터 불필요)
+const MISSION_POOLS = {
+  1: [ // 전투 슬롯
+    { type: 'KillMonsterType', description: '워커 5마리 처치', target: 5, rewardBoxId: 'BOX_WPN',
+      objective: { param1: 1 /* Walker */ } },
+    { type: 'KillMonsterType', description: '러너 3마리 처치', target: 3, rewardBoxId: 'BOX_WPN',
+      objective: { param1: 2 /* Runner */ } },
+    { type: 'KillMonsterWithWeapon', description: '산탄총으로 몬스터 5마리 처치', target: 5, rewardBoxId: 'BOX_WPN',
+      objective: { param1: 10002 /* 산탄총 BaseID */, param2: 0 /* 아무 몬스터 */ } },
+    { type: 'KillMonsterWithWeapon', description: '도끼로 워커 3마리 처치', target: 3, rewardBoxId: 'BOX_WPN',
+      objective: { param1: 10004 /* 도끼 BaseID */, param2: 20001 /* 페럴 워커 */ } },
+    { type: 'DealDamage', description: '총 피해량 5000 달성', target: 5000, rewardBoxId: 'BOX_WPN' },
+  ],
+  2: [ // 탐색/수집 슬롯
+    { type: 'SearchItem', description: '무기 악세서리 3개 서칭', target: 3, rewardBoxId: 'BOX_SUP' },
+    { type: 'OpenContainer', description: '컨테이너 5개 열기', target: 5, rewardBoxId: 'BOX_MAT' },
+    { type: 'DiscoverArea', description: '지하 2층 방문', target: 1, rewardBoxId: 'BOX_SUP' },
+    { type: 'AcquireItem', description: '강철 파편 5개 획득', target: 5, rewardBoxId: 'BOX_MAT',
+      objective: { param1: 30001 /* 강철 파편 BaseID */ } },
+    { type: 'AcquireItem', description: '전자 부품 3개 획득', target: 3, rewardBoxId: 'BOX_MAT',
+      objective: { param1: 30002 /* 전자 부품 BaseID */ } },
+  ],
+  3: [ // 경제/제작 슬롯
+    { type: 'CraftItem', description: '아이템 2개 제작', target: 2, rewardBoxId: 'BOX_MAT' },
+    { type: 'CraftSpecificItem', description: '고급 붕대 2개 제작', target: 2, rewardBoxId: 'BOX_SUP',
+      objective: { param1: 30003 /* 고급 붕대 BaseID */ } },
+    { type: 'CraftSpecificItem', description: '방탄 플레이트 1개 제작', target: 1, rewardBoxId: 'BOX_ARM',
+      objective: { param1: 30005 /* 방탄 플레이트 BaseID */ } },
+    { type: 'SellToVendor', description: '상점에 아이템 5개 판매', target: 5, rewardBoxId: 'BOX_MAT' },
+    { type: 'SpentCurrency', description: '코인 1000 사용', target: 1000, rewardBoxId: 'BOX_SUP' },
+    { type: 'TradeMarket', description: '거래소에서 구매 1회', target: 1, rewardBoxId: 'BOX_MAT' },
+  ],
+  4: [ // 생존 슬롯
+    { type: 'Escape', description: '탈출 1회 성공', target: 1, rewardBoxId: 'BOX_ARM' },
+    { type: 'SurviveMinutes', description: '인게임 10분 생존', target: 10, rewardBoxId: 'BOX_ARM' },
+    { type: 'UseMedicalItem', description: '붕대 3개 사용', target: 3, rewardBoxId: 'BOX_SUP' },
+    { type: 'ExtractWithLoot', description: '아이템 3개 이상 소지 탈출', target: 3, rewardBoxId: 'BOX_WPN' },
+  ],
+  5: [ // PvP/도전 슬롯
+    { type: 'KillPlayer', description: '플레이어 2명 처치', target: 2, rewardBoxId: 'BOX_ARM' },
+    { type: 'KillPlayerClass', description: 'Brick 직업 플레이어 1명 처치', target: 1, rewardBoxId: 'BOX_ARM',
+      objective: { param1: 1 /* Brick */ } },
+    { type: 'KillPlayerWithWeapon', description: '저격 소총으로 플레이어 1명 처치', target: 1, rewardBoxId: 'BOX_WPN',
+      objective: { param1: 10003 /* 저격 소총 BaseID */, param2: 0 /* 아무 직업 */ } },
+    { type: 'KillPlayerWithWeapon', description: '근접 무기로 Crow 직업 처치', target: 1, rewardBoxId: 'BOX_ARM',
+      objective: { param1: 10005 /* 야구 방망이 BaseID */, param2: 2 /* Crow */ } },
+    { type: 'KillMonsterType', description: '좀비 10마리 처치', target: 10, rewardBoxId: 'BOX_WPN',
+      objective: { param1: 1 /* Walker */ } },
+    { type: 'GambleItem', description: '겜블 상점 2회 이용', target: 2, rewardBoxId: 'BOX_MAT' },
+    { type: 'Escape', description: '탈출 2회 성공', target: 2, rewardBoxId: 'BOX_ARM' },
+  ],
+};
+
+// ─── 보상 시스템 API ─────────────────────────────────
+// boxId → RewardBox 조회
+function getRewardBox(boxId) {
+  return DT_RewardBox[boxId] || null;
+}
+
+// SpawnKey의 슬롯들을 resolve (groupId → 실제 group 데이터)
+function resolveSlots(spawnKeyId) {
+  const key = DT_RandomSpawnKey[spawnKeyId];
+  if (!key) return [];
+  return key.slots.map(slot => ({
+    notSpawnRatio: slot.notSpawnRatio,
+    group: DT_ItemSpawnGroup[slot.groupId] || [],
+  }));
+}
+
+// 슬롯 기반 랜덤 롤
+function rollSlots(slots) {
+  const results = [];
+  for (const slot of slots) {
+    if (Math.random() * 1000 < slot.notSpawnRatio) continue;
+    const totalRate = slot.group.reduce((sum, g) => sum + g.rate, 0);
+    let roll = Math.random() * totalRate;
+    for (const item of slot.group) {
+      roll -= item.rate;
+      if (roll <= 0) {
+        const count = item.min + Math.floor(Math.random() * (item.max - item.min + 1));
+        results.push({ name: item.name, rarity: item.rarity, count });
+        break;
+      }
+    }
+  }
+  if (results.length === 0 && slots.length > 0 && slots[0].group.length > 0) {
+    const fb = slots[0].group[0];
+    results.push({ name: fb.name, rarity: fb.rarity, count: fb.min });
+  }
+  return results;
+}
+
+// boxId로 보상 롤 (어떤 시스템이든 이거만 호출)
+function rollRewardBox(boxId) {
+  const box = DT_RewardBox[boxId];
+  if (!box) return [{ name: '알 수 없는 아이템', rarity: 'Common', count: 1 }];
+  const slots = resolveSlots(box.spawnKeyId);
+  return rollSlots(slots);
+}
+
+// 슬롯들에서 가능한 아이템 목록 추출 (툴팁용)
+function getPossibleItems(slots) {
+  const seen = new Map();
+  for (const slot of slots) {
+    for (const item of slot.group) {
+      const key = item.name;
+      if (!seen.has(key)) {
+        seen.set(key, { name: item.name, rarity: item.rarity, min: item.min, max: item.max });
+      }
+    }
+  }
+  return [...seen.values()];
+}
+
+// ═══════════════════════════════════════════════════════════
+// APP
+// ═══════════════════════════════════════════════════════════
+function App() {
+  const [missions, setMissions] = useState(INITIAL_MISSIONS);
+  const [charClass, setCharClass] = useState('Brick');
+  const [claimedMissions, setClaimedMissions] = useState([]);
+  const [claimedMilestones, setClaimedMilestones] = useState([]);
+  const [toasts, setToasts] = useState([]);
+  const [rewardPopup, setRewardPopup] = useState(null);
+  const [demoCollapsed, setDemoCollapsed] = useState(false);
+  const [panelCollapsed, setPanelCollapsed] = useState(true);
+  const [resetTimer, setResetTimer] = useState('17:32:45');
+  const [tooltip, setTooltip] = useState(null); // { x, y, content }
+  const [rerollCount, setRerollCount] = useState(0);
+  const [rerollingId, setRerollingId] = useState(null); // 리롤 연출 중인 미션 id
+  const [floatingQueue, setFloatingQueue] = useState([]); // 미션 완료 플로팅 큐
+  const MAX_REROLLS = 3;
+
+  const completedCount = useMemo(() => missions.filter(m => m.current >= m.target).length, [missions]);
+
+  // ── 플로팅 알림 추가 헬퍼 ──
+  const addFloating = useCallback((desc, isComplete) => {
+    const text = isComplete ? `${desc} 완료` : desc;
+    setFloatingQueue(q => [...q, { id: Date.now() + Math.random(), text, isComplete }]);
+  }, []);
+
+  // ── 플로팅 큐 자동 제거 (3초) ──
+  useEffect(() => {
+    if (floatingQueue.length === 0) return;
+    const timer = setTimeout(() => setFloatingQueue(q => q.slice(1)), 3000);
+    return () => clearTimeout(timer);
+  }, [floatingQueue]);
+
+  const addToast = useCallback((msg, type = 'info') => {
+    const id = Date.now() + Math.random();
+    setToasts(prev => [...prev, { id, msg, type }]);
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 3000);
+  }, []);
+
+  // Timer countdown
+  useEffect(() => {
+    const iv = setInterval(() => {
+      setResetTimer(prev => {
+        const p = prev.split(':').map(Number);
+        let t = p[0]*3600 + p[1]*60 + p[2] - 1;
+        if (t < 0) t = 86399;
+        return `${String(Math.floor(t/3600)).padStart(2,'0')}:${String(Math.floor((t%3600)/60)).padStart(2,'0')}:${String(t%60).padStart(2,'0')}`;
+      });
+    }, 1000);
+    return () => clearInterval(iv);
+  }, []);
+
+  // 미션 보상 수령
+  const claimMissionReward = useCallback((missionId) => {
+    const mission = missions.find(m => m.id === missionId);
+    if (!mission || mission.current < mission.target || claimedMissions.includes(missionId)) return;
+    const items = rollRewardBox(mission.rewardBoxId);
+    const box = getRewardBox(mission.rewardBoxId);
+    setClaimedMissions(prev => [...prev, missionId]);
+    setRewardPopup({ boxName: box?.name || '보상 상자', boxIcon: box?.icon || '📦', boxColor: getBoxColor(box), items, source: `📬 캐릭터 우편 — ${mission.description}` });
+  }, [missions, claimedMissions]);
+
+  // 마일스톤 보상 수령
+  const claimMilestoneReward = useCallback((required) => {
+    if (completedCount < required || claimedMilestones.includes(required)) return;
+    const ms = MILESTONES.find(m => m.required === required);
+    const msBox = getRewardBox(ms.boxId);
+    const items = rollRewardBox(ms.boxId);
+    setClaimedMilestones(prev => [...prev, required]);
+    setRewardPopup({ boxName: msBox?.name || '보상 상자', boxIcon: msBox?.icon || '📦', boxColor: getBoxColor(msBox), items, source: `📬 캐릭터 우편 — ${ms.label}` });
+  }, [completedCount, claimedMilestones]);
+
+  // 미션 리롤 (연출 포함)
+  const rerollMission = useCallback((missionId) => {
+    if (rerollingId) return; // 연출 중 중복 방지
+    if (rerollCount >= MAX_REROLLS) { addToast('리롤 횟수를 모두 사용했습니다', 'error'); return; }
+    const mission = missions.find(m => m.id === missionId);
+    if (!mission) return;
+    if (mission.current >= mission.target) { addToast('완료된 미션은 리롤할 수 없습니다', 'error'); return; }
+    if (claimedMissions.includes(missionId)) return;
+    const pool = MISSION_POOLS[mission.slot];
+    if (!pool || pool.length <= 1) { addToast('교체 가능한 미션이 없습니다', 'error'); return; }
+    const candidates = pool.filter(p => p.type !== mission.type || p.description !== mission.description);
+    if (candidates.length === 0) { addToast('교체 가능한 미션이 없습니다', 'error'); return; }
+    const pick = candidates[Math.floor(Math.random() * candidates.length)];
+    // 1) 연출 시작
+    setRerollingId(missionId);
+    // 2) 연출 중간(0.5s)에 실제 데이터 교체 — 카드가 뒤집혀있을 때
+    setTimeout(() => {
+      setMissions(prev => prev.map(m => {
+        if (m.id === missionId) return { ...m, ...pick, current: 0, id: Date.now() + m.slot };
+        return m;
+      }));
+      setRerollCount(prev => prev + 1);
+    }, 500);
+    // 3) 연출 종료(1s)
+    setTimeout(() => {
+      setRerollingId(null);
+      const remaining = MAX_REROLLS - rerollCount - 1;
+      addToast(`미션 교체 완료 (잔여 ${remaining}회)`, 'info');
+    }, 1000);
+  }, [missions, rerollCount, rerollingId, claimedMissions, addToast]);
+
+  const progressMission = useCallback((id) => {
+    setMissions(prev => {
+      const next = prev.map(m => {
+        if (m.id === id && m.current < m.target) return { ...m, current: Math.min(m.current + 1, m.target) };
+        return m;
+      });
+      const m = next.find(x => x.id === id);
+      const old = prev.find(x => x.id === id);
+      if (old && m && old.current !== m.current) {
+        const done = m.current >= m.target;
+        const label = done ? m.description : `${m.description} ${m.current}/${m.target}`;
+        setTimeout(() => addFloating(label, done), 0);
+      }
+      return next;
+    });
+  }, [addFloating]);
+
+  const completeMission = useCallback((id) => {
+    setMissions(prev => {
+      const next = prev.map(m => {
+        if (m.id === id && m.current < m.target) return { ...m, current: m.target };
+        return m;
+      });
+      const m = next.find(x => x.id === id);
+      const old = prev.find(x => x.id === id);
+      if (old && m && old.current < old.target) {
+        setTimeout(() => addFloating(`일일 미션 - ${m.description} 완료`, true), 0);
+      }
+      return next;
+    });
+  }, [addFloating]);
+
+  const completeAll = useCallback(() => {
+    setMissions(prev => {
+      const incomplete = prev.filter(m => m.current < m.target);
+      incomplete.forEach(m => {
+        setTimeout(() => addFloating(`일일 미션 - ${m.description} 완료`, true), 0);
+      });
+      return prev.map(m => ({ ...m, current: m.target }));
+    });
+    addToast('모든 일일 미션 완료!', 'success');
+  }, [addFloating, addToast]);
+
+  const resetMissions = useCallback(() => {
+    // 미수령 보상 자동 우편함 발송
+    let mailCount = 0;
+    // 1) 완료했지만 수령 안 한 미션 보상
+    missions.forEach(m => {
+      if (m.current >= m.target && !claimedMissions.includes(m.id)) mailCount++;
+    });
+    // 2) 해금됐지만 수령 안 한 마일스톤 보상
+    MILESTONES.forEach(ms => {
+      if (completedCount >= ms.required && !claimedMilestones.includes(ms.required)) mailCount++;
+    });
+    if (mailCount > 0) {
+      addToast(`📬 미수령 보상 ${mailCount}건이 캐릭터 우편함으로 발송되었습니다`, 'info');
+    }
+
+    // 새 미션 지급
+    const nm = [];
+    for (let slot = 1; slot <= 5; slot++) {
+      const pool = MISSION_POOLS[slot];
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      nm.push({ id: Date.now() + slot, slot, ...pick, current: 0 });
+    }
+    setMissions(nm);
+    setClaimedMissions([]);
+    setClaimedMilestones([]);
+    setRerollCount(0);
+    setRerollingId(null);
+    addToast('일일 미션 초기화! 새 미션 지급', 'warning');
+  }, [missions, claimedMissions, claimedMilestones, completedCount, addToast]);
+
+  return (
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <TopNav />
+
+      {/* Main lobby area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', background: 'radial-gradient(ellipse at 55% 45%, rgba(212,168,67,0.02) 0%, transparent 60%)' }}>
+
+        {/* 플로팅 일일 미션 패널 */}
+        <DailyMissionPanel
+          missions={missions} completedCount={completedCount}
+          claimedMissions={claimedMissions} claimedMilestones={claimedMilestones}
+          resetTimer={resetTimer} charClass={charClass}
+          onClaimMission={claimMissionReward} onClaimMilestone={claimMilestoneReward}
+          onRerollMission={rerollMission} rerollCount={rerollCount} maxRerolls={MAX_REROLLS} rerollingId={rerollingId}
+          setTooltip={setTooltip}
+          collapsed={panelCollapsed} setCollapsed={setPanelCollapsed}
+        />
+          {/* 캐릭터 영역 */}
+          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ textAlign: 'center', animation: 'fadeIn 0.5s ease' }}>
+              <div style={{ fontSize: 20, color: 'var(--text-dim)', fontFamily: 'Rajdhani', letterSpacing: 3 }}>LOBBY</div>
+            </div>
+          </div>
+
+          {/* 하단 UI 요소들 */}
+          <div style={{ padding: '0 36px 30px', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+            {/* 좌하단: 서버 선택 + 캐릭터 정보 */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 9, width: 510 }}>
+              {/* 서버 선택 버튼 */}
+              <button style={{ width: '100%', padding: '12px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 9, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between', transition: 'border-color 0.15s' }}>
+                <span style={{ fontSize: 16, color: 'var(--text-dim)', fontFamily: 'Rajdhani', fontWeight: 600 }}>서버 선택</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                  <span style={{ fontSize: 21, fontWeight: 700, color: 'var(--text-primary)' }}>Asia 1</span>
+                  <span style={{ fontSize: 15, color: 'var(--text-dim)' }}>▲</span>
+                </div>
+              </button>
+              {/* 캐릭터 정보 버튼 */}
+              <button style={{ width: '100%', padding: '15px 24px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 9, cursor: 'pointer', textAlign: 'left', transition: 'border-color 0.15s' }}>
+                <div style={{ fontFamily: 'Rajdhani', fontSize: 39, fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.1 }}>루키</div>
+                <div style={{ fontFamily: 'Rajdhani', fontSize: 24, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 3 }}>(솔로)</div>
+                <div style={{ fontSize: 16, color: 'var(--text-dim)' }}>200 최대 장비 점수</div>
+              </button>
+            </div>
+
+            {/* 우하단: 시작 버튼 */}
+            <button style={{ padding: '27px 0', width: 510, fontSize: 36, fontFamily: 'Rajdhani', fontWeight: 900, letterSpacing: 6, background: 'linear-gradient(135deg, #8b1a1a, #c62828)', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', textTransform: 'uppercase', boxShadow: '0 4px 20px rgba(198,40,40,0.3)' }}>시작</button>
+          </div>
+
+          {/* 하단 바 */}
+          <div style={{ padding: '12px 36px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(0,0,0,0.3)' }}>
+            <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ padding: '3px 12px', border: '1px solid #3a3a4a', borderRadius: 6, fontSize: 16, fontWeight: 600, color: '#888', background: 'rgba(255,255,255,0.04)', fontFamily: 'Rajdhani' }}>ESC</span>
+                <span style={{ fontSize: 18, color: 'var(--text-dim)' }}>메뉴</span>
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ padding: '3px 12px', border: '1px solid #3a3a4a', borderRadius: 6, fontSize: 16, fontWeight: 600, color: '#888', background: 'rgba(255,255,255,0.04)', fontFamily: 'Rajdhani' }}>Enter</span>
+                <span style={{ fontSize: 18, color: 'var(--text-dim)' }}>채팅 입력</span>
+              </span>
+            </div>
+            <div style={{ display: 'flex', gap: 30, alignItems: 'center' }}>
+              {['스쿼드 초대', '캐릭터 교체', '미션 목록'].map(name => (
+                <span key={name} style={{ fontSize: 18, color: 'var(--text-secondary)', cursor: 'pointer' }}>{name}</span>
+              ))}
+            </div>
+          </div>
+      </div>
+
+      {/* Fixed Tooltip */}
+      {tooltip && <FixedTooltip data={tooltip} />}
+
+      {/* Reward Popup */}
+      {rewardPopup && <RewardPopup data={rewardPopup} onClose={() => setRewardPopup(null)} addToast={addToast} />}
+
+      {/* 미션 완료 플로팅 UI (중앙 하단) */}
+      <MissionFloating queue={floatingQueue} />
+
+      {/* Toasts */}
+      <div style={{ position: 'fixed', bottom: 120, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column-reverse', gap: 12, zIndex: 9999, pointerEvents: 'none', alignItems: 'center' }}>
+        {toasts.map(t => <Toast key={t.id} msg={t.msg} type={t.type} />)}
+      </div>
+
+      {/* Demo Panel */}
+      <DemoPanel collapsed={demoCollapsed} setCollapsed={setDemoCollapsed} missions={missions} completedCount={completedCount} charClass={charClass} setCharClass={setCharClass} progressMission={progressMission} completeMission={completeMission} completeAll={completeAll} resetMissions={resetMissions} claimedMissions={claimedMissions} claimedMilestones={claimedMilestones} />
+    </div>
+  );
+}
+
+// ─── TopNav ───────────────────────────────────────────
+function TopNav() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'stretch', height: 72, background: '#08080c', borderBottom: '1px solid #1a1a24', position: 'relative', zIndex: 100, flexShrink: 0 }}>
+      {NAV_ITEMS.map(item => {
+        const active = item.id === 'play';
+        return (
+          <div key={item.id} style={{ padding: '0 33px', display: 'flex', alignItems: 'center', fontSize: 21, fontWeight: active ? 700 : 400, color: active ? '#e2d8c0' : '#5a5a6e', position: 'relative', cursor: 'pointer', transition: 'color 0.15s' }}>
+            {item.name}
+            {item.beta && <span style={{ marginLeft: 6, fontSize: 13, padding: '2px 7px', background: 'rgba(34,197,94,0.15)', color: '#22c55e', borderRadius: 4, fontWeight: 600, fontFamily: 'Rajdhani' }}>BETA</span>}
+            {active && <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: 'var(--gold)' }} />}
+          </div>
+        );
+      })}
+      {/* 우측: 코인 + 우편 */}
+      <div style={{ position: 'absolute', right: 24, top: 0, bottom: 0, display: 'flex', alignItems: 'center', gap: 18 }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 21, fontFamily: 'Rajdhani', fontWeight: 700, color: 'var(--gold)' }}>🪙 4,280</span>
+        <span style={{ fontSize: 27, cursor: 'pointer', opacity: 0.6 }}>📬</span>
+      </div>
+    </div>
+  );
+}
+
+// ─── 툴팁 내용 생성 헬퍼 ─────────────────────────────
+function makeBoxTooltip(box, extra) {
+  const slots = resolveSlots(box.spawnKeyId);
+  const items = getPossibleItems(slots);
+  const spawnKey = DT_RandomSpawnKey[box.spawnKeyId];
+  const maxItems = spawnKey ? spawnKey.slots.length : 0;
+  const rarityRange = getRarityRange(slots);
+  return { icon: box.icon, name: box.name, color: getBoxColor(box), borderColor: getBoxBorder(box), description: box.description, items, extra, slotCount: slots.length, maxItems, rarityRange };
+}
+
+function showTooltipFromEvent(e, content, setTooltip) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  setTooltip({ x: rect.right + 18, y: rect.top + rect.height / 2, content });
+}
+
+// ─── Fixed Tooltip 컴포넌트 ──────────────────────────
+function FixedTooltip({ data }) {
+  const { x, y, content } = data;
+  const maxY = typeof window !== 'undefined' ? window.innerHeight - 220 : 600;
+  const adjustedY = Math.min(y, maxY);
+  const borderColor = content.borderColor || 'rgba(255,255,255,0.12)';
+  return (
+    <div style={{
+      position: 'fixed', left: x, top: adjustedY, transform: 'translateY(-50%)',
+      background: 'rgba(26,26,46,0.95)', border: `1px solid ${borderColor}`, borderRadius: 12,
+      padding: '14px 18px', maxWidth: 280, zIndex: 9000,
+      backdropFilter: 'blur(12px)', pointerEvents: 'none',
+      boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+      animation: 'fadeIn 0.12s ease',
+    }}>
+      {/* 화살표 */}
+      <div style={{ position: 'absolute', top: '50%', right: '100%', transform: 'translateY(-50%)', width: 0, height: 0, borderTop: '8px solid transparent', borderBottom: '8px solid transparent', borderRight: `8px solid ${borderColor}` }} />
+
+      {/* 상자 아이콘 + 이름 (등급 색상) */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+        <span style={{ fontSize: 24, lineHeight: 1 }}>{content.icon}</span>
+        <span style={{ fontSize: 16, fontWeight: 700, color: content.color }}>{content.name}</span>
+      </div>
+
+      {/* 상자 설명 */}
+      <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 10, lineHeight: 1.4 }}>{content.description}</div>
+
+      {/* 구분선 */}
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', margin: '8px 0' }} />
+
+      {/* 최대 획득 개수 */}
+      {content.maxItems > 0 && (
+        <div style={{ fontSize: 13, color: 'var(--text-dim)', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span style={{ opacity: 0.7 }}>&#x1F4E6;</span>
+          <span>최대 <span style={{ color: '#e5e7eb', fontWeight: 600 }}>{content.maxItems}개</span> 획득 가능</span>
+        </div>
+      )}
+
+      {/* 등급 범위 */}
+      {content.rarityRange && (
+        <div style={{ fontSize: 13, color: 'var(--text-dim)', display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span style={{ opacity: 0.7 }}>&#x2B50;</span>
+          <span>등급: </span>
+          <span style={{ color: RARITY_COLORS[content.rarityRange.min], fontWeight: 600 }}>{content.rarityRange.min}</span>
+          {content.rarityRange.min !== content.rarityRange.max && (
+            <>
+              <span> ~ </span>
+              <span style={{ color: RARITY_COLORS[content.rarityRange.max], fontWeight: 600 }}>{content.rarityRange.max}</span>
+            </>
+          )}
+        </div>
+      )}
+
+      {/* 추가 정보 (수령 완료, 해금 조건 등) */}
+      {content.extra && <div style={{ marginTop: 10, fontSize: 13, color: 'var(--gold)', fontWeight: 600 }}>{content.extra}</div>}
+    </div>
+  );
+}
+
+// ─── Daily Mission Floating Panel (로비 위에 플로팅) ──
+function DailyMissionPanel({ missions, completedCount, claimedMissions, claimedMilestones, resetTimer, charClass, onClaimMission, onClaimMilestone, onRerollMission, rerollCount, maxRerolls, rerollingId, setTooltip, collapsed, setCollapsed }) {
+  const panelRef = useRef(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const hideTooltip = useCallback(() => setTooltip(null), [setTooltip]);
+
+  // 접기/펼치기 핸들러 (애니메이션 포함)
+  const handleCollapse = useCallback(() => {
+    if (!collapsed && !isClosing) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setCollapsed(true);
+        setIsClosing(false);
+      }, 250);
+    } else if (collapsed) {
+      setCollapsed(false);
+    }
+  }, [collapsed, isClosing, setCollapsed]);
+
+  // 요약 정보 계산
+  const unclaimedMissionRewards = missions.filter(m => m.current >= m.target && !claimedMissions.includes(m.id)).length;
+  const unclaimedMilestoneRewards = MILESTONES.filter(ms => completedCount >= ms.required && !claimedMilestones.includes(ms.required)).length;
+  const totalUnclaimed = unclaimedMissionRewards + unclaimedMilestoneRewards;
+  const incompleteMissions = missions.filter(m => m.current < m.target);
+  const allDone = completedCount >= 5 && claimedMissions.length >= 5 && claimedMilestones.length >= 2;
+
+  return (
+    <div ref={panelRef} style={{
+      position: 'fixed', top: 82, left: 18, width: collapsed ? 380 : 380,
+      maxHeight: collapsed ? 'none' : 'calc(100vh - 240px)',
+      background: 'linear-gradient(180deg, rgba(10,10,16,0.92) 0%, rgba(8,8,14,0.95) 100%)',
+      backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)',
+      border: '1px solid rgba(255,255,255,0.06)',
+      borderRadius: 14,
+      display: 'flex', flexDirection: 'column',
+      animation: 'slideRight 0.4s ease',
+      zIndex: 50,
+      boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
+      transition: 'all 0.3s ease',
+    }}>
+      {/* Header (항상 표시 — 클릭으로 접기/펼치기) */}
+      <div
+        onClick={handleCollapse}
+        style={{ padding: '14px 21px 12px', borderBottom: (collapsed && !isClosing) ? 'none' : '1px solid rgba(255,255,255,0.06)', cursor: 'pointer', transition: 'all 0.2s' }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+            <span style={{ fontSize: 21 }}>📋</span>
+            <span style={{ fontFamily: 'Rajdhani', fontSize: 22, fontWeight: 700, letterSpacing: 1.5, color: 'var(--gold)' }}>DAILY MISSION</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {/* 진행도 뱃지 */}
+            <span style={{
+              fontSize: 15, fontFamily: 'Rajdhani', fontWeight: 700, letterSpacing: 0.5,
+              color: allDone ? 'var(--status-online)' : completedCount >= 5 ? 'var(--gold)' : 'var(--text-secondary)',
+            }}>
+              {completedCount}/5
+            </span>
+            {/* 미수령 보상 뱃지 */}
+            {totalUnclaimed > 0 && (
+              <span style={{
+                minWidth: 22, height: 22, borderRadius: 11, background: '#ef4444',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 13, fontWeight: 700, color: '#fff', fontFamily: 'Rajdhani',
+                animation: 'glowPulse 1.5s infinite',
+                boxShadow: '0 0 8px rgba(239,68,68,0.4)',
+              }}>
+                {totalUnclaimed}
+              </span>
+            )}
+            {/* 접기/펼치기 화살표 */}
+            <span style={{
+              fontSize: 13, color: 'var(--text-dim)', transition: 'transform 0.3s',
+              transform: collapsed ? 'rotate(0deg)' : 'rotate(180deg)',
+            }}>▼</span>
+          </div>
+        </div>
+
+        {/* ─── 접힘 상태: 요약 정보 ─── */}
+        {collapsed && !isClosing && (
+          <div style={{ marginTop: 10 }}>
+            {allDone ? (
+              /* 모든 미션 완료 + 보상 수령 완료 */
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: 9, padding: '10px 14px',
+                background: 'rgba(34,197,94,0.06)', borderRadius: 10,
+                border: '1px solid rgba(34,197,94,0.15)',
+              }}>
+                <span style={{ fontSize: 24 }}>✅</span>
+                <div>
+                  <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--status-online)' }}>오늘의 미션 완료!</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-dim)', marginTop: 2 }}>초기화까지 ⏰ {resetTimer}</div>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* 미수령 보상 알림 */}
+                {totalUnclaimed > 0 && (
+                  <div style={{
+                    display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', marginBottom: 8,
+                    background: 'rgba(212,168,67,0.06)', borderRadius: 8,
+                    border: '1px solid rgba(212,168,67,0.15)',
+                    animation: 'glowPulse 2s infinite',
+                  }}>
+                    <span style={{ fontSize: 18 }}>🎁</span>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--gold)' }}>
+                      받지 않은 보상 {totalUnclaimed}개
+                    </span>
+                  </div>
+                )}
+
+                {/* 미완료 미션 목록 */}
+                {incompleteMissions.length > 0 && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    {incompleteMissions.map(m => {
+                      const ti = MISSION_TYPES[m.type] || { icon: '❓' };
+                      const pct = Math.min((m.current / m.target) * 100, 100);
+                      return (
+                        <div key={m.id} style={{
+                          display: 'flex', alignItems: 'center', gap: 10, padding: '6px 12px',
+                          background: 'rgba(255,255,255,0.02)', borderRadius: 8,
+                          border: '1px solid rgba(255,255,255,0.04)',
+                        }}>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: 13, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{m.description}</div>
+                            {/* 미니 프로그레스바 */}
+                            <div style={{ height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.06)', overflow: 'hidden', marginTop: 4 }}>
+                              <div style={{ height: '100%', borderRadius: 2, width: `${pct}%`, background: 'linear-gradient(90deg, #60a5fa, var(--gold))', transition: 'width 0.5s ease' }} />
+                            </div>
+                          </div>
+                          <span style={{ fontSize: 12, fontFamily: 'Rajdhani', fontWeight: 700, color: 'var(--text-dim)', flexShrink: 0 }}>{m.current}/{m.target}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* ─── 펼침 상태: 전체 UI ─── */}
+      {(!collapsed || isClosing) && (
+        <div style={{
+          overflow: 'hidden',
+          animation: isClosing ? 'contentCollapse 0.25s ease forwards' : 'contentExpand 0.3s ease',
+        }}>
+          {/* Timer */}
+          <div style={{ padding: '10px 21px', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 16, color: 'var(--text-dim)' }}>초기화까지</span>
+              <span style={{ fontSize: 20, fontFamily: 'Rajdhani', fontWeight: 700, color: '#60a5fa', letterSpacing: 1 }}>⏰ {resetTimer}</span>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div style={{ padding: '15px 21px', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 9 }}>
+              <span style={{ fontSize: 18, fontFamily: 'Rajdhani', fontWeight: 700, color: completedCount >= 5 ? 'var(--status-online)' : 'var(--text-primary)' }}>{completedCount} / 5</span>
+              <span style={{ fontSize: 16, color: 'var(--text-dim)' }}>{completedCount >= 5 ? 'ALL CLEAR!' : `${5 - completedCount}개 남음`}</span>
+            </div>
+            <div style={{ height: 6, borderRadius: 3, background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+              <div style={{ height: '100%', borderRadius: 3, width: `${(completedCount / 5) * 100}%`, background: completedCount >= 5 ? 'var(--status-online)' : 'linear-gradient(90deg, var(--gold-dim), var(--gold))', transition: 'width 0.5s ease' }} />
+            </div>
+          </div>
+
+          {/* Milestone row */}
+          <div style={{ padding: '12px 21px', borderBottom: '1px solid rgba(255,255,255,0.04)', display: 'flex', gap: 9 }}>
+            {MILESTONES.map(ms => {
+              const unlocked = completedCount >= ms.required;
+              const claimed = claimedMilestones.includes(ms.required);
+              const msBox = getRewardBox(ms.boxId);
+              return (
+                <button key={ms.required}
+                  onClick={(e) => { e.stopPropagation(); !claimed && unlocked && onClaimMilestone(ms.required); }}
+                  onMouseEnter={(e) => msBox && showTooltipFromEvent(e, makeBoxTooltip(msBox, !unlocked ? `${ms.required}개 완료 시 해금` : claimed ? '수령 완료' : '클릭하여 캐릭터 우편 수령'), setTooltip)}
+                  onMouseLeave={hideTooltip}
+                  style={{
+                    flex: 1, padding: '12px 9px', borderRadius: 12,
+                    background: claimed ? 'rgba(255,255,255,0.02)' : getBoxBg(msBox),
+                    border: claimed ? '1px solid rgba(255,255,255,0.04)' : `1px solid ${getBoxBorder(msBox)}`,
+                    cursor: unlocked && !claimed ? 'pointer' : 'default',
+                    opacity: claimed ? 0.5 : 1, transition: 'all 0.3s',
+                    animation: unlocked && !claimed ? 'glowPulse 2s infinite' : 'none',
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3,
+                  }}
+                >
+                  <span style={{ fontSize: 26 }}>{claimed ? '✅' : msBox?.icon}</span>
+                  <span style={{ fontSize: 15, fontWeight: 600, color: claimed ? 'var(--text-dim)' : unlocked ? getBoxColor(msBox) : 'var(--text-dim)' }}>{ms.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Mission list */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '9px 15px' }} className="scroll-area">
+            {missions.map((m, idx) => {
+              const done = m.current >= m.target;
+              const claimed = claimedMissions.includes(m.id);
+              const ti = MISSION_TYPES[m.type] || { icon: '❓', label: '???' };
+              const pct = Math.min((m.current / m.target) * 100, 100);
+              const box = getRewardBox(m.rewardBoxId);
+
+              const canReroll = !done && !claimed && rerollCount < maxRerolls && !rerollingId;
+              const isRerolling = rerollingId === m.id;
+              return (
+                <div key={m.id} style={{
+                  display: 'flex', alignItems: 'stretch', gap: 9, marginBottom: 6,
+                  animation: `slideUp 0.3s ease ${idx * 0.06}s backwards`,
+                  opacity: claimed ? 0.5 : 1, transition: 'all 0.3s',
+                  perspective: '600px',
+                }}>
+                  {/* 리롤 버튼 (좌측) */}
+                  <button
+                    onClick={() => canReroll && onRerollMission(m.id)}
+                    title={done ? '완료된 미션' : claimed ? '수령 완료' : rerollCount >= maxRerolls ? '리롤 횟수 소진' : '미션 교체'}
+                    style={{
+                      width: 28, flexShrink: 0, borderRadius: 8,
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: canReroll ? 'pointer' : 'default',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      opacity: done || claimed ? 0 : isRerolling ? 1 : rerollCount >= maxRerolls ? 0.25 : 0.7,
+                      transition: 'all 0.2s', fontSize: 15,
+                      color: isRerolling ? '#818cf8' : 'var(--text-primary)',
+                      pointerEvents: done || claimed ? 'none' : 'auto',
+                      animation: isRerolling ? 'rerollIconSpin 0.6s linear infinite' : 'none',
+                    }}
+                    onMouseEnter={(e) => { if (canReroll) { e.currentTarget.style.opacity = '1'; e.currentTarget.style.color = '#818cf8'; } }}
+                    onMouseLeave={(e) => { if (!isRerolling) { e.currentTarget.style.opacity = done || claimed ? '0' : rerollCount >= maxRerolls ? '0.25' : '0.7'; e.currentTarget.style.color = isRerolling ? '#818cf8' : 'var(--text-primary)'; } }}
+                  >⟳</button>
+
+                  {/* 미션 정보 (중앙) */}
+                  <div style={{
+                    flex: 1, padding: '10px 12px', borderRadius: 10,
+                    background: done ? (claimed ? 'rgba(255,255,255,0.015)' : 'rgba(34,197,94,0.05)') : 'rgba(255,255,255,0.02)',
+                    border: isRerolling ? '1px solid rgba(99,102,241,0.3)' : done && !claimed ? '1px solid rgba(34,197,94,0.15)' : '1px solid rgba(255,255,255,0.04)',
+                    animation: isRerolling ? 'rerollSpin 1s ease-in-out, rerollGlow 1s ease-in-out' : 'none',
+                    transformStyle: 'preserve-3d',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: claimed ? 0 : 6 }}>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 13, fontWeight: 500, color: claimed ? 'var(--text-dim)' : done ? 'var(--text-secondary)' : 'var(--text-primary)', textDecoration: claimed ? 'line-through' : 'none', lineHeight: 1.3 }}>{m.description}</div>
+                      </div>
+                      {done && <span style={{ color: 'var(--status-online)', fontSize: 13, flexShrink: 0, animation: 'checkPop 0.3s ease' }}>✔</span>}
+                      <div style={{ fontSize: 13, fontFamily: 'Rajdhani', fontWeight: 700, color: done ? 'var(--status-online)' : 'var(--text-dim)', flexShrink: 0 }}>{m.current}/{m.target}</div>
+                    </div>
+                    {!claimed && (
+                      <div style={{ height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+                        <div style={{ height: '100%', borderRadius: 2, width: `${pct}%`, background: done ? 'var(--status-online)' : 'linear-gradient(90deg, #60a5fa, var(--gold))', transition: 'width 0.5s ease' }} />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 보상 상자 (우측 정사각형) */}
+                  <button
+                    onClick={() => done && !claimed ? onClaimMission(m.id) : null}
+                    onMouseEnter={(e) => box && showTooltipFromEvent(e, makeBoxTooltip(box, done && !claimed ? '클릭하여 캐릭터 우편 수령' : null), setTooltip)}
+                    onMouseLeave={hideTooltip}
+                    style={{
+                      width: 56, minHeight: 56, borderRadius: 10, flexShrink: 0,
+                      background: claimed ? 'rgba(255,255,255,0.02)' : getBoxBg(box),
+                      border: isRerolling ? '1px solid rgba(99,102,241,0.3)' : claimed ? '1px solid rgba(255,255,255,0.04)' : `1px solid ${getBoxBorder(box)}`,
+                      cursor: done && !claimed ? 'pointer' : 'default',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      transition: 'all 0.3s',
+                      animation: isRerolling ? 'rerollSpin 1s ease-in-out, rerollGlow 1s ease-in-out' : done && !claimed ? 'glowPulse 2s infinite' : 'none',
+                      transformStyle: 'preserve-3d',
+                    }}
+                  >
+                    <span style={{ fontSize: 22 }}>{claimed ? '✅' : (box?.icon || '📦')}</span>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* 리롤 카운터 */}
+          <div style={{
+            padding: '8px 15px', display: 'flex', alignItems: 'center', gap: 6,
+            borderTop: '1px solid rgba(255,255,255,0.04)',
+          }}>
+            <span style={{ fontSize: 14, color: (maxRerolls - rerollCount) === 0 ? 'var(--text-dim)' : 'var(--text-secondary)' }}>⟳</span>
+            <span style={{ fontSize: 13, color: (maxRerolls - rerollCount) === 0 ? 'var(--text-dim)' : 'var(--text-secondary)', fontFamily: 'Rajdhani', fontWeight: 600 }}>
+              {maxRerolls - rerollCount}/{maxRerolls}
+            </span>
+            <span style={{ fontSize: 12, color: 'var(--text-dim)', marginLeft: 2 }}>
+              {(maxRerolls - rerollCount) === 0 ? '리롤 소진' : '미션 교체'}
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Reward Popup (보상 개봉 연출 — 다중 아이템) ──────
+function RewardPopup({ data, onClose, addToast }) {
+  const [phase, setPhase] = useState('opening'); // 'opening' → 'revealed'
+  const { boxName, boxIcon, boxColor, items, source } = data;
+
+  useEffect(() => {
+    const t = setTimeout(() => setPhase('revealed'), 800);
+    return () => clearTimeout(t);
+  }, []);
+
+  const handleClaim = () => {
+    const summary = items.map(it => `${it.name}${it.count > 1 ? ` x${it.count}` : ''}`).join(', ');
+    addToast(`📬 ${summary} — 캐릭터 우편으로 발송됨`, 'success');
+    onClose();
+  };
+
+  // 최고 등급 아이템 (배경 이펙트용)
+  const rarityOrder = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'];
+  const bestItem = items.reduce((best, it) => rarityOrder.indexOf(it.rarity) > rarityOrder.indexOf(best.rarity) ? it : best, items[0]);
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(6px)', zIndex: 6000, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={phase === 'revealed' ? handleClaim : undefined}>
+      <div style={{ width: 540, background: 'linear-gradient(135deg, #12121a, #1a1a28)', borderRadius: 24, border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden', animation: 'popupIn 0.4s ease', textAlign: 'center' }} onClick={e => e.stopPropagation()}>
+        {/* Header */}
+        <div style={{ padding: '24px 30px 18px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div style={{ fontSize: 16, color: 'var(--text-dim)', marginBottom: 6 }}>{source}</div>
+          <div style={{ fontSize: 24, fontFamily: 'Rajdhani', fontWeight: 700, color: boxColor, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 9 }}>
+            <span>{boxIcon}</span> {boxName}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div style={{ padding: '36px 30px 30px', minHeight: 220, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          {phase === 'opening' ? (
+            <div style={{ animation: 'boxOpen 0.8s ease' }}>
+              <div style={{ fontSize: 96, marginBottom: 18 }}>{boxIcon}</div>
+              <div style={{ fontSize: 20, color: 'var(--text-dim)', animation: 'fadeIn 0.3s ease 0.3s backwards' }}>개봉 중...</div>
+            </div>
+          ) : (
+            <div style={{ width: '100%' }}>
+              {/* 아이템 갯수 표시 */}
+              <div style={{ fontSize: 14, color: 'var(--text-dim)', marginBottom: 20, fontFamily: 'Rajdhani', fontWeight: 600 }}>
+                {items.length}개 아이템 획득
+              </div>
+              {/* 아이템 그리드 */}
+              <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+                {items.map((item, idx) => (
+                  <div key={idx} style={{
+                    animation: `rewardReveal 0.5s ease ${idx * 0.15}s backwards`,
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8,
+                    minWidth: items.length === 1 ? 200 : 140,
+                  }}>
+                    {/* 아이콘 박스 */}
+                    <div style={{
+                      width: items.length === 1 ? 100 : 72, height: items.length === 1 ? 100 : 72,
+                      borderRadius: 14,
+                      background: `${RARITY_COLORS[item.rarity]}12`,
+                      border: `2px solid ${RARITY_COLORS[item.rarity]}50`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: items.length === 1 ? 42 : 30,
+                      boxShadow: `0 0 20px ${RARITY_COLORS[item.rarity]}25`,
+                      position: 'relative',
+                    }}>
+                      {boxIcon}
+                      {/* 수량 뱃지 */}
+                      {item.count > 1 && (
+                        <span style={{
+                          position: 'absolute', bottom: -6, right: -6,
+                          background: RARITY_COLORS[item.rarity], color: '#000',
+                          fontSize: 13, fontWeight: 800, fontFamily: 'Rajdhani',
+                          padding: '1px 7px', borderRadius: 8,
+                          boxShadow: `0 2px 8px ${RARITY_COLORS[item.rarity]}40`,
+                        }}>x{item.count}</span>
+                      )}
+                    </div>
+                    {/* 이름 */}
+                    <div style={{ fontSize: items.length === 1 ? 22 : 16, fontWeight: 700, color: RARITY_COLORS[item.rarity], lineHeight: 1.2 }}>{item.name}</div>
+                    {/* 등급 */}
+                    <div style={{ fontSize: items.length === 1 ? 15 : 12, color: RARITY_COLORS[item.rarity], opacity: 0.6, fontFamily: 'Rajdhani', fontWeight: 600 }}>{item.rarity}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        {phase === 'revealed' && (
+          <div style={{ padding: '18px 30px 24px', borderTop: '1px solid rgba(255,255,255,0.06)', animation: 'fadeIn 0.3s ease 0.2s backwards' }}>
+            <button onClick={handleClaim} style={{
+              width: '100%', padding: '15px', fontSize: 21, fontWeight: 700, fontFamily: 'Rajdhani', letterSpacing: 1,
+              borderRadius: 12, border: '1px solid rgba(212,168,67,0.4)',
+              background: 'linear-gradient(135deg, rgba(212,168,67,0.15), rgba(212,168,67,0.08))',
+              color: 'var(--gold-bright)', cursor: 'pointer',
+            }}>
+              확인
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Toast ────────────────────────────────────────────
+function Toast({ msg, type }) {
+  const bg = { success: 'var(--toast-success)', error: 'var(--toast-error)', info: 'var(--toast-info)', warning: 'var(--toast-warning)' };
+  const border = { success: 'rgba(34,197,94,0.3)', error: 'rgba(239,68,68,0.3)', info: 'rgba(59,130,246,0.3)', warning: 'rgba(245,158,11,0.3)' };
+  const color = { success: '#4ade80', error: '#f87171', info: '#60a5fa', warning: '#fbbf24' };
+  return <div style={{ padding: '15px 24px', borderRadius: 14, background: bg[type], backdropFilter: 'blur(12px)', border: `1px solid ${border[type]}`, color: color[type], fontSize: 20, fontWeight: 500, animation: 'toastIn 0.3s ease', maxWidth: 540, pointerEvents: 'auto' }}>{msg}</div>;
+}
+
+// ─── Demo Panel ───────────────────────────────────────
+// ─── 미션 완료 플로팅 UI (중앙 하단 미니 툴팁) ──────
+// 기획: 3.6 미션 완료 플로팅 UI
+// 포맷: 진행 "{Word_DailyMission} - {Objective} {current}/{target}"
+//       완료 "{Word_DailyMission} - {Objective} 완료"
+// 큐 처리: 여러 알림 순차 표시 (3초 간격)
+function MissionFloating({ queue }) {
+  if (queue.length === 0) return null;
+  const current = queue[0];
+  const accentColor = current.isComplete ? 'rgba(34,197,94,' : 'rgba(212,168,67,';
+  const textColor = current.isComplete ? '#4ade80' : 'var(--gold-bright)';
+  const icon = current.isComplete ? '✅' : '📋';
+  return (
+    <div key={current.id} style={{
+      position: 'fixed', bottom: 200, left: '50%', transform: 'translateX(-50%)',
+      background: 'linear-gradient(180deg, rgba(16,16,24,0.94) 0%, rgba(12,12,18,0.96) 100%)',
+      border: `1px solid ${accentColor}0.25)`,
+      borderRadius: 12, padding: '14px 28px',
+      display: 'flex', alignItems: 'center', gap: 12,
+      animation: 'floatingIn 0.4s ease',
+      zIndex: 9500, pointerEvents: 'none',
+      boxShadow: `0 6px 24px rgba(0,0,0,0.5), 0 0 20px ${accentColor}0.08)`,
+      backdropFilter: 'blur(16px)',
+    }}>
+      <div style={{
+        width: 36, height: 36, borderRadius: 8,
+        background: `${accentColor}0.12)`, border: `1px solid ${accentColor}0.2)`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 18,
+      }}>{icon}</div>
+      <div>
+        <div style={{ fontSize: 15, fontWeight: 600, color: textColor, letterSpacing: 0.3 }}>
+          {current.text}
+        </div>
+        {current.isComplete && (
+          <div style={{ fontSize: 11, color: 'var(--text-dim)', marginTop: 2 }}>
+            📬 보상이 준비되었습니다
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function DemoPanel({ collapsed, setCollapsed, missions, completedCount, charClass, setCharClass, progressMission, completeMission, completeAll, resetMissions, claimedMissions, claimedMilestones }) {
+  const btnStyle = (c) => ({ padding: '4px 9px', fontSize: 10, fontWeight: 600, borderRadius: 5, border: `1px solid ${c || 'rgba(255,255,255,0.15)'}`, background: `${c || 'rgba(255,255,255,0.04)'}22`, color: c || 'var(--text-secondary)', cursor: 'pointer' });
+  return (
+    <div style={{ position: 'fixed', top: 72, right: 16, width: collapsed ? 'auto' : 260, background: 'rgba(20,20,30,0.95)', backdropFilter: 'blur(12px)', borderRadius: 10, border: '1px solid rgba(96,165,250,0.2)', zIndex: 8000, overflow: 'hidden', fontSize: 11 }}>
+      <div style={{ padding: '6px 10px', background: 'rgba(96,165,250,0.08)', borderBottom: '1px solid rgba(96,165,250,0.15)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }} onClick={() => setCollapsed(!collapsed)}>
+        <span style={{ fontFamily: 'Rajdhani', fontWeight: 700, color: '#60a5fa', fontSize: 12 }}>🎮 Demo Panel</span>
+        <span style={{ fontSize: 9, color: 'var(--text-dim)' }}>{collapsed ? '◀' : '▶'}</span>
+      </div>
+      {!collapsed && (
+        <div style={{ padding: '8px 10px', maxHeight: 480, overflowY: 'auto' }} className="scroll-area">
+          {/* Status */}
+          <div style={{ marginBottom: 8 }}>
+            <div style={{ fontSize: 10, color: 'var(--text-dim)', marginBottom: 3, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>상태</div>
+            {[['완료', `${completedCount}/5`], ['수령', `${claimedMissions.length}/5`], ['마일스톤', `${claimedMilestones.length}/2`], ['클래스', `${CLASS_ICONS[charClass]} ${charClass}`]].map(([k,v]) => (
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 0', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+                <span style={{ color: 'var(--text-dim)' }}>{k}</span>
+                <span style={{ color: '#60a5fa', fontFamily: 'Rajdhani', fontWeight: 700 }}>{v}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Class */}
+          <div style={{ marginBottom: 8 }}>
+            <div style={{ fontSize: 10, color: 'var(--text-dim)', marginBottom: 3, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>클래스</div>
+            <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+              {CLASSES.map(c => (
+                <button key={c} style={{ ...btnStyle(charClass === c ? CLASS_COLORS[c] : null), fontWeight: charClass === c ? 700 : 400, fontSize: 10 }} onClick={() => setCharClass(c)}>
+                  {CLASS_ICONS[c]} {c}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Progress +1 */}
+          <div style={{ marginBottom: 8 }}>
+            <div style={{ fontSize: 10, color: 'var(--text-dim)', marginBottom: 3, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>미션 진행 (+1)</div>
+            <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+              {missions.map((m, i) => {
+                const done = m.current >= m.target;
+                return <button key={m.id} style={btnStyle(done ? '#22c55e' : '#60a5fa')} onClick={() => progressMission(m.id)} disabled={done}>{done ? `✔ ${i+1}` : `${i+1} (${m.current}/${m.target})`}</button>;
+              })}
+            </div>
+          </div>
+
+          {/* Instant complete */}
+          <div style={{ marginBottom: 8 }}>
+            <div style={{ fontSize: 10, color: 'var(--text-dim)', marginBottom: 3, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>즉시 완료</div>
+            <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+              {missions.map((m, i) => {
+                const done = m.current >= m.target;
+                return <button key={m.id} style={btnStyle(done ? '#22c55e' : '#f59e0b')} onClick={() => completeMission(m.id)} disabled={done}>{done ? '✔' : `완료 ${i+1}`}</button>;
+              })}
+            </div>
+          </div>
+
+          {/* Batch */}
+          <div>
+            <div style={{ fontSize: 10, color: 'var(--text-dim)', marginBottom: 3, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>일괄</div>
+            <div style={{ display: 'flex', gap: 4 }}>
+              <button style={btnStyle('#22c55e')} onClick={completeAll}>전체 완료</button>
+              <button style={btnStyle('#f97316')} onClick={resetMissions}>초기화</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

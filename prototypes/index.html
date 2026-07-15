@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>기획 및 프로토타입 | 최석호 포트폴리오</title>
+<link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="brand" href="../index.html">최석호 포트폴리오</a>
+    <ul>
+      <li><a class="nav-link" href="../index.html">소개</a></li>
+      <li><a class="nav-link" href="../resume/index.html">이력서</a></li>
+      <li><a class="nav-link" href="../career/index.html">경력기술서</a></li>
+      <li><a class="nav-link active" href="index.html">프로젝트</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="page">
+  <nav class="subtab-nav">
+    <a class="active" href="index.html">🎮 기획 및 프로토타입</a>
+    <a href="../ai-tool/index.html">🤖 AI 툴 활용</a>
+  </nav>
+
+  <div class="content-header">
+    <p class="eyebrow">DESIGN & PROTOTYPES</p>
+    <h1>기획 및 프로토타입</h1>
+    <p>기획서만으로는 검증하기 어려운 흐름과 연출을, 클릭 가능한 목업으로 직접 만들어 확인하고 다시 기획서에 반영하는 방식으로 작업했습니다. 아래 두 프로토타입은 React(CDN) + Babel standalone 기반 단일 HTML 파일이며, 실제 게임 데이터가 아닌 데모용 가상 데이터로 재구성했습니다.</p>
+  </div>
+
+  <p class="jump-links-label">바로가기</p>
+  <div class="jump-links">
+    <a href="#craft-station">🛠️ 제작대 리뉴얼</a>
+    <a href="#daily-mission">🗓️ 일일 미션</a>
+  </div>
+
+  <div class="note-box">
+    아래 기획 내용은 실제 사내 기획서를 바탕으로 시스템 설계 흐름을 정리한 요약본입니다. 실제 아이템/재료/확률 수치, 사내 문서 링크 등
+    민감한 데이터는 제외했습니다.
+  </div>
+
+  <!-- ===================== 제작대 리뉴얼 ===================== -->
+  <section class="proto-block" id="craft-station">
+    <div class="proto-header">
+      <span class="icon">🛠️</span>
+      <h2>제작대 리뉴얼</h2>
+    </div>
+    <p class="proto-sub">OneWayTicketStudio · The Midnight Walkers — 제작(Craft) 시스템 리뉴얼 기획</p>
+
+    <div class="demo-cta">
+      <a class="primary" href="craft-station/index.html" target="_blank" rel="noopener">동작하는 프로토타입 보기 →</a>
+    </div>
+
+    <div class="proto-section">
+      <h3>개요</h3>
+      <p>
+        기존 제작(Craft) 시스템을 목적별 <strong>5종의 제작대</strong>(회복 / 무기 / 방어구 / 유틸리티 / 재료)로 분리하고,
+        제작대 자체가 <strong>잠금 해제 → 레벨업</strong>을 통해 성장하며 제작 가능한 아이템 등급이 넓어지는 구조로 리뉴얼했습니다.
+        여기에 상위 장비를 얻기 위한 <strong>설계도(Blueprint) 수집·등록 시스템</strong>을 결합해, 파밍의 목적성과 장기 수집 동기를 함께 설계했습니다.
+      </p>
+    </div>
+
+    <div class="proto-section">
+      <h3>핵심 규칙</h3>
+      <table class="clean-table">
+        <tbody>
+          <tr><th>제작대 수</th><td>5종 (회복 / 무기 / 방어구 / 유틸리티 / 재료)</td></tr>
+          <tr><th>초기 해금</th><td>회복 제작대만 기본 제공, 나머지는 재료를 모아 잠금 해제</td></tr>
+          <tr><th>최대 레벨</th><td>Lv.5 — 레벨이 오를수록 제작 가능한 최대 등급이 확장</td></tr>
+          <tr><th>제작 방식</th><td>즉시 제작 (대기열/제작 시간 없음, 2단계 연출로 즉시성 보완)</td></tr>
+          <tr><th>장비 재료</th><td>레시피당 1종 1개 사용, 스탯은 결과물에 항상 승계</td></tr>
+          <tr><th>설계도</th><td>등록 시 인벤토리에서 소모, 이후 해당 레시피 영구 해금</td></tr>
+          <tr><th>수령 위치</th><td>창고(Stash) 고정 지급</td></tr>
+          <tr><th>저장 범위</th><td>계정 단위 저장 (같은 계정의 모든 캐릭터가 공유)</td></tr>
+          <tr><th>재화 비용</th><td>없음 — 아이템 재료만으로 제작</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="proto-section">
+      <h3>주요 기능</h3>
+      <ol class="feature-list">
+        <li><strong>다중 제작대</strong> — 5종으로 분리하고, 어떤 제작대에 어떤 레시피가 속하는지는 데이터로 자유롭게 설정 (카테고리 강제 매핑 없음)</li>
+        <li><strong>제작대 성장</strong> — 잠금 해제 + 레벨 1~5, 레벨에 따라 제작 가능한 최대 등급이 확장</li>
+        <li><strong>설계도 시스템</strong> — 설계도 획득 → 등록 → 레시피 해금의 흐름, 수집 현황을 도감으로 시각화</li>
+        <li><strong>즉시 제작 연출</strong> — 대기 시간을 없애는 대신 2단계 연출(타격 → 완성)로 제작의 무게감을 보완</li>
+        <li><strong>장비 재료 제작</strong> — 보유 장비를 재료로 사용해 다른 등급의 장비를 만드는 교차 등급 제작 지원</li>
+        <li><strong>수량 조절</strong> — 제작 횟수 단위로 한 번에 여러 개 제작 가능</li>
+        <li><strong>성장 가능 상태 표시</strong> — 잠금 해제·레벨업이 가능해지는 순간 실시간으로 시각 피드백</li>
+        <li><strong>3D 아이템 프리뷰</strong> — 제작 화면 중앙에 선택한 아이템의 3D 모델을 표시, 마우스 드래그로 회전 가능</li>
+        <li><strong>알림(레드닷)</strong> — 미등록 설계도 / 잠금해제 가능 / 레벨업 가능 중 하나라도 해당되면 진입점에 표시</li>
+      </ol>
+    </div>
+
+    <div class="proto-section">
+      <h3>UI 구조</h3>
+      <div class="tree-block">App
+├── TopNav
+├── 제작대 선택 화면
+│   ├── 제작대 카드 (잠금 / 해금 / 해금 가능 상태)
+│   ├── 잠금 해제 확인 팝업
+│   └── 설계도 등록 퀵 액세스
+├── 제작 화면 (3단 레이아웃)
+│   ├── 좌: 제작대 탭 + 카테고리 + 아이템 필터
+│   ├── 중: 3D 프리뷰 존 + 레시피 상세
+│   └── 우: 장비 재료 선택 패널
+├── 설계도 도감 화면
+│   ├── 탭 (전체 / 등록 / 미발견)
+│   └── 카드 그리드 (상태별 표시)
+└── 공통: 토스트 알림 · 잠금해제/레벨업 연출 · 범용 팝업</div>
+    </div>
+
+    <div class="proto-section">
+      <h3>데이터 구조</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: 16px;">6개 테이블로 제작대 정의·성장·레시피·재료를 분리 설계했습니다.</p>
+      <table class="clean-table">
+        <tbody>
+          <tr><th>제작대 정의</th><td>제작대 종류, 초기 해금 여부, 최대 레벨 등 기본 정보</td></tr>
+          <tr><th>제작대 레벨</th><td>레벨별 요구 재료와 레벨업 시 확장되는 제작 가능 등급</td></tr>
+          <tr><th>제작 레시피</th><td>결과 아이템, 필요 재료(또는 설계도), 소속 제작대</td></tr>
+          <tr><th>통합 재료</th><td>잠금 해제·레벨업·제작에서 공통으로 쓰는 재료 묶음 (재화/아이템 통합)</td></tr>
+          <tr><th>재료 타입 열거형</th><td>재료가 재화인지 아이템인지 구분</td></tr>
+          <tr><th>공용 상수</th><td>재료 최대 종류 수 등 시스템 전역 설정값</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="proto-section">
+      <h3>연출 · 사운드 디자인</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: 16px;">즉시 제작 방식으로 대기 시간을 없앤 대신, 제작 단계마다 짧은 연출과 사운드 콘셉트를 붙여 손맛과 성장감을 보완했습니다.</p>
+      <table class="clean-table">
+        <tbody>
+          <tr><th>제작대 선택 화면 진입</th><td>공방에 들어서는 느낌 — 문 열리는 소리 + 앰비언스</td></tr>
+          <tr><th>제작대 잠금 해제</th><td>새로운 것이 열리는 임팩트 — 자물쇠 열림 + 금속 임팩트</td></tr>
+          <tr><th>레벨업</th><td>성장·강화되는 느낌 — 전용 이펙트음 + 차임</td></tr>
+          <tr><th>설계도 등록</th><td>새 지식을 습득하는 느낌 — 종이 펼침 + 스탬프</td></tr>
+          <tr><th>제작 중 (타격 단계)</th><td>타격감 있는 제작 과정 — 망치 타격 + 스파크</td></tr>
+          <tr><th>제작 완성</th><td>짧고 명확한 완료 피드백 — 완성 임팩트 + 빛 효과음</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="proto-section">
+      <h3>설계 반복 하이라이트</h3>
+      <div class="version-history">
+        <div class="v-item"><span class="v-tag">초기</span>제작대별 레시피와 재료 구조를 설계하고, 클릭 가능한 프로토타입으로 3단 레이아웃 제작 화면을 먼저 검증</div>
+        <div class="v-item"><span class="v-tag">개정</span>등급 범위(최소~최대) 방식을 "해당 등급 이하 모두 제작 가능"한 단일 최대 등급 방식으로 단순화 — UI 표기도 범위 텍스트에서 등급 색상 뱃지로 변경</div>
+        <div class="v-item"><span class="v-tag">개정</span>3D 아이템 프리뷰를 고정 앵글에서 마우스 드래그 회전이 가능하도록 사양 변경, 프로토타입에 반영</div>
+        <div class="v-item"><span class="v-tag">개정</span>탑바 진입점에 레드닷(알림) 표시 조건을 3가지로 정의해 성장 가능 상태를 놓치지 않도록 보완</div>
+        <div class="v-item"><span class="v-tag">정리</span>기획서 전반의 String(다국어 텍스트) 키를 전수 점검해 중복·누락을 정리하고 최종 목록을 확정</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="proto-divider" />
+
+  <!-- ===================== 일일 미션 ===================== -->
+  <section class="proto-block" id="daily-mission">
+    <div class="proto-header">
+      <span class="icon">🗓️</span>
+      <h2>일일 미션</h2>
+    </div>
+    <p class="proto-sub">OneWayTicketStudio · The Midnight Walkers — 일일 미션(Daily Mission) 시스템 기획</p>
+
+    <div class="demo-cta">
+      <a class="primary" href="daily-mission/index.html" target="_blank" rel="noopener">동작하는 프로토타입 보기 →</a>
+    </div>
+
+    <div class="proto-section">
+      <h3>개요</h3>
+      <p>
+        매일 초기화되는 <strong>5개 슬롯 기반 미션 풀</strong>과, 미션 종류에 상관없이 동일하게 동작하는
+        <strong>범용 3계층 보상 구조</strong>를 설계했습니다. 슬롯마다 성격(전투 / 탐색 / 경제 / 생존 / PvP)을 부여해
+        플레이어가 매일 다양한 콘텐츠를 순환하며 플레이하도록 유도하고, 리롤(교체) 기능으로 원치 않는 미션에 대한 선택권도 함께 제공했습니다.
+      </p>
+    </div>
+
+    <div class="proto-section">
+      <h3>기존 방식과의 차이</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: 16px;">기존에는 NPC를 찾아가 수동으로 미션을 수락하는 방식이었습니다. 매일 자동으로 지급되고 초기화되는 구조로 바꿔, 접속할 때마다 확인할 목표가 항상 존재하도록 설계했습니다.</p>
+      <table class="clean-table">
+        <tbody>
+          <tr><th>지급 방식</th><td>NPC별 수동 수락 → 매일 자동 지급(5개)</td></tr>
+          <tr><th>선행 조건</th><td>우호도·레벨 등 조건 필요 → 조건 없음</td></tr>
+          <tr><th>초기화</th><td>없음(영구 진행) → 매일 UTC 00:00 초기화</td></tr>
+          <tr><th>보상</th><td>고정 아이템 + 경험치 → 범용 보상 상자에서 랜덤 지급</td></tr>
+          <tr><th>마일스톤</th><td>없음 → 누적 완료 보너스 추가</td></tr>
+          <tr><th>미수령 보상</th><td>소멸 → 초기화 시 자동 우편 발송으로 손실 방지</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="proto-section">
+      <h3>핵심 규칙</h3>
+      <table class="clean-table">
+        <tbody>
+          <tr><th>초기화 시간</th><td>매일 UTC 00:00</td></tr>
+          <tr><th>미션 슬롯 수</th><td>5개</td></tr>
+          <tr><th>리롤 횟수</th><td>캐릭터별 하루 3회</td></tr>
+          <tr><th>진행 단위</th><td>캐릭터별 독립 진행</td></tr>
+          <tr><th>마일스톤</th><td>3개 / 5개 완료 시 추가 보상</td></tr>
+          <tr><th>보상 구조</th><td>보상 상자 → 확률 기반 스폰 키 → 아이템 풀의 3단계 참조 체인</td></tr>
+          <tr><th>보상 수령</th><td>완료 후 버튼을 눌러야 지급 (수동), 미수령 시 초기화 때 자동 우편 발송</td></tr>
+          <tr><th>진행 가능 모드</th><td>일반 게임 모드만 해당 (튜토리얼/훈련 모드 제외)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="proto-section">
+      <h3>슬롯별 성격</h3>
+      <table class="clean-table">
+        <tbody>
+          <tr><th>슬롯 1 · 전투</th><td>몬스터 처치, 특정 무기로 처치, 피해량 등 전투 관련 목표</td></tr>
+          <tr><th>슬롯 2 · 탐색/수집</th><td>아이템 탐색, 컨테이너 개방, 지역 발견, 아이템 획득</td></tr>
+          <tr><th>슬롯 3 · 경제/제작</th><td>제작, 특정 아이템 제작, 판매, 재화 소비, 거래</td></tr>
+          <tr><th>슬롯 4 · 생존</th><td>탈출, 생존 시간, 의료 아이템 사용, 파밍 후 탈출</td></tr>
+          <tr><th>슬롯 5 · PvP/도전</th><td>플레이어 처치 등 전투·생존이 혼합된 도전 목표</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="proto-section">
+      <h3>주요 기능</h3>
+      <ol class="feature-list">
+        <li><strong>슬롯 기반 미션 풀</strong> — 슬롯마다 독립된 미션 풀에서 가중치 기반으로 랜덤 선택</li>
+        <li><strong>범용 3계층 보상</strong> — 보상 상자 → 확률 기반 스폰 키 → 아이템 풀로 이어지는 구조라 미션 타입이 늘어나도 보상 로직은 그대로 재사용</li>
+        <li><strong>등급 기반 색상</strong> — 보상 상자 색상을 하드코딩하지 않고 아이템 등급에서 자동으로 파생 (다국어·확장성 확보)</li>
+        <li><strong>미션 리롤</strong> — 하루 3회, 카드가 뒤집히는 연출과 함께 잔여 횟수를 직관적으로 표시</li>
+        <li><strong>수동 보상 수령</strong> — 완료 즉시 지급하지 않고 플레이어가 직접 수령하도록 해 성취감과 UI 확인 동선을 분리, 미수령분은 초기화 시 자동 발송으로 손실 방지</li>
+        <li><strong>패널 접기/펼치기</strong> — 로비 화면 한쪽에 상시 노출되는 플로팅 패널로, 다른 조작을 방해하지 않도록 헤더 클릭으로만 토글</li>
+        <li><strong>튜토리얼/훈련 모드 제외</strong> — 실제 플레이가 아닌 구간에서는 미션 진행이 카운트되지 않도록 예외 처리</li>
+        <li><strong>미션 갱신 플로팅 알림</strong> — 진행/완료 상황을 화면 하단에 큐 형태로 순차 노출, 일정 시간 후 자동으로 사라짐</li>
+      </ol>
+    </div>
+
+    <div class="proto-section">
+      <h3>UI 구조</h3>
+      <div class="tree-block">App
+├── TopNav
+├── DailyMissionPanel (접기/펼치기 플로팅 패널)
+│   ├── Header (타이틀 + 진행도 뱃지 + 초기화 타이머)
+│   ├── Milestones (3개/5개 완료 보상 버튼)
+│   ├── MissionList (슬롯별 미션 카드)
+│   │   └── MissionCard (리롤 버튼 + 설명 + 진행바 + 보상 상자)
+│   └── RerollCounter (잔여/최대 리롤 횟수)
+├── MissionFloating (미션 완료 알림, 큐 처리)
+├── RewardPopup (보상 개봉 연출)
+└── 공통: 보상 상자 툴팁 · 토스트 알림</div>
+    </div>
+
+    <div class="proto-section">
+      <h3>데이터 구조</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: 16px;">미션 풀·마일스톤·보상 로직을 각각 독립된 테이블로 분리해, 미션 종류가 늘어나도 보상 시스템 자체는 수정 없이 재사용되도록 설계했습니다.</p>
+      <table class="clean-table">
+        <tbody>
+          <tr><th>미션 풀</th><td>슬롯별로 어떤 미션이 어떤 확률로 등장하는지 정의</td></tr>
+          <tr><th>미션 오브젝티브</th><td>미션의 목표 조건(처치/수집/제작 등)을 정의하는 공용 테이블</td></tr>
+          <tr><th>마일스톤</th><td>완료 개수 구간별 추가 보상 정의</td></tr>
+          <tr><th>시스템 설정</th><td>초기화 시간, 슬롯 수, 최대 리롤 횟수 등 전역 값</td></tr>
+          <tr><th>보상 상자</th><td>등급·분류 기반의 범용 보상 정의 (신규 추가)</td></tr>
+          <tr><th>확률 기반 스폰 키</th><td>보상 상자에서 실제 아이템 풀로 연결되는 확률 테이블 (기존 시스템 재활용)</td></tr>
+          <tr><th>아이템 풀</th><td>최종적으로 지급될 아이템과 가중치 (기존 시스템 재활용)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="proto-section">
+      <h3>설계 반복 하이라이트</h3>
+      <div class="version-history">
+        <div class="v-item"><span class="v-tag">초기</span>미션 오브젝티브를 범용 파라미터 구조로 설계해 신규 미션 타입을 데이터만으로 추가할 수 있도록 시작</div>
+        <div class="v-item"><span class="v-tag">개정</span>패널 조작 방식을 "바깥 클릭 시 접힘"에서 "헤더 클릭 전용 토글"로 변경 — 실수로 패널이 접히는 문제 해소</div>
+        <div class="v-item"><span class="v-tag">개정</span>튜토리얼/훈련 모드에서는 미션 진행이 카운트되지 않도록 예외 규칙 추가</div>
+        <div class="v-item"><span class="v-tag">추가</span>미션 진행/완료를 화면 하단에 큐 형태로 알려주는 플로팅 알림 UI를 신규 설계해 프로토타입에 구현</div>
+        <div class="v-item"><span class="v-tag">구조 개편</span>범용 파라미터 방식을 폐기하고, 기존 미션 오브젝티브 테이블을 참조하는 구조로 재설계 — 다른 시스템과의 데이터 일관성을 높임</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오입니다. 검색엔진 노출을 차단합니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../assets/js/back-to-top.js"></script>
+
+</body>
+</html>
