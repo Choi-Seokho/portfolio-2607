@@ -578,7 +578,7 @@ table.clean-table th { color: var(--color-text-muted); font-weight: 600; width: 
 
 .proto-section { margin-bottom: 32px; }
 .proto-section h3 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--color-accent);
   margin: 0 0 14px;
   font-weight: 700;
@@ -666,7 +666,7 @@ table.clean-table th { color: var(--color-text-muted); font-weight: 600; width: 
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin: 32px 0 8px;
+  margin: 32px 0 28px;
 }
 .demo-cta a {
   display: inline-block;
