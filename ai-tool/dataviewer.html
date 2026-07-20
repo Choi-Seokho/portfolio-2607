@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>DataViewer | Choi Seokho · Game Designer</title>
+<link rel="stylesheet" href="../assets/css/style.css" />
+<link rel="stylesheet" href="assets/ai-tool.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="brand" href="../index.html">Choi Seokho · Game Designer</a>
+    <ul>
+      <li><a class="nav-link" href="../index.html">소개</a></li>
+      <li><a class="nav-link" href="../resume/index.html">이력서</a></li>
+      <li><a class="nav-link" href="../career/index.html">경력기술서</a></li>
+      <li><a class="nav-link active" href="../prototypes/craft-station/design.html">포트폴리오</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="page">
+  <nav class="subtab-nav">
+    <a href="../prototypes/craft-station/design.html">🎮 기획 및 프로토타입</a>
+    <a class="active" href="overview.html">🤖 AI 툴 활용</a>
+  </nav>
+
+  <nav class="subtab-nav subtab-nav--inner">
+    <a href="overview.html">🧭 개요</a>
+    <a href="mapgenie.html">🗺️ 맵 지니</a>
+    <a class="active" href="dataviewer.html">🔍 데이터 뷰어</a>
+    <a href="trade-log-viewer.html">💹 거래 로그 뷰어</a>
+  </nav>
+
+  <!-- ===== DataViewer ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">DEMO 02 · DataViewer</p>
+    <h2>JSON 게임 데이터를 SQL처럼 조회하는 도구</h2>
+    <p class="tool-desc">
+      이 도구의 핵심은 단순 조회가 아니라, <strong>키 값 하나를 전체 테이블 대상으로 한 번에 검색해 참조 무결성을 확인하는 것</strong>이었습니다.
+      아이템 이름은 <code>Item.BaseID → BaseItem.StringTableID → String.Korean</code> 3단계를 거쳐야 완성되는데,
+      이 체인 어딘가가 끊기거나 안 쓰이는 데이터가 남아있어도 겉으로는 티가 안 납니다. 아래 데모는 그 체인을 재현하고,
+      키 검색으로 끊긴 참조·미사용 데이터를 실제로 찾아냅니다.
+      <strong>테이블·컬럼명·데이터는 전부 가칭으로 재구성한 샘플입니다 (실제 게임 스키마 아님).</strong>
+    </p>
+
+    <div class="tool-frame dv-app">
+      <div class="tool-toolbar dv-global-search-bar">
+        <span class="dv-table-tag">전역 키 검색</span>
+        <input type="text" id="dvGlobalSearchInput" placeholder="Index / BaseID / StringID / 분류명 등 (예: 1009, ItemName_1008, 1010)" />
+        <button class="tool-btn primary" id="dvGlobalSearchBtn">전체 테이블 검색</button>
+        <button class="tool-btn" id="dvGlobalResetBtn">초기화</button>
+      </div>
+
+      <div class="tool-toolbar">
+        <div class="dv-tabs" id="dvTabs"></div>
+        <select id="dvRaritySelect">
+          <option value="">전체 등급 (Item 탭 전용)</option>
+        </select>
+      </div>
+      <div class="dv-table-wrap">
+        <table class="dv-table">
+          <thead>
+            <tr id="dvHeaderRow"></tr>
+          </thead>
+          <tbody id="dvTableBody"></tbody>
+        </table>
+      </div>
+      <div class="dv-footer"><span><span id="dvCount"></span><span id="dvErrorCount" class="dv-error-count"></span></span><span>가상 샘플 데이터 · 실제 스키마 아님</span></div>
+    </div>
+
+    <div class="note-box">
+      <strong>🟠 주황색 표시 안내</strong> — <code>ResolvedName</code>의 "String 없음"은 참조하는 StringTableID가
+      String 테이블에 없어 이름이 끊긴 데이터를, <code>RefCount</code>의 "0건 (미사용)"은 어떤 Item도 참조하지 않는
+      미사용 데이터를 뜻합니다. 실제 업무에서도 이런 표시로 대량의 테이블 중 정리가 필요한 항목을 빠르게 찾아냈습니다.
+      표 우측 하단 표시 개수 옆의 <strong>Error N건</strong>이 현재 탭에 몇 건의 이상이 있는지 바로 보여줍니다.
+    </div>
+
+    <div class="real-use-block">
+      <span class="real-use-label">📸 실사용 예시</span>
+      <div class="real-use-grid">
+        <div class="real-use-card">
+          <img src="assets/screenshots/dataviewer-real-use-global-search.png" alt="데이터 조회 실사용 화면 - 키 값 검색을 통한 사용처 확인" loading="lazy" />
+          <p class="caption">키 값 하나로 166개 전체 테이블을 검색해 42개 테이블·800건의 사용처를 한 번에 확인하는 실제 화면입니다.</p>
+        </div>
+        <div class="real-use-card">
+          <img src="assets/screenshots/dataviewer-real-use-item-search.png" alt="데이터 조회 실사용 화면 - 아이템 스폰 그룹에서 아이템 이름 검색" loading="lazy" />
+          <p class="caption">아이템 이름으로 스폰 그룹 테이블을 검색해 해당 아이템의 실제 획득처(드랍 경로)를 추적하는 실제 화면입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오입니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../assets/js/back-to-top.js"></script>
+
+<script src="assets/item-data.js"></script>
+<script src="assets/ai-tool.js"></script>
+
+</body>
+</html>

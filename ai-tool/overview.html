@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>AI 활용 사례 | Choi Seokho · Game Designer</title>
+<link rel="stylesheet" href="../assets/css/style.css" />
+<link rel="stylesheet" href="assets/ai-tool.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="brand" href="../index.html">Choi Seokho · Game Designer</a>
+    <ul>
+      <li><a class="nav-link" href="../index.html">소개</a></li>
+      <li><a class="nav-link" href="../resume/index.html">이력서</a></li>
+      <li><a class="nav-link" href="../career/index.html">경력기술서</a></li>
+      <li><a class="nav-link active" href="../prototypes/craft-station/design.html">포트폴리오</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="page">
+  <nav class="subtab-nav">
+    <a href="../prototypes/craft-station/design.html">🎮 기획 및 프로토타입</a>
+    <a class="active" href="overview.html">🤖 AI 툴 활용</a>
+  </nav>
+
+  <nav class="subtab-nav subtab-nav--inner">
+    <a class="active" href="overview.html">🧭 개요</a>
+    <a href="mapgenie.html">🗺️ 맵 지니</a>
+    <a href="dataviewer.html">🔍 데이터 뷰어</a>
+    <a href="trade-log-viewer.html">💹 거래 로그 뷰어</a>
+  </nav>
+
+  <div class="content-header">
+    <p class="eyebrow">AI TOOL</p>
+    <h1>Claude Code로 게임 데이터 관리 툴 구축·확장하기</h1>
+    <p>OneWayTicketStudio에서 Claude Code를 개인 생산성 도구가 아니라, 기획팀이 함께 쓰는 데이터/QA 자동화 인프라로 확장했습니다. 아래 데모는 실제 사내 도구(TMW Design Tool)를 서버 없이, 가상 데이터로 재구성한 정적 버전입니다.</p>
+    <div class="stat-row">
+      <div class="stat-chip"><div class="num">30+</div><div class="label">제작한 UI 모듈</div></div>
+      <div class="stat-chip"><div class="num">2</div><div class="label">자체 구축 MCP 서버</div></div>
+      <div class="stat-chip"><div class="num">20+</div><div class="label">Claude Code 스킬</div></div>
+      <div class="stat-chip"><div class="num">52</div><div class="label">누적 세션 로그</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 활용 프로세스 타임라인 ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">PROCESS</p>
+    <h2>AI 활용 프로세스 타임라인</h2>
+    <p class="tool-desc">단발성 코드 생성이 아니라, 세션이 쌓일수록 도구 자체가 스스로를 개선해 나가는 구조를 만들었습니다.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">세션 히스토리 체계화</span><span class="period">2025-12-31</span></div>
+        <p class="project-desc">CLAUDE.md + 날짜별 세션 로그(.claude/session-logs/) 구조를 도입해, 매 세션이 이전 맥락을 이어받도록 함. 이후 모든 작업의 기록·재현이 가능해짐.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">MCP 서버 자체 구축</span><span class="period">2026-01</span></div>
+        <p class="project-desc">Perforce/UE5 C++ 소스를 분석하는 <code>tmw-analyzer</code>, Confluence 기획서를 검색·검증하는 <code>confluence-mcp-server</code>를 TypeScript로 직접 구현해 Claude의 지식 범위를 사내 코드/문서까지 확장.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">반복 작업의 스킬화</span><span class="period">2026-01 ~ 02</span></div>
+        <p class="project-desc">로그 뷰어 모듈을 4번 손으로 반복 제작한 뒤 <code>BaseLogViewer</code> 공통 클래스로 추출, <code>/new-log-viewer</code> 스킬로 자동 생성 전환. 세션 로그 자체를 분석해 스킬 후보를 뽑는 <code>session-insights</code> 메타 스킬까지 구축.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">데이터 이상 탐지</span><span class="period">2026-03</span></div>
+        <p class="project-desc">경제 대시보드 집계 로직을 점검하다 로그 필드 불일치(<code>@timestamp</code> vs <code>Time</code>)로 코인 수입이 실제의 1/10로 과소 집계되던 문제를 발견·수정.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">독립 실행형 QA 툴</span><span class="period">2026-04</span></div>
+        <p class="project-desc">Claude Code 세션 없이도 동작하는 Perforce diff 기반 QA 리포트 툴(bat + PowerShell + Node)을 산출 — AI로 만든 도구가 AI 없이도 팀에서 굴러가는 단계까지 확장.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AI 협업 프로세스 상세 ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">HOW</p>
+    <h2>AI 협업 프로세스 상세</h2>
+    <p class="tool-desc">코드를 대신 짜주는 도구가 아니라, 반복되는 개발/QA/문서화 프로세스를 함께 설계하고 자동화하는 파트너로 활용했습니다.</p>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <h3>🔌 자체 MCP 서버 2개</h3>
+        <p><code>tmw-analyzer</code>는 Perforce의 UE5 C++ 헤더에서 Enum/Struct를 조회하고, <code>confluence-mcp-server</code>는 기존 기획서를 검색·정합성 검증합니다. Claude의 지식 범위를 사내 코드베이스와 문서까지 넓힌 사례입니다.</p>
+        <div class="tag-row"><span class="tag">TypeScript</span><span class="tag">@modelcontextprotocol/sdk</span></div>
+      </div>
+      <div class="process-card">
+        <h3>🔁 반복 작업 → 전용 스킬</h3>
+        <p>로그 뷰어, UI 모듈처럼 구조가 비슷한 작업을 4~5번 반복한 뒤 공통 베이스 클래스로 추출하고, <code>/new-log-viewer</code> · <code>/new-module</code> 같은 슬래시 커맨드로 고정했습니다.</p>
+        <div class="tag-row"><span class="tag">BaseLogViewer</span><span class="tag">BaseModule</span></div>
+      </div>
+      <div class="process-card">
+        <h3>🪞 세션 로그 자기분석</h3>
+        <p><code>session-insights</code> 스킬은 최근 세션 로그를 스스로 분석해 반복 패턴과 스킬 후보를 추출합니다. 실제로 이 스킬의 예시 출력이 <code>/new-log-viewer</code> 완성 사례를 담고 있는, 메타적인 자기개선 루프입니다.</p>
+        <div class="tag-row"><span class="tag">세션 로그 52개</span></div>
+      </div>
+      <div class="process-card">
+        <h3>🧩 웹 개발 밖으로 확장</h3>
+        <p>기획팀 실무자를 위한 Excel/VBA 기반 데이터 편집기 5종(스폰 에디터, 크래프트 에디터 등)을 제작·유지보수하며, 한글 인코딩 처리 같은 패턴을 여러 툴에 재사용했습니다.</p>
+        <div class="tag-row"><span class="tag">VBA</span><span class="tag">비개발자용 툴</span></div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>안내</strong> — 이 페이지의 데모는 실제 서비스 데이터가 아닌 재구성된 가상 데이터로 동작합니다.
+      맵 지니의 배경 맵 이미지는 실제 레벨 디자인 자료를 사용하였습니다.
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오입니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../assets/js/back-to-top.js"></script>
+
+</body>
+</html>

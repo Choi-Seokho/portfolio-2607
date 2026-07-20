@@ -532,6 +532,15 @@ table.clean-table th { color: var(--color-text-muted); font-weight: 600; width: 
   border-bottom-color: var(--color-accent);
 }
 
+.subtab-nav--inner {
+  gap: 22px;
+  margin-bottom: 24px;
+}
+
+.subtab-nav--inner a {
+  font-size: 0.88rem;
+}
+
 /* ===== 프로토타입 목록 페이지 (한 페이지 내 여러 항목) ===== */
 .jump-links-label {
   font-size: 0.8rem;
@@ -693,6 +702,40 @@ table.clean-table th { color: var(--color-text-muted); font-weight: 600; width: 
   font-size: 0.85rem;
   color: var(--color-text);
   margin-bottom: 24px;
+}
+
+/* ===== 스크린샷 갤러리 (경력기술서 등에서 공용) ===== */
+.shot-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.shot-gallery.compact { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.shot-gallery.compact .shot-card img { aspect-ratio: 4 / 3; object-fit: cover; }
+
+.shot-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.shot-card img { width: 100%; display: block; }
+.shot-card .caption { padding: 10px 14px; font-size: 0.85rem; color: var(--color-text-muted); }
+
+/* 세로가 긴 문서 페이지 스캔본 등 폭을 좁게 제한하고 싶을 때 */
+.shot-card.doc-page { max-width: 470px; margin: 0 auto; }
+
+.resume-section h3.sub-heading {
+  font-size: 1rem;
+  margin: 32px 0 4px;
+  color: var(--color-text);
+}
+.resume-section p.sub-desc {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin: 0 0 4px;
 }
 
 @media (max-width: 600px) {

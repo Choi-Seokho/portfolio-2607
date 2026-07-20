@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>AI 활용 사례 | Choi Seokho · Game Designer</title>
+<link rel="stylesheet" href="../assets/css/style.css" />
+<link rel="stylesheet" href="assets/ai-tool.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="brand" href="../index.html">Choi Seokho · Game Designer</a>
+    <ul>
+      <li><a class="nav-link" href="../index.html">소개</a></li>
+      <li><a class="nav-link" href="../resume/index.html">이력서</a></li>
+      <li><a class="nav-link" href="../career/index.html">경력기술서</a></li>
+      <li><a class="nav-link active" href="../prototypes/craft-station/design.html">포트폴리오</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="page">
+  <nav class="subtab-nav">
+    <a href="../prototypes/craft-station/design.html">🎮 기획 및 프로토타입</a>
+    <a class="active" href="overview.html">🤖 AI 툴 활용</a>
+  </nav>
+
+  <nav class="subtab-nav subtab-nav--inner">
+    <a href="overview.html">🧭 개요</a>
+    <a class="active" href="mapgenie.html">🗺️ 맵 지니</a>
+    <a href="dataviewer.html">🔍 데이터 뷰어</a>
+    <a href="trade-log-viewer.html">💹 거래 로그 뷰어</a>
+  </nav>
+
+  <!-- ===== 핵심 데모 ① MapGenie ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">DEMO 01 · MapGenie</p>
+    <h2>맵 위에 스폰 데이터를 시각화하는 도구</h2>
+    <p class="tool-desc">
+      레벨 맵 이미지 위에 아이템/몬스터/기믹 스폰 위치를 겹쳐 보여주는 도구입니다. 검색 버그 수정 → 검색 캐싱 →
+      타입별 필터 오버레이 → SVG 아이콘 도입 → Enum 연동 한글 표시 → 드롭테이블 연동 순으로, 여러 세션에 걸쳐 점진적으로 다듬었습니다.
+      상자·아이템 스포너를 클릭하면 등급별 드롭 확률과 드롭 아이템 목록이 표시되고, 아이템 이름으로 검색하면
+      해당 아이템을 드롭하는 오브젝트만 지도에 필터링되어 표시됩니다.
+      <strong>맵 이미지는 실제 사용 중인 레벨 디자인 블루프린트이며, 스폰 위치/드롭 데이터는 데모용으로 가상 재구성했습니다.</strong>
+    </p>
+
+    <div class="tool-frame mg-app">
+      <div class="tool-toolbar">
+        <div class="mg-floor-tabs" id="mgFloorTabs"></div>
+        <div class="mg-search">
+          <input type="text" id="mgSearchInput" placeholder="스폰 이름 검색 (예: 좀비, 상자, 탈출)" />
+          <button class="tool-btn primary" id="mgSearchBtn">검색</button>
+        </div>
+        <button class="tool-btn" id="mgResetBtn">전체 초기화</button>
+      </div>
+
+      <div class="mg-demo-body">
+        <div class="mg-viewport" id="mgViewport">
+          <div class="mg-stage" id="mgStage">
+            <img id="mgMapImage" alt="레벨 맵" draggable="false" />
+          </div>
+          <div class="mg-hint">드래그로 이동 · 휠로 확대/축소</div>
+          <div class="mg-zoom-controls">
+            <button class="tool-btn" id="mgZoomIn">+</button>
+            <button class="tool-btn" id="mgZoomOut">–</button>
+            <button class="tool-btn" id="mgZoomReset">⟳</button>
+          </div>
+        </div>
+
+        <aside class="mg-side" id="mgSide">
+          <div class="mg-filter-panel">
+            <h4>타입 필터</h4>
+            <label class="mg-filter-all-row">
+              <input type="checkbox" id="mgFilterAll" checked>
+              <span>전체 <span id="mgFilterAllCount"></span></span>
+            </label>
+            <div id="mgFilterList"></div>
+          </div>
+          <div class="mg-filter-panel mg-item-search-panel">
+            <h4>아이템 드롭 검색</h4>
+            <div class="mg-item-search-row">
+              <input type="text" id="mgItemSearchInput" placeholder="아이템명 검색 (예: 손전등)" />
+              <button class="tool-btn" id="mgItemSearchBtn">검색</button>
+            </div>
+            <div class="mg-item-search-hint" id="mgItemSearchHint">검색한 아이템을 드롭하는 오브젝트만 지도에 표시됩니다.</div>
+          </div>
+          <div class="mg-detail-panel" id="mgDetailPanel"></div>
+        </aside>
+      </div>
+
+      <div class="mg-history" id="mgHistory"></div>
+    </div>
+
+    <div class="real-use-block">
+      <span class="real-use-label">📸 실사용 예시</span>
+      <div class="real-use-grid">
+        <div class="real-use-card">
+          <img src="assets/screenshots/mapgenie-real-use.png" alt="맵지니 실사용 화면 - 드링크 검색으로 드랍 포인트 확인" loading="lazy" />
+          <p class="caption">사내에서 실제로 사용 중인 맵지니 화면. "드링크"로 검색해 병원 수술실 맵 위에 드랍 포인트만 필터링해 보여주는 모습입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오입니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../assets/js/back-to-top.js"></script>
+
+<script src="assets/map-data.js"></script>
+<script src="assets/map-drop-data.js"></script>
+<script src="assets/ai-tool.js"></script>
+
+</body>
+</html>
