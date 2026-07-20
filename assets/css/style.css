@@ -118,10 +118,14 @@ img { max-width: 100%; display: block; }
 .site-footer {
   max-width: var(--max-width);
   margin: 64px auto 0;
-  padding: 24px 24px 0;
+  padding: 16px 24px 0;
   border-top: 1px solid var(--color-border);
   color: var(--color-text-muted);
   font-size: 0.85rem;
+}
+
+.site-footer p {
+  margin: 4px 0;
 }
 
 /* ===== 히어로 (메인 페이지) ===== */
@@ -504,7 +508,7 @@ table.clean-table th { color: var(--color-text-muted); font-weight: 600; width: 
 /* ===== 서브탭 (AI 활용 ↔ 프로토타입) ===== */
 .subtab-nav {
   display: flex;
-  gap: 28px;
+  gap: 32px;
   border-bottom: 1px solid var(--color-border);
   margin: 24px 0 0;
 }
@@ -514,11 +518,11 @@ table.clean-table th { color: var(--color-text-muted); font-weight: 600; width: 
 }
 
 .subtab-nav a {
-  padding: 4px 2px 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  padding: 4px 2px 13px;
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--color-text-muted);
-  border-bottom: 2px solid transparent;
+  border-bottom: 2.5px solid transparent;
   margin-bottom: -1px;
 }
 
@@ -532,13 +536,36 @@ table.clean-table th { color: var(--color-text-muted); font-weight: 600; width: 
   border-bottom-color: var(--color-accent);
 }
 
+/* 하위탭: 상위탭과의 위계 차이를 위해 필(pill) 형태로 분리 */
 .subtab-nav--inner {
-  gap: 22px;
-  margin-bottom: 24px;
+  display: flex;
+  gap: 6px;
+  border-bottom: none;
+  background: var(--color-tag-bg);
+  padding: 4px;
+  border-radius: 999px;
+  margin: 18px 0 24px;
+  width: fit-content;
 }
 
 .subtab-nav--inner a {
-  font-size: 0.88rem;
+  padding: 6px 16px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-bottom: none;
+  border-radius: 999px;
+  margin-bottom: 0;
+}
+
+.subtab-nav--inner a:hover {
+  color: var(--color-text);
+}
+
+.subtab-nav--inner a.active {
+  color: var(--color-accent);
+  background: var(--color-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 /* ===== 프로토타입 목록 페이지 (한 페이지 내 여러 항목) ===== */
