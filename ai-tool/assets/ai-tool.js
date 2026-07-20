@@ -12,9 +12,6 @@
     AreaInfo: `<svg viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" fill="none" stroke="#facc15" stroke-width="2" stroke-dasharray="4,2" rx="2"/><text x="16" y="21" font-size="14" fill="#facc15" text-anchor="middle" font-weight="bold">A</text></svg>`,
   };
 
-  const typeMeta = {};
-  MG_TYPES.forEach((t) => (typeMeta[t.type] = t));
-
   const el = {
     floorTabs: document.getElementById('mgFloorTabs'),
     viewport: document.getElementById('mgViewport'),
@@ -38,6 +35,9 @@
   };
 
   if (!el.viewport) return; // 이 페이지에 데모가 없으면 종료
+
+  const typeMeta = {};
+  MG_TYPES.forEach((t) => (typeMeta[t.type] = t));
 
   const state = {
     floorId: MG_FLOORS[0].id,
