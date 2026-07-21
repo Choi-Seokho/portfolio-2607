@@ -36,7 +36,7 @@
   <div class="content-header">
     <p class="eyebrow">DESIGN & PROTOTYPE</p>
     <h1>🛠️ 제작대 리뉴얼</h1>
-    <p>OneWayTicketStudio · The Midnight Walkers — 제작(Craft) 시스템 리뉴얼 기획</p>
+    <p>OneWayTicketStudio · The Midnight Walkers: 제작(Craft) 시스템 리뉴얼 기획</p>
   </div>
 
   <div class="note-box">
@@ -59,12 +59,34 @@
   </div>
 
   <div class="proto-section">
+    <h3>화면</h3>
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="assets/screenshots/craft-01-landing.png" alt="제작대 선택 화면" loading="lazy" />
+        <p class="caption">제작대 선택 화면: 5종 제작대의 잠금/해금 상태를 카드로 표시</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/craft-02-crafting.png" alt="제작 화면" loading="lazy" />
+        <p class="caption">제작 화면: 3단 레이아웃(카테고리 · 3D 프리뷰 · 재료 선택)</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/craft-03-levelup.png" alt="제작대 레벨업 연출" loading="lazy" />
+        <p class="caption">제작대 레벨업: 성장 연출과 함께 확장되는 제작 가능 등급</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/craft-04-blueprint-book.png" alt="설계도 도감 화면" loading="lazy" />
+        <p class="caption">설계도 도감: 등록/미발견 상태별로 수집 현황을 시각화</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="proto-section">
     <h3>성과</h3>
     <ol class="feature-list">
       <li>기존에는 제작대 자체가 아이템을 제작하는 콘텐츠로만 사용되던 구조였으나, 파밍 목적·수집·거래 요소를 결합한 구조로 개편</li>
-      <li>개편 이후 유저 이탈 시점이 평균 7일에서 18일로 변경 — 플레이 수명 증가로 이어짐</li>
+      <li>개편 이후 유저 이탈 시점이 평균 7일에서 18일로 변경 - 플레이 수명 증가로 이어짐</li>
       <li>커뮤니티·디스코드에서 "할 거리가 늘어 플레이 동기가 살아났다"는 반응 확인, 설계도 수집 요소가 의도대로 작동했다고 판단</li>
-      <li>모든 장비를 직접 제작하던 구조를 "보유 장비 강화"로 전환해, 인게임 획득(파밍)과 제작대 성장(강화)의 목적을 분리 — 아이템 옵션 가치 상승과 함께 파밍 목적성이 더욱 뚜렷해짐</li>
+      <li>모든 장비를 직접 제작하던 구조를 "보유 장비 강화"로 전환해, 인게임 획득(파밍)과 제작대 성장(강화)의 목적을 분리 - 아이템 옵션 가치 상승과 함께 파밍 목적성이 더욱 뚜렷해짐</li>
     </ol>
   </div>
 
@@ -74,13 +96,13 @@
       <tbody>
         <tr><th>제작대 수</th><td>5종 (회복 / 무기 / 방어구 / 유틸리티 / 재료)</td></tr>
         <tr><th>초기 해금</th><td>회복 제작대만 기본 제공, 나머지는 재료를 모아 잠금 해제</td></tr>
-        <tr><th>최대 레벨</th><td>Lv.5 — 레벨이 오를수록 제작 가능한 최대 등급이 확장</td></tr>
+        <tr><th>최대 레벨</th><td>Lv.5: 레벨이 오를수록 제작 가능한 최대 등급이 확장</td></tr>
         <tr><th>제작 방식</th><td>즉시 제작 (대기열/제작 시간 없음, 2단계 연출로 즉시성 보완)</td></tr>
         <tr><th>장비 재료</th><td>레시피당 1종 1개 사용, 스탯은 결과물에 항상 승계</td></tr>
         <tr><th>설계도</th><td>등록 시 인벤토리에서 소모, 이후 해당 레시피 영구 해금</td></tr>
         <tr><th>수령 위치</th><td>창고(Stash) 고정 지급</td></tr>
         <tr><th>저장 범위</th><td>계정 단위 저장 (같은 계정의 모든 캐릭터가 공유)</td></tr>
-        <tr><th>재화 비용</th><td>없음 — 아이템 재료만으로 제작</td></tr>
+        <tr><th>재화 비용</th><td>없음: 아이템 재료만으로 제작</td></tr>
       </tbody>
     </table>
   </div>
@@ -88,15 +110,15 @@
   <div class="proto-section">
     <h3>주요 기능</h3>
     <ol class="feature-list">
-      <li><strong>다중 제작대</strong> — 5종으로 분리하고, 어떤 제작대에 어떤 레시피가 속하는지는 데이터로 자유롭게 설정 (카테고리 강제 매핑 없음)</li>
-      <li><strong>제작대 성장</strong> — 잠금 해제 + 레벨 1~5, 레벨에 따라 제작 가능한 최대 등급이 확장</li>
-      <li><strong>설계도 시스템</strong> — 설계도 획득 → 등록 → 레시피 해금의 흐름, 수집 현황을 도감으로 시각화</li>
-      <li><strong>즉시 제작 연출</strong> — 대기 시간을 없애는 대신 2단계 연출(타격 → 완성)로 제작의 무게감을 보완</li>
-      <li><strong>장비 재료 제작</strong> — 보유 장비를 재료로 사용해 다른 등급의 장비를 만드는 교차 등급 제작 지원</li>
-      <li><strong>수량 조절</strong> — 제작 횟수 단위로 한 번에 여러 개 제작 가능</li>
-      <li><strong>성장 가능 상태 표시</strong> — 잠금 해제·레벨업이 가능해지는 순간 실시간으로 시각 피드백</li>
-      <li><strong>3D 아이템 프리뷰</strong> — 제작 화면 중앙에 선택한 아이템의 3D 모델을 표시, 마우스 드래그로 회전 가능</li>
-      <li><strong>알림(레드닷)</strong> — 미등록 설계도 / 잠금해제 가능 / 레벨업 가능 중 하나라도 해당되면 진입점에 표시</li>
+      <li><strong>다중 제작대</strong>: 5종으로 분리하고, 어떤 제작대에 어떤 레시피가 속하는지는 데이터로 자유롭게 설정 (카테고리 강제 매핑 없음)</li>
+      <li><strong>제작대 성장</strong>: 잠금 해제 + 레벨 1~5, 레벨에 따라 제작 가능한 최대 등급이 확장</li>
+      <li><strong>설계도 시스템</strong>: 설계도 획득 → 등록 → 레시피 해금의 흐름, 수집 현황을 도감으로 시각화</li>
+      <li><strong>즉시 제작 연출</strong>: 대기 시간을 없애는 대신 2단계 연출(타격 → 완성)로 제작의 무게감을 보완</li>
+      <li><strong>장비 재료 제작</strong>: 보유 장비를 재료로 사용해 다른 등급의 장비를 만드는 교차 등급 제작 지원</li>
+      <li><strong>수량 조절</strong>: 제작 횟수 단위로 한 번에 여러 개 제작 가능</li>
+      <li><strong>성장 가능 상태 표시</strong>: 잠금 해제·레벨업이 가능해지는 순간 실시간으로 시각 피드백</li>
+      <li><strong>3D 아이템 프리뷰</strong>: 제작 화면 중앙에 선택한 아이템의 3D 모델을 표시, 마우스 드래그로 회전 가능</li>
+      <li><strong>알림(레드닷)</strong>: 미등록 설계도 / 잠금해제 가능 / 레벨업 가능 중 하나라도 해당되면 진입점에 표시</li>
     </ol>
   </div>
 
@@ -138,12 +160,12 @@
     <p style="color: var(--color-text-muted); margin-bottom: 16px;">즉시 제작 방식으로 대기 시간을 없앤 대신, 제작 단계마다 짧은 연출과 사운드 콘셉트를 붙여 손맛과 성장감을 보완했습니다.</p>
     <table class="clean-table">
       <tbody>
-        <tr><th>제작대 선택 화면 진입</th><td>공방에 들어서는 느낌 — 문 열리는 소리 + 앰비언스</td></tr>
-        <tr><th>제작대 잠금 해제</th><td>새로운 것이 열리는 임팩트 — 자물쇠 열림 + 금속 임팩트</td></tr>
-        <tr><th>레벨업</th><td>성장·강화되는 느낌 — 전용 이펙트음 + 차임</td></tr>
-        <tr><th>설계도 등록</th><td>새 지식을 습득하는 느낌 — 종이 펼침 + 스탬프</td></tr>
-        <tr><th>제작 중 (타격 단계)</th><td>타격감 있는 제작 과정 — 망치 타격 + 스파크</td></tr>
-        <tr><th>제작 완성</th><td>짧고 명확한 완료 피드백 — 완성 임팩트 + 빛 효과음</td></tr>
+        <tr><th>제작대 선택 화면 진입</th><td>공방에 들어서는 느낌: 문 열리는 소리 + 앰비언스</td></tr>
+        <tr><th>제작대 잠금 해제</th><td>새로운 것이 열리는 임팩트: 자물쇠 열림 + 금속 임팩트</td></tr>
+        <tr><th>레벨업</th><td>성장·강화되는 느낌: 전용 이펙트음 + 차임</td></tr>
+        <tr><th>설계도 등록</th><td>새 지식을 습득하는 느낌: 종이 펼침 + 스탬프</td></tr>
+        <tr><th>제작 중 (타격 단계)</th><td>타격감 있는 제작 과정: 망치 타격 + 스파크</td></tr>
+        <tr><th>제작 완성</th><td>짧고 명확한 완료 피드백: 완성 임팩트 + 빛 효과음</td></tr>
       </tbody>
     </table>
   </div>
@@ -152,7 +174,7 @@
     <h3>설계 반복 하이라이트</h3>
     <div class="version-history">
       <div class="v-item"><span class="v-tag">초기</span>제작대별 레시피와 재료 구조를 설계하고, 클릭 가능한 프로토타입으로 3단 레이아웃 제작 화면을 먼저 검증</div>
-      <div class="v-item"><span class="v-tag">개정</span>등급 범위(최소~최대) 방식을 "해당 등급 이하 모두 제작 가능"한 단일 최대 등급 방식으로 단순화 — UI 표기도 범위 텍스트에서 등급 색상 뱃지로 변경</div>
+      <div class="v-item"><span class="v-tag">개정</span>등급 범위(최소~최대) 방식을 "해당 등급 이하 모두 제작 가능"한 단일 최대 등급 방식으로 단순화 - UI 표기도 범위 텍스트에서 등급 색상 뱃지로 변경</div>
       <div class="v-item"><span class="v-tag">개정</span>3D 아이템 프리뷰를 고정 앵글에서 마우스 드래그 회전이 가능하도록 사양 변경, 프로토타입에 반영</div>
       <div class="v-item"><span class="v-tag">개정</span>탑바 진입점에 레드닷(알림) 표시 조건을 3가지로 정의해 성장 가능 상태를 놓치지 않도록 보완</div>
       <div class="v-item"><span class="v-tag">정리</span>기획서 전반의 String(다국어 텍스트) 키를 전수 점검해 중복·누락을 정리하고 최종 목록을 확정</div>

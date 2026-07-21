@@ -486,6 +486,14 @@ table.clean-table th, table.clean-table td {
 }
 table.clean-table th { color: var(--color-text-muted); font-weight: 600; width: 32%; }
 
+/* 문제점/해결 방법 3열 비교표 */
+table.clean-table.compare th:first-child,
+table.clean-table.compare td:first-child { width: 13%; }
+table.clean-table.compare th:nth-child(2),
+table.clean-table.compare td:nth-child(2) { width: 42%; }
+table.clean-table.compare th:nth-child(3),
+table.clean-table.compare td:nth-child(3) { width: 45%; }
+
 /* 자기소개서 */
 .cover-letter .keyword-block { margin-bottom: 28px; }
 .cover-letter .keyword-block:last-of-type { margin-bottom: 0; }
