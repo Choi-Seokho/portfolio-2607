@@ -14,9 +14,14 @@
     tableBody: document.getElementById('tlTableBody'),
     headerRow: document.getElementById('tlHeaderRow'),
     count: document.getElementById('tlCount'),
+    pagePrev: document.getElementById('tlPagePrev'),
+    pageNext: document.getElementById('tlPageNext'),
+    pageInfo: document.getElementById('tlPageInfo'),
   };
 
   if (!el.tableBody) return; // 이 페이지에 데모가 없으면 종료
+
+  const PAGE_SIZE = 50;
 
   const state = {
     activeTypes: new Set(Object.keys(TL_LOG_TYPES)),
@@ -28,6 +33,7 @@
     selectedId: null,
     sortKey: 'time',
     sortAsc: false, // 기본: 최신순 (원본 데이터 순서와 동일)
+    page: 1,
   };
 
   const TAB_LABELS = { overview: '개요', items: '인기아이템', price: '가격분석', users: '유저활동', timeline: '시간대' };
@@ -48,6 +54,7 @@
         const key = chip.dataset.type;
         if (state.activeTypes.has(key)) { state.activeTypes.delete(key); chip.classList.remove('active'); }
         else { state.activeTypes.add(key); chip.classList.add('active'); }
+        state.page = 1;
         render();
       });
     });
@@ -120,20 +127,34 @@
         const key = th.dataset.key;
         if (state.sortKey === key) state.sortAsc = !state.sortAsc;
         else { state.sortKey = key; state.sortAsc = true; }
+        state.page = 1;
         render();
       });
     });
   }
 
+  function renderPagination(totalPages) {
+    el.pagePrev.disabled = state.page <= 1;
+    el.pageNext.disabled = state.page >= totalPages;
+    el.pageInfo.textContent = `${state.page} / ${totalPages} 페이지`;
+  }
+
   function renderTable(logs) {
     updateHeaderSortClasses();
+    el.count.textContent = `${logs.length.toLocaleString()}건`;
+
     if (logs.length === 0) {
       el.tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6f6f7a;padding:20px;">조건에 맞는 로그가 없습니다.</td></tr>';
-      el.count.textContent = '0건';
+      renderPagination(1);
       return;
     }
-    const rows = logs.slice(0, 200); // 표시 상한 (실제 서비스와 동일하게 스크롤 영역 내 성능 고려)
-    el.tableBody.innerHTML = rows.map((l) => {
+
+    const totalPages = Math.max(1, Math.ceil(logs.length / PAGE_SIZE));
+    if (state.page > totalPages) state.page = totalPages;
+    const start = (state.page - 1) * PAGE_SIZE;
+    const pageLogs = logs.slice(start, start + PAGE_SIZE);
+
+    el.tableBody.innerHTML = pageLogs.map((l) => {
       const t = TL_LOG_TYPES[l.type];
       return `<tr data-id="${l.id}" class="${state.selectedId === l.id ? 'selected' : ''}">
         <td>${formatTime(l.time)}</td>
@@ -146,7 +167,7 @@
         <td>${l.buyerName || '-'}</td>
       </tr>`;
     }).join('');
-    el.count.textContent = `${logs.length.toLocaleString()}건${logs.length > 200 ? ' (상위 200건 표시)' : ''}`;
+    renderPagination(totalPages);
 
     el.tableBody.querySelectorAll('tr').forEach((tr) => {
       tr.addEventListener('click', () => {
@@ -312,12 +333,12 @@
   }
 
   function bindEvents() {
-    el.itemSearch.addEventListener('input', () => { state.itemSearch = el.itemSearch.value.trim(); render(); });
-    el.userSearch.addEventListener('input', () => { state.userSearch = el.userSearch.value.trim(); render(); });
-    el.raritySelect.addEventListener('change', () => { state.rarity = el.raritySelect.value; render(); });
+    el.itemSearch.addEventListener('input', () => { state.itemSearch = el.itemSearch.value.trim(); state.page = 1; render(); });
+    el.userSearch.addEventListener('input', () => { state.userSearch = el.userSearch.value.trim(); state.page = 1; render(); });
+    el.raritySelect.addEventListener('change', () => { state.rarity = el.raritySelect.value; state.page = 1; render(); });
     el.matchToggle.addEventListener('change', () => { state.onlyMatched = el.matchToggle.checked; render(); });
     el.resetBtn.addEventListener('click', () => {
-      state.rarity = ''; state.itemSearch = ''; state.userSearch = '';
+      state.rarity = ''; state.itemSearch = ''; state.userSearch = ''; state.page = 1;
       el.raritySelect.value = ''; el.itemSearch.value = ''; el.userSearch.value = '';
       state.activeTypes = new Set(Object.keys(TL_LOG_TYPES));
       el.typeFilters.querySelectorAll('.tl-type-chip').forEach((c) => c.classList.add('active'));
@@ -329,6 +350,15 @@
         el.tabs.querySelectorAll('.tl-tab').forEach((t) => t.classList.toggle('active', t === tab));
         render();
       });
+    });
+    el.pagePrev.addEventListener('click', () => {
+      if (state.page <= 1) return;
+      state.page -= 1;
+      renderTable(getFilteredLogs());
+    });
+    el.pageNext.addEventListener('click', () => {
+      state.page += 1;
+      renderTable(getFilteredLogs());
     });
   }
 
