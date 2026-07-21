@@ -12,6 +12,7 @@
     tabContent: document.getElementById('tlTabContent'),
     detailPanel: document.getElementById('tlDetailPanel'),
     tableBody: document.getElementById('tlTableBody'),
+    headerRow: document.getElementById('tlHeaderRow'),
     count: document.getElementById('tlCount'),
   };
 
@@ -25,6 +26,8 @@
     activeTab: 'overview',
     onlyMatched: true,
     selectedId: null,
+    sortKey: 'time',
+    sortAsc: false, // 기본: 최신순 (원본 데이터 순서와 동일)
   };
 
   const TAB_LABELS = { overview: '개요', items: '인기아이템', price: '가격분석', users: '유저활동', timeline: '시간대' };
@@ -59,13 +62,34 @@
   }
 
   function getFilteredLogs() {
-    return TL_LOGS.filter((l) => {
+    const logs = TL_LOGS.filter((l) => {
       if (!state.activeTypes.has(l.type)) return false;
       if (state.rarity && l.rarity !== state.rarity) return false;
       if (state.itemSearch && !l.itemName.includes(state.itemSearch)) return false;
       if (state.userSearch && !(l.buyerName || '').includes(state.userSearch)) return false;
       return true;
     });
+    return logs.sort(compareLogs);
+  }
+
+  function compareLogs(a, b) {
+    const key = state.sortKey;
+    let av = a[key];
+    let bv = b[key];
+    if (key === 'rarity') {
+      av = DV_RARITY_ORDER.indexOf(av);
+      bv = DV_RARITY_ORDER.indexOf(bv);
+    } else if (key === 'type') {
+      av = TL_LOG_TYPES[av] ? TL_LOG_TYPES[av].name : av;
+      bv = TL_LOG_TYPES[bv] ? TL_LOG_TYPES[bv].name : bv;
+    } else {
+      av = av ?? '';
+      bv = bv ?? '';
+    }
+    if (typeof av === 'string' || typeof bv === 'string') {
+      return state.sortAsc ? String(av).localeCompare(String(bv)) : String(bv).localeCompare(String(av));
+    }
+    return state.sortAsc ? av - bv : bv - av;
   }
 
   function renderStats(logs) {
@@ -82,7 +106,27 @@
     el.statRow.innerHTML = chips.map((c) => `<div class="tl-stat-chip"><div class="num">${c.num}</div><div class="label">${c.label}</div></div>`).join('');
   }
 
+  function updateHeaderSortClasses() {
+    el.headerRow.querySelectorAll('.tl-th').forEach((th) => {
+      const active = th.dataset.key === state.sortKey;
+      th.classList.toggle('sorted', active);
+      th.classList.toggle('asc', active && state.sortAsc);
+    });
+  }
+
+  function bindHeaderSort() {
+    el.headerRow.querySelectorAll('.tl-th').forEach((th) => {
+      th.addEventListener('click', () => {
+        const key = th.dataset.key;
+        if (state.sortKey === key) state.sortAsc = !state.sortAsc;
+        else { state.sortKey = key; state.sortAsc = true; }
+        render();
+      });
+    });
+  }
+
   function renderTable(logs) {
+    updateHeaderSortClasses();
     if (logs.length === 0) {
       el.tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#6f6f7a;padding:20px;">조건에 맞는 로그가 없습니다.</td></tr>';
       el.count.textContent = '0건';
@@ -291,5 +335,6 @@
   initTypeFilters();
   initRaritySelect();
   bindEvents();
+  bindHeaderSort();
   render();
 })();

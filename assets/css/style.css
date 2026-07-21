@@ -237,6 +237,10 @@ img { max-width: 100%; display: block; }
   font-size: 0.9rem;
 }
 
+.section-card .tenure {
+  display: block;
+}
+
 .section-card .status {
   display: inline-block;
   margin-top: 12px;
