@@ -222,7 +222,7 @@ img { max-width: 100%; display: block; }
   height: 0.89rem;
   flex-shrink: 0;
   fill: var(--color-accent);
-  transform: rotate(-32deg);
+  transform: rotate(148deg);
 }
 
 .section-card h2 {

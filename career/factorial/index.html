@@ -28,12 +28,131 @@
     <p>2018.07 ~ 2023.03 · 기획팀 사원 → 팀장 → PD · Mobile MMORPG <em>Project Crazy (JustCause M)</em></p>
   </div>
 
-  <div class="placeholder">
-    <div class="icon">🚧</div>
-    <h2>준비중입니다</h2>
-    <p>이력서의 경력 요약을 바탕으로 상세 경력기술서를 작성할 예정입니다.</p>
-    <p><a href="../../resume/index.html">이력서에서 요약 먼저 보기 →</a></p>
-  </div>
+  <section class="resume-section">
+    <h2>전투 시스템 설계</h2>
+    <p>듀얼 패드 조작만으로 그래플링 훅·윙슈트·파라슈트 같은 3D 이동기와 고도 차이가 있는 교전을 자연스럽게 풀어내는 것이 전투 시스템의 핵심 과제였습니다. Top Down 시점의 카메라 정책(회전 없음)을 유지하면서도 조작 난이도를 올리지 않는 해법을 설계했습니다.</p>
+
+    <h3 class="sub-heading">고도 표현 자동 조준 시스템</h3>
+    <div style="overflow-x:auto;">
+      <table class="clean-table compare">
+        <thead>
+          <tr><th>구분</th><th>문제점</th><th>해결 방법</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>고도차 교전</th>
+            <td>헬기·저격 포인트 등 높낮이가 다른 대상을 Top Down 시점에서 공격해야 하는데, 카메라 각도를 바꾸거나 조작을 늘리는 방식은 쓸 수 없었음</td>
+            <td>Aim 주변 탐색 영역 내 적을 X·Y축 거리만으로 판단해 자동으로 가장 가까운 대상을 타겟팅한 뒤, Aim을 타겟의 높이만큼 자동으로 끌어올리는 방식으로 해결</td>
+          </tr>
+          <tr>
+            <th>SQEX 제안안 검토</th>
+            <td>SQEX가 제안한 대안 5가지(에임 고정, 평면 사격 판정, 에임 세로 이동, 무기별 고정 탄도, 사격 시 카메라 전환)</td>
+            <td>모두 조작 난이도 상승 또는 "카메라 방향 불변" 기조 위배로 반려하고, 위 자동 조준안으로 SQEX 합의 도출</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="assets/screenshots/combat-topdown-elevation.png" alt="Top Down 시점에서 고도차가 있는 건물 위 대상을 조준하는 전투 화면" loading="lazy" />
+        <p class="caption">Top Down 교전 화면: 지상에서 고지대(건물 상층부) 대상까지 카메라 회전 없이 자동 조준</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/combat-mobility-parachute.png" alt="파라슈트 하강 중 이동기 버튼이 배치된 HUD 화면" loading="lazy" />
+        <p class="caption">파라슈트 하강 장면: 우측 하단에 그래플링 훅·윙슈트 등 이동기 버튼 배치</p>
+      </div>
+    </div>
+
+    <h3 class="sub-heading">스테미너 시스템</h3>
+    <p class="sub-desc">그래플링 훅·윙슈트·파라슈트(이동기) 사용을 개별 관리하지 않고 하나의 스테미너 자원으로 통합해 "제한된 자유"를 제공하는 시스템을 설계했습니다. MMORPG 특성상 이동기를 완전히 자유롭게 허용하면 밸런스가 무너지지만, 개별 쿨타임으로 관리하면 직관성이 떨어진다는 문제를 절충했습니다.</p>
+    <div style="overflow-x:auto;">
+      <table class="clean-table">
+        <tbody>
+          <tr><th>소모량 우선순위</th><td>윙슈트 &gt; 파라슈트 &gt; 그래플링 훅 순으로 소모량 차등 적용 (그래플링 당기기·대시는 소모 없음)</td></tr>
+          <tr><th>회복·페널티</th><td>미입력 상태로 일정 시간 경과 시 초당 회복, 0이 되면 완전히 찰 때까지 이동기 사용 불가로 페널티 부여</td></tr>
+          <tr><th>성장 요소화</th><td>장비·MOD·룬으로 최대치 증가 및 소모량 감소를 투자할 수 있도록 설계해 성장 시스템과 연결</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2>전투 불능 · 부활 시스템</h2>
+    <p>"체력이 0이 되면 할 게 없어 지루하다"는 문제를 풀기 위해, 죽음을 곧바로 실패로 처리하지 않고 빈사 → 전투 불능 2단계로 나눈 뒤 상황별 부활 방법 4종을 설계했습니다. SQEX와 세부 규칙을 여러 차례 조율하며 완성했습니다.</p>
+
+    <h3 class="sub-heading">2단계 상태와 부활 방법</h3>
+    <div style="overflow-x:auto;">
+      <table class="clean-table">
+        <tbody>
+          <tr><th>빈사 상태</th><td>체력 0이 되면 일정 시간 빈사 상태가 되며, 이 시간 동안만 아군의 도움으로 부활 가능</td></tr>
+          <tr><th>전투 불능 상태</th><td>빈사 시간이 만료되면 전환되며, 이후로는 아군에 의한 부활 불가 (즉시 부활 · 부활 포인트 이동만 가능)</td></tr>
+          <tr><th>아군에 의한 부활</th><td>빈사 상태인 플레이어 주변 "부활 영역"에 아군이 일정 시간 머물러야 부활, 이탈 시 진행도 감소</td></tr>
+          <tr><th>즉시 부활</th><td>재화(다이아몬드) 소모, 연속 사용 시 비용 누적 증가 · 일정 시간 미사용 시 초기 비용으로 리셋</td></tr>
+          <tr><th>부활 포인트에서 부활</th><td>가장 가까운 활성화된 포인트에서 부활 (배틀존 · 미션존 콘텐츠에서는 사용 불가)</td></tr>
+          <tr><th>미션 실패</th><td>배틀존 · 미션존처럼 폐쇄적 콘텐츠에서 스쿼드 전원이 전투 불능이 되면 콘텐츠 종료</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub-desc">콘텐츠 유형(일반 필드 · 배틀존 · 미션존 · GvG)별로 위 4가지 부활 방법 중 허용되는 조합을 표로 정리해 규칙 충돌이 없도록 관리했습니다.</p>
+
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="assets/screenshots/death-defeat-overview.png" alt="DEFEAT 화면, 스탯 패널과 Way point revival, Instant revive 버튼" loading="lazy" />
+        <p class="caption">전투 불능 화면: 부활 옵션(포인트 이동 · 즉시 부활)과 즉시 부활 비용 리셋 타이머 표시</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/death-ally-revive.png" alt="아군에 의한 부활 대기 화면, 부활 대기 시간 게이지" loading="lazy" />
+        <p class="caption">아군에 의한 부활 대기: 부활 영역 FX와 부활 대기 시간 게이지 표시, "SURVIVE HERE"로 즉시 부활 전환 가능</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/death-instant-revive-cost.png" alt="즉시 부활 확인 팝업, 다이아몬드 100개 소모" loading="lazy" />
+        <p class="caption">즉시 부활 확인 팝업: 재화(다이아몬드) 소모 안내, 재화 부족 시 상점으로 유도</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/death-mission-failed.png" alt="MISSION FAILED 화면, 스쿼드 전원 전투 불능" loading="lazy" />
+        <p class="caption">미션 실패 화면: 폐쇄형 콘텐츠에서 스쿼드 전원 전투 불능 시 종료 처리</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2>TPS 전면 전환</h2>
+    <p>소프트 런칭을 앞둔 마일스톤 막바지, SQEX로부터 듀얼 패드 슈팅 MMORPG(Top Down 시점)를 TPS PvP로 전면 전환해달라는 요청을 받았습니다. 장르 자체를 바꾸는 작업이라 팀 내에서도 불가능하다는 의견이 많았지만, 전투 핵심 인원으로 TFT를 꾸려 일주일 만에 방향성을 정의하고 완성도보다 "재미가 있는지"부터 빠르게 검증하는 방식으로 접근했습니다.</p>
+
+    <h3 class="sub-heading">진행 방식</h3>
+    <div style="overflow-x:auto;">
+      <table class="clean-table">
+        <tbody>
+          <tr><th>조직</th><td>전투 핵심 인원 위주로 TFT 구성, 상세 기획서 대신 간단한 명세와 히스토리 기록으로 개발 진행</td></tr>
+          <tr><th>검증 순서</th><td>완성도보다 "재미 여부"를 먼저 확인, 개발 · 테스트 · 피드백을 짧은 주기로 반복</td></tr>
+          <tr><th>범위</th><td>로비 · 매칭 Flow부터 전투 HUD, PvP 콘텐츠 규칙(파괴 점수 · 처치 점수 · 점수 저장 · 종료 조건)까지 마일스톤 기간 내 전체 재설계</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub-desc">진행 중 확정한 규칙과 알려진 이슈·개선 예정 항목은 빌드 가이드 문서로 정리해 QA 및 팀 전체에 공유했습니다.</p>
+
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="assets/screenshots/tps-lobby.png" alt="TPS 전환 후 로비 화면, BattleRoyal Escape 콘텐츠 카드" loading="lazy" />
+        <p class="caption">전환 후 로비 화면: 콘텐츠 카드 · 캐릭터 프리뷰 · 매칭 시작(START) 버튼 구성</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/tps-combat-view.png" alt="TPS 시점 전투 화면, 항구 지역 PvP 교전" loading="lazy" />
+        <p class="caption">TPS 시점 전투 화면: 어깨너머 시점으로 전환된 조작감, 우측 하단에 그래플링 훅 등 이동기 버튼 유지</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/tps-destruction-score.png" alt="구조물 파괴 시 Destruction Points 획득 화면" loading="lazy" />
+        <p class="caption">구조물 파괴 콘텐츠: 파괴 시 Destruction Points 획득, 팀 점수로 누적</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/tps-result-screen.png" alt="ESCAPE MODE RESULT 결과 화면" loading="lazy" />
+        <p class="caption">라운드 결과 화면: Player Kill · Destroy Object 등 항목별 점수와 MVP 표시</p>
+      </div>
+    </div>
+
+    <p class="sub-desc">전환 직후 진행한 사내 설문에서 "원작(저스트 코즈)의 느낌을 더 잘 계승한다", "기획서 없이도 히스토리를 남겨 문제가 없었다" 등 TPS 전환과 TFT 운영 방식에 대한 긍정적인 반응을 받았고, 동시에 "TFT별로 진행 방식이 달라 추후 룰 정리가 필요하다"는 개선 의견도 함께 수렴해 이후 TFT 운영 기준을 다듬는 데 반영했습니다. 이 마일스톤 이후 실제로 전투 핵심 시스템을 유지한 채 장르 전환에 성공했습니다.</p>
+  </section>
 </main>
 
 <footer class="site-footer">
