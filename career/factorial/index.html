@@ -78,6 +78,55 @@
   </section>
 
   <section class="resume-section">
+    <h2>인스턴스 콘텐츠 구조 설계 (배틀존 · 미션존)</h2>
+    <p>MMORPG 특성상 공용 필드에서는 다른 플레이어의 개입과 밸런스 조절 불가로 다이나믹한 전투 콘텐츠를 만들기 어렵다는 한계가 있었습니다. 이를 풀기 위해 인스턴스 던전 개념을 세계관에 맞게 배틀존 · 미션존으로 재정의하고, 콘텐츠 분류부터 매칭 · 예외 처리까지 체계 전체를 처음부터 설계했습니다. 이후 전투 불능 부활 규칙, TPS 전환의 PvP 매칭 등 다른 시스템들도 이 구조 위에서 확장되었습니다.</p>
+
+    <h3 class="sub-heading">콘텐츠 체계 정의</h3>
+    <div style="overflow-x:auto;">
+      <table class="clean-table">
+        <tbody>
+          <tr><th>위상 변화</th><td>같은 필드라도 이벤트 진행 여부에 따라 지형 · NPC가 다르게 보이도록 플레이어를 별도 위상으로 분리하는 개념, 배틀존 · 미션존은 이 개념을 UI 진입형 인스턴스 공간으로 구체화한 것</td></tr>
+          <tr><th>배틀존</th><td>반복 플레이 · 난이도 선택이 가능한 성장용 콘텐츠, 파괴 · 추격 · 보스전 등 필드에서 하기 어려운 다이나믹한 전투를 위해 사용</td></tr>
+          <tr><th>레이드</th><td>업적 · 미션 보상으로 얻는 티켓으로만 입장, 보스를 주기적으로 교체해 반복 플레이의 매너리즘을 방지</td></tr>
+          <tr><th>보급기지(소재 배틀존)</th><td>장비 제작 · 강화용 소재를 확정 획득하는 일일 콘텐츠, 제한 횟수 소진 후에는 결제로만 추가 진행</td></tr>
+          <tr><th>미션존</th><td>배틀존과 구성은 같지만 반복 · 난이도 선택이 불가능한 싱글 플레이 전용, 미션 흐름에 따라 NPC · 프랍을 트리거로 이동하는 공간</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub-desc">콘텐츠 종류를 늘릴 때마다 왜 필요한지를 먼저 정의해 문서에 남기는 방식으로 설계했습니다. 예를 들어 레이드 보스를 매주 교체하는 규칙은 퍼즐앤드래곤의 갓 페스티벌을 참고 사례로 들어, 같은 콘텐츠를 반복하며 생기는 매너리즘을 방지하기 위함이라고 근거를 명시했습니다.</p>
+
+    <h3 class="sub-heading">매칭 시스템과 예외 처리</h3>
+    <div style="overflow-x:auto;">
+      <table class="clean-table compare">
+        <thead>
+          <tr><th>상황</th><th>발생 이슈</th><th>처리 방식</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>서버 분산 접속</th>
+            <td>서로 다른 서버에 있는 플레이어들이 비슷한 시점에 매칭을 시도하면 통신 지연으로 패킷이 누락될 수 있음</td>
+            <td>팀 리더만 매칭 · 스쿼드 생성을 시작할 수 있도록 제한, 접속 끊김 플레이어는 재접속 대기 시간 동안 진입 여부를 다시 물어 부당 이득을 방지</td>
+          </tr>
+          <tr>
+            <th>매칭 중 초대 수락</th>
+            <td>매칭이 이미 시작된 뒤 초대를 수락하는 플레이어의 배치 기준이 필요함</td>
+            <td>빈 슬롯이 있으면 즉시 합류, 정원이 찼으면 정원 초과 팝업으로 안내</td>
+          </tr>
+          <tr>
+            <th>매칭 중 팀 탈퇴</th>
+            <td>팀과 스쿼드 UI가 분리되어 있지 않아 탈퇴 범위가 모호함</td>
+            <td>팀에서 탈퇴하면 스쿼드 · 매칭도 함께 취소되도록 통일해 상태 불일치를 제거</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub-desc">팀(필드, 최대 4인)과 스쿼드(배틀존 UI, 콘텐츠별 인원 상한 상이)를 별도 단위로 나누고, 매칭 종료 후 다시하기를 선택한 인원과 탈퇴하기를 선택한 인원이 섞이면 팀을 해산하는 등 종료 시점의 규칙까지 정의해 매칭 흐름 전체에 빈틈이 없도록 관리했습니다.</p>
+
+    <h3 class="sub-heading">SQEX와의 UI 확정 프로세스 협의</h3>
+    <p class="sub-desc">미션 개요서 리뷰 과정에서 SQEX가 화면 이동 정의, 화면 요소 정의, 정식 디자인 확정의 3단계 프로세스를 제안했습니다. 나중에 가서 이미 확정된 것으로 오해해 수정이 불가능해지는 상황을 막기 위한 절차였는데, 현재 문서가 몇 단계에 해당하는지와 다국어 대응을 고려해 텍스트보다 그래픽 위주로 UI를 구성하겠다는 방침을 답변으로 명시하며 협의를 진행했습니다.</p>
+  </section>
+
+  <section class="resume-section">
     <h2>전투 불능 · 부활 시스템</h2>
     <p>"체력이 0이 되면 할 게 없어 지루하다"는 문제를 풀기 위해, 죽음을 곧바로 실패로 처리하지 않고 빈사 → 전투 불능 2단계로 나눈 뒤 상황별 부활 방법 4종을 설계했습니다. SQEX와 세부 규칙을 여러 차례 조율하며 완성했습니다.</p>
 
@@ -117,20 +166,64 @@
   </section>
 
   <section class="resume-section">
-    <h2>TPS 전면 전환</h2>
-    <p>소프트 런칭을 앞둔 마일스톤 막바지, SQEX로부터 듀얼 패드 슈팅 MMORPG(Top Down 시점)를 TPS PvP로 전면 전환해달라는 요청을 받았습니다. 장르 자체를 바꾸는 작업이라 팀 내에서도 불가능하다는 의견이 많았지만, 전투 핵심 인원으로 TFT를 꾸려 일주일 만에 방향성을 정의하고 완성도보다 "재미가 있는지"부터 빠르게 검증하는 방식으로 접근했습니다.</p>
+    <h2>TPS · PvP 전면 전환</h2>
+    <p>소프트 런칭 이후 새로 부임한 SQEX PD로부터 듀얼 패드 슈팅 MMORPG(Top Down 시점)를 TPS PvP로 전면 전환해달라는 요청을 받았습니다. 카메라·조작 체계를 바꾸는 것은 물론, MMORPG 콘텐츠 전반을 매칭 기반 PvP 콘텐츠로 다시 설계해야 하는 작업이라 팀 내에서도 불가능하다는 의견이 많았지만, 전투 핵심 인원으로 TFT를 꾸려 일주일 만에 방향성을 정의하고 완성도보다 "재미가 있는지"부터 빠르게 검증하는 방식으로 접근했습니다.</p>
 
-    <h3 class="sub-heading">진행 방식</h3>
+    <h3 class="sub-heading">카메라 · 조작 전환</h3>
+    <p class="sub-desc">고도 표현 자동 조준으로 풀어왔던 Top Down 듀얼 패드 조작을, 배경이 화면을 가리지 않고 조준선이 직관적으로 보이는 TPS 어깨너머 시점으로 전면 교체했습니다. 그래플링 훅 · 파라슈트 등 기존 이동기 버튼 배치와 무기 조작 체계는 최대한 유지해, 팀원들이 기존에 만든 애셋과 밸런스를 크게 갈아엎지 않고도 새 시점에 적응할 수 있도록 했습니다.</p>
     <div style="overflow-x:auto;">
-      <table class="clean-table">
+      <table class="clean-table compare">
+        <thead>
+          <tr><th>구분</th><th>전환 전 (Top Down)</th><th>전환 후 (TPS)</th></tr>
+        </thead>
         <tbody>
-          <tr><th>조직</th><td>전투 핵심 인원 위주로 TFT 구성, 상세 기획서 대신 간단한 명세와 히스토리 기록으로 개발 진행</td></tr>
-          <tr><th>검증 순서</th><td>완성도보다 "재미 여부"를 먼저 확인, 개발 · 테스트 · 피드백을 짧은 주기로 반복</td></tr>
-          <tr><th>범위</th><td>로비 · 매칭 Flow부터 전투 HUD, PvP 콘텐츠 규칙(파괴 점수 · 처치 점수 · 점수 저장 · 종료 조건)까지 마일스톤 기간 내 전체 재설계</td></tr>
+          <tr>
+            <th>카메라</th>
+            <td>고정 각도의 부감 시점, 회전 없음</td>
+            <td>캐릭터 어깨너머 시점, 드래그로 카메라 회전 가능</td>
+          </tr>
+          <tr>
+            <th>조준</th>
+            <td>고도 차이를 자동 보정하는 오토 타겟팅 위주</td>
+            <td>화면 중앙 조준선 기반 수동 조준으로 전환, 헤드샷 등 부위별 대미지 개선 예정 항목으로 별도 정리</td>
+          </tr>
+          <tr>
+            <th>이동기 · 사격 버튼</th>
+            <td>원형 패드 하단에 그래플링 훅 · 윙슈트 · 파라슈트 배치</td>
+            <td>동일한 버튼 배치를 유지하되 위치 표시(FX, 크로스헤어 등)만 TPS 시점에 맞게 재조정</td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <p class="sub-desc">진행 중 확정한 규칙과 알려진 이슈·개선 예정 항목은 빌드 가이드 문서로 정리해 QA 및 팀 전체에 공유했습니다.</p>
+
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="assets/screenshots/tps-establishing-shot.png" alt="BattleRoyal Escape 모드 진입 배너, 항구 지역 전경을 담은 TPS 시점" loading="lazy" />
+        <p class="caption">모드 진입 화면: 어깨너머 시점으로 전환된 이후의 항구 지역 전경</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/tps-aim-view.png" alt="TPS 시점에서 다른 플레이어를 조준하는 화면, 무기 HUD와 미니맵 포함" loading="lazy" />
+        <p class="caption">TPS 조준 화면: 화면 중앙 조준선과 무기 · 미니맵 HUD, 이동기 버튼 배치</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/tps-combat-kill.png" alt="TPS 시점 교전 중 킬 로그가 표시되는 화면" loading="lazy" />
+        <p class="caption">실전 교전 화면: TPS 시점에서 실제로 PvP 교전과 킬 로그가 정상 동작하는 것을 확인</p>
+      </div>
+    </div>
+
+    <h3 class="sub-heading">PvP 콘텐츠 재설계</h3>
+    <p class="sub-desc">기존 MMORPG의 필드 · 미션 콘텐츠를 매칭 기반의 단발성 PvP 콘텐츠로 재설계했습니다. 최소 5인 · 최대 20인을 5팀으로 매칭하고, 구조물 파괴와 상대 처치로 얻은 개인 점수를 헬기 등 지정 지점에서 팀 점수로 저장하는 방식의 규칙을 새로 정의했습니다.</p>
+    <div style="overflow-x:auto;">
+      <table class="clean-table">
+        <tbody>
+          <tr><th>매칭 규칙</th><td>최소 5인 · 최대 20인, 5인 단위로 최대 5팀 구성. 1분간 매칭 진행 후 5인 이상이면 인원 미달이어도 시작</td></tr>
+          <tr><th>점수 시스템</th><td>구조물 파괴(파괴 점수) · 상대 처치(처치 점수, 처치 시 상대 개인 점수 탈취)로 개인 점수 획득</td></tr>
+          <tr><th>점수 저장</th><td>사망 시 개인 점수를 잃으므로, 맵에 주기적으로 스폰되는 헬기 지점에서 공용(팀) 점수로 저장</td></tr>
+          <tr><th>종료 조건</th><td>8분 제한 시간 종료 시 공용 점수가 가장 높은 팀이 승리, 사망 시 30초 후 제자리 부활</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub-desc">진행 중 확정한 규칙과 알려진 이슈 · 개선 예정 항목은 빌드 가이드 문서로 정리해 QA 및 팀 전체에 공유했습니다.</p>
 
     <div class="shot-gallery">
       <div class="shot-card">
@@ -138,17 +231,28 @@
         <p class="caption">전환 후 로비 화면: 콘텐츠 카드 · 캐릭터 프리뷰 · 매칭 시작(START) 버튼 구성</p>
       </div>
       <div class="shot-card">
-        <img src="assets/screenshots/tps-combat-view.png" alt="TPS 시점 전투 화면, 항구 지역 PvP 교전" loading="lazy" />
-        <p class="caption">TPS 시점 전투 화면: 어깨너머 시점으로 전환된 조작감, 우측 하단에 그래플링 훅 등 이동기 버튼 유지</p>
+        <img src="assets/screenshots/tps-destruction-score.png" alt="구조물 파괴 시 Destruction Points 획득 화면" loading="lazy" />
+        <p class="caption">구조물 파괴 콘텐츠: 파괴 시 Destruction Points 획득, 개인 점수로 누적</p>
       </div>
       <div class="shot-card">
-        <img src="assets/screenshots/tps-destruction-score.png" alt="구조물 파괴 시 Destruction Points 획득 화면" loading="lazy" />
-        <p class="caption">구조물 파괴 콘텐츠: 파괴 시 Destruction Points 획득, 팀 점수로 누적</p>
+        <img src="assets/screenshots/tps-team-points.png" alt="헬기 지점에서 팀 점수로 저장하는 Exchanging team points 화면" loading="lazy" />
+        <p class="caption">점수 저장 화면: 헬기 지점에서 개인 점수를 팀(공용) 점수로 교환</p>
       </div>
       <div class="shot-card">
         <img src="assets/screenshots/tps-result-screen.png" alt="ESCAPE MODE RESULT 결과 화면" loading="lazy" />
         <p class="caption">라운드 결과 화면: Player Kill · Destroy Object 등 항목별 점수와 MVP 표시</p>
       </div>
+    </div>
+
+    <h3 class="sub-heading">진행 방식</h3>
+    <div style="overflow-x:auto;">
+      <table class="clean-table">
+        <tbody>
+          <tr><th>조직</th><td>전투 핵심 인원 위주로 TFT 구성, 상세 기획서 대신 간단한 명세와 히스토리 기록으로 개발 진행</td></tr>
+          <tr><th>검증 순서</th><td>완성도보다 "재미 여부"를 먼저 확인, 개발 · 테스트 · 피드백을 짧은 주기로 반복</td></tr>
+          <tr><th>범위</th><td>카메라 · 조작 전환과 PvP 콘텐츠 재설계를 마일스톤 기간 내 병행 진행</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <p class="sub-desc">전환 직후 진행한 사내 설문에서 "원작(저스트 코즈)의 느낌을 더 잘 계승한다", "기획서 없이도 히스토리를 남겨 문제가 없었다" 등 TPS 전환과 TFT 운영 방식에 대한 긍정적인 반응을 받았고, 동시에 "TFT별로 진행 방식이 달라 추후 룰 정리가 필요하다"는 개선 의견도 함께 수렴해 이후 TFT 운영 기준을 다듬는 데 반영했습니다. 이 마일스톤 이후 실제로 전투 핵심 시스템을 유지한 채 장르 전환에 성공했습니다.</p>

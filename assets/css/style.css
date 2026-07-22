@@ -222,7 +222,7 @@ img { max-width: 100%; display: block; }
   height: 0.89rem;
   flex-shrink: 0;
   fill: var(--color-accent);
-  transform: rotate(148deg);
+  transform: rotate(35deg);
 }
 
 .section-card h2 {
@@ -237,13 +237,10 @@ img { max-width: 100%; display: block; }
   font-size: 0.9rem;
 }
 
-.section-card .tenure {
-  display: block;
-}
-
 .section-card .status {
   display: inline-block;
   margin-top: 12px;
+  margin-right: 6px;
   font-size: 0.75rem;
   padding: 2px 8px;
   border-radius: 999px;
@@ -778,6 +775,10 @@ table.clean-table.compare td:nth-child(3) { width: 45%; }
   color: var(--color-text-muted);
   font-size: 0.9rem;
   margin: 0 0 4px;
+}
+/* 표 바로 다음에 오는 sub-desc는 위쪽 여백이 없으면 답답해 보여서 띄움 */
+.resume-section div:has(> table.clean-table) + p.sub-desc {
+  margin-top: 16px;
 }
 
 @media (max-width: 600px) {
