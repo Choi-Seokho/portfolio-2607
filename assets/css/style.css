@@ -751,16 +751,19 @@ table.clean-table.compare td:nth-child(3) { width: 45%; }
   margin: 20px 0;
 }
 .shot-gallery.compact { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-.shot-gallery.compact .shot-card img { aspect-ratio: 4 / 3; object-fit: cover; }
+.shot-gallery.compact .shot-card img { flex: none; aspect-ratio: 4 / 3; object-fit: cover; }
 
 .shot-card {
+  display: flex;
+  flex-direction: column;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
 }
-.shot-card img { width: 100%; display: block; }
+/* 같은 행의 카드끼리 높이가 늘어나도(grid stretch) 이미지는 비율 유지한 채 칸 중앙에 배치 */
+.shot-card img { width: 100%; display: block; flex: 1 1 auto; min-height: 0; object-fit: contain; }
 .shot-card .caption { padding: 10px 14px; font-size: 0.85rem; color: var(--color-text-muted); }
 
 /* 세로가 긴 문서 페이지 스캔본 등 폭을 좁게 제한하고 싶을 때 */
