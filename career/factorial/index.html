@@ -95,6 +95,17 @@
     </div>
     <p class="sub-desc">콘텐츠 종류를 늘릴 때마다 왜 필요한지를 먼저 정의해 문서에 남기는 방식으로 설계했습니다. 예를 들어 레이드 보스를 매주 교체하는 규칙은 퍼즐앤드래곤의 갓 페스티벌을 참고 사례로 들어, 같은 콘텐츠를 반복하며 생기는 매너리즘을 방지하기 위함이라고 근거를 명시했습니다.</p>
 
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="assets/screenshots/battlezone-menu-overview.png" alt="배틀존 메뉴 화면, 콘텐츠 탭·월드 선택·배틀존 카드·난이도·매칭 버튼 구성" loading="lazy" />
+        <p class="caption">배틀존 메뉴: 콘텐츠 탭(시나리오 · 레이드 · 보급기지 · 방어전), 월드별 카드 목록, 난이도 · 보상 정보, 스쿼드 생성 · 퀵 매칭 버튼</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/missionzone-entry-popup.png" alt="미션존 진입 확인 팝업, Go to the mission zone 안내 문구와 AGREE 버튼" loading="lazy" />
+        <p class="caption">미션존 전용 진입 팝업: 배틀존과 달리 월드 이동을 거치므로 매칭 화면 대신 별도 동의 팝업으로 안내</p>
+      </div>
+    </div>
+
     <h3 class="sub-heading">매칭 시스템과 예외 처리</h3>
     <div style="overflow-x:auto;">
       <table class="clean-table compare">
@@ -122,8 +133,38 @@
     </div>
     <p class="sub-desc">팀(필드, 최대 4인)과 스쿼드(배틀존 UI, 콘텐츠별 인원 상한 상이)를 별도 단위로 나누고, 매칭 종료 후 다시하기를 선택한 인원과 탈퇴하기를 선택한 인원이 섞이면 팀을 해산하는 등 종료 시점의 규칙까지 정의해 매칭 흐름 전체에 빈틈이 없도록 관리했습니다.</p>
 
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="assets/screenshots/battlezone-disconnect-indicator.png" alt="파티원 포트레이트에 접속 끊김 아이콘이 표시된 화면" loading="lazy" />
+        <p class="caption">접속 끊김 표시: 재접속 대기 시간 동안 파티원 포트레이트에 끊김 상태 아이콘 표시</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/battlezone-reconnect-popup.png" alt="Reconnect 팝업, 진행 중인 게임에 재접속할지 묻는 화면" loading="lazy" />
+        <p class="caption">재접속 팝업: 대기 시간 내 재접속 시 진행 중인 배틀존 세션 재참여 여부 확인</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/battlezone-squad-full.png" alt="You can not join the squad 메시지가 표시된 화면" loading="lazy" />
+        <p class="caption">정원 초과 안내: 매칭 시작 후 초대를 수락했지만 스쿼드 슬롯이 이미 찬 경우</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/battlezone-leave-squad.png" alt="Leave the squad 확인 팝업과 뒤에 보이는 배틀존 스쿼드 생성 화면" loading="lazy" />
+        <p class="caption">스쿼드 나가기 확인 팝업: 뒤로 배틀존 스쿼드 생성 화면(멤버 포트레이트 · START BATTLE ZONE) 노출</p>
+      </div>
+    </div>
+
     <h3 class="sub-heading">SQEX와의 UI 확정 프로세스 협의</h3>
     <p class="sub-desc">미션 개요서 리뷰 과정에서 SQEX가 화면 이동 정의, 화면 요소 정의, 정식 디자인 확정의 3단계 프로세스를 제안했습니다. 나중에 가서 이미 확정된 것으로 오해해 수정이 불가능해지는 상황을 막기 위한 절차였는데, 현재 문서가 몇 단계에 해당하는지와 다국어 대응을 고려해 텍스트보다 그래픽 위주로 UI를 구성하겠다는 방침을 답변으로 명시하며 협의를 진행했습니다.</p>
+
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="assets/screenshots/mission-accept-popup.png" alt="미션 수락 팝업, MISSION TITLE·OBJECTIVE·DESCRIPTION과 ACCEPT·LATER 버튼" loading="lazy" />
+        <p class="caption">미션 수락 팝업 예시: 이 단계의 UI 예시 문서가 SQEX와 phase 정의를 협의한 대상</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/screenshots/mission-complete-reward.png" alt="MISSION SUCCESS 연출 화면, 보상 아이템과 재화 수량 표시" loading="lazy" />
+        <p class="caption">미션 완료 보상 연출: 완료 타이틀과 보상 슬롯 · 재화 아이콘 구성을 예시로 제시</p>
+      </div>
+    </div>
   </section>
 
   <section class="resume-section">
