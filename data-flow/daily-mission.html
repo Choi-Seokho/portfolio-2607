@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>데이터 흐름 · 일일 미션 | Choi Seokho · Game Designer</title>
+<link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="brand" href="../index.html">Choi Seokho · Game Designer</a>
+    <ul>
+      <li><a class="nav-link" href="../index.html">소개</a></li>
+      <li><a class="nav-link" href="../resume/index.html">이력서</a></li>
+      <li><a class="nav-link" href="../career/index.html">경력기술서</a></li>
+      <li><a class="nav-link active" href="../prototypes/craft-station/design.html">포트폴리오</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="page">
+  <nav class="subtab-nav">
+    <a href="../prototypes/craft-station/design.html">🎮 기획 및 프로토타입</a>
+    <a class="active" href="craft-station.html">🔗 데이터 흐름</a>
+    <a href="../ai-tool/overview.html">🤖 AI 툴 활용</a>
+  </nav>
+
+  <nav class="subtab-nav subtab-nav--inner">
+    <a href="craft-station.html">🛠️ 제작대 리뉴얼</a>
+    <a class="active" href="daily-mission.html">🗓️ 일일 미션</a>
+    <a href="game-mode.html">🎮 게임 모드</a>
+  </nav>
+
+  <div class="content-header">
+    <p class="eyebrow">DATA STRUCTURE</p>
+    <h1>🔗 데이터 흐름 · 일일 미션</h1>
+    <p>일일 미션의 슬롯 기반 미션 풀과, 여러 콘텐츠가 함께 쓰는 범용 보상 상자 구조를 dbdiagram.io로 그려봤습니다.</p>
+  </div>
+
+  <div class="note-box">
+    실제 서비스 중인 DT_*.Json 데이터의 컬럼명을 직접 대조해서 구성했습니다. 실 밸런스 수치, 사내 문서 링크 등
+    민감한 데이터는 포함하지 않았습니다. 아래는 <a href="https://dbdiagram.io" target="_blank" rel="noopener">dbdiagram.io</a>의
+    "DBML-in-Link" 뷰어를 임베드한 것으로, 별도 계정이나 서버 저장 없이 DBML 원문만으로 즉석에서 렌더링됩니다.
+  </div>
+
+  <div class="proto-section">
+    <h3>개요</h3>
+    <p>
+      일일 미션을 설계할 때, 슬롯별 미션 풀과 누적 완료 마일스톤이 각자 다른 보상 구조를 갖지 않도록
+      <strong>범용 보상 상자(DT_RewardBox)</strong> 하나를 공유하게 만들었습니다.
+      또한 미션 목표(<code>DT_MissionObjective</code>)는 일일 미션 전용이 아니라 여러 미션 시스템이 함께 참조하는 공용 테이블입니다.
+      <code>DT_MissionObjective.GameModeGroup</code>은 <a href="game-mode.html">게임 모드 다이어그램</a>의
+      <code>DT_GameMode_Group.Name</code>을 그대로 참조해, "이 미션은 어떤 게임 모드에서 진행할 수 있는가"를 게임 모드 구조 재사용만으로 표현합니다.
+    </p>
+  </div>
+
+  <div class="proto-section">
+    <h3>데이터 관계도</h3>
+    <p style="margin-bottom: 12px;">
+      <a id="dfOpenLink" href="#" target="_blank" rel="noopener">↗ 새 탭에서 크게 보기</a>
+      <span style="color: var(--color-text-muted); font-size: 0.85rem;"> (임베드가 보이지 않으면 이 링크를 이용해주세요)</span>
+    </p>
+    <div style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
+      <iframe id="dfFrame" title="일일 미션 데이터 관계도" style="width: 100%; height: 560px; border: 0; display: block;" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <div class="proto-section">
+    <h3>설계 포인트</h3>
+    <ol class="feature-list">
+      <li><strong>범용 보상 상자 재사용</strong>: 미션 풀과 마일스톤이 각자 보상 구조를 새로 만들지 않고, <code>DT_RewardBox</code> 하나를 <code>GroupId</code>로 공유하도록 설계했습니다.</li>
+      <li><strong>클래스별 변형을 그룹으로 묶기</strong>: 같은 보상 그룹 안에서도 <code>ClassFilter</code>로 클래스 전용 변형을 나눠, 겉보기엔 하나의 보상이지만 실제로는 클래스별로 다른 아이템이 나가도록 설계했습니다.</li>
+      <li><strong>미션 목표 테이블 재사용</strong>: <code>DT_MissionObjective</code>는 일일 미션만을 위한 테이블이 아니라, 여러 미션 시스템이 함께 참조하는 공용 목표 정의입니다.</li>
+      <li><strong>게임 모드와의 교차 참조</strong>: 미션이 진행 가능한 게임 모드 조건을, 별도 로직 없이 <a href="game-mode.html">게임 모드 그룹</a> 이름을 그대로 참조하는 것만으로 표현합니다.</li>
+    </ol>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오입니다.</p>
+  <p>게시가 허락된 내용으로만 구성되어 있습니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../assets/js/back-to-top.js"></script>
+<script src="assets/daily-mission.dbml.js"></script>
+<script src="assets/dbdiagram-embed.js"></script>
+<script>
+  mountDbdiagramEmbed(DM_DBML, document.getElementById('dfFrame'), document.getElementById('dfOpenLink'));
+</script>
+
+</body>
+</html>
