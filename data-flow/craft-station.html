@@ -36,7 +36,7 @@
 
   <div class="content-header">
     <p class="eyebrow">DATA STRUCTURE</p>
-    <h1>🔗 데이터 흐름 · 제작대 리뉴얼</h1>
+    <h1>🛠️ 제작대 리뉴얼</h1>
     <p>기획 시 설계했던 테이블 관계를 dbdiagram.io로 다시 그려봤습니다. 마우스 휠로 확대·축소, 드래그로 이동하며 참조 관계를 따라가볼 수 있습니다.</p>
   </div>
 
@@ -52,7 +52,7 @@
       제작대 리뉴얼(<a href="../prototypes/craft-station/design.html">기획 요약 보기</a>)을 설계할 때, 잠금 해제·레벨업·제작이라는
       서로 다른 3가지 행동이 같은 재료 구조를 공유하도록 <strong>통합 재료 테이블</strong> 하나로 묶었습니다.
       아래 다이어그램에서 각 테이블의 컬럼과 그 사이를 잇는 참조선을 직접 확대해서 살펴볼 수 있습니다.
-      예를 들어 <code>DT_WorkbenchMeterial.GroupId</code>에는 잠금 해제·레벨업·제작 3곳에서 뻗어나온 참조선이 동시에 모입니다.
+      예를 들어 <code>WorkbenchMeterial.GroupId</code>에는 잠금 해제·레벨업·제작 3곳에서 뻗어나온 참조선이 동시에 모입니다.
     </p>
   </div>
 
@@ -71,10 +71,10 @@
   <div class="proto-section">
     <h3>설계 포인트</h3>
     <ol class="feature-list">
-      <li><strong>통합 재료 테이블 재사용</strong>: 잠금 해제·레벨업·제작이 각자 재료 테이블을 따로 갖지 않고, <code>DT_WorkbenchMeterial</code> 하나를 <code>GroupId</code>로 묶어 공유하도록 설계했습니다. 재료 구성을 바꿀 때 한 곳만 수정하면 됩니다.</li>
+      <li><strong>통합 재료 테이블 재사용</strong>: 잠금 해제·레벨업·제작이 각자 재료 테이블을 따로 갖지 않고, <code>WorkbenchMeterial</code> 하나를 <code>GroupId</code>로 묶어 공유하도록 설계했습니다. 재료 구성을 바꿀 때 한 곳만 수정하면 됩니다.</li>
       <li><strong>서버/클라이언트 필드 분리</strong>: 제작대·레시피 테이블 안에서도 서버 로직에 필요한 필드와 클라이언트 표시 전용 필드(아이콘, 정렬 순서 등)를 CLIENT 배지로 구분해, 한 테이블이 두 가지 책임을 함께 갖고 있음을 명시했습니다.</li>
       <li><strong>교차 등급 제작 지원</strong>: 레시피의 장비 재료 필드(<code>RequipredItemDataId</code>)가 결과 아이템과 다른 등급을 참조할 수 있게 설계해, "낮은 등급 장비를 재료로 더 높은 등급 장비를 만드는" 기획 요구를 데이터 구조 차원에서부터 지원했습니다.</li>
-      <li><strong>이름 조회 체인</strong>: 제작대 이름이든 아이템 이름이든, 결국 <code>DT_String</code> 하나로 모이도록 설계해 다국어 처리를 일관되게 유지했습니다.</li>
+      <li><strong>이름 조회 체인</strong>: 제작대 이름이든 아이템 이름이든, 결국 <code>String</code> 하나로 모이도록 설계해 다국어 처리를 일관되게 유지했습니다.</li>
     </ol>
   </div>
 </main>

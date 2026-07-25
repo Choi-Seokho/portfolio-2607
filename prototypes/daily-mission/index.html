@@ -124,7 +124,7 @@ const MISSION_TYPES = {
   CraftSpecificItem: { label: '지정 제작' },
 };
 
-// ── 목업용 참조 데이터 (실제로는 DT_BaseItem, DT_Monster 등에서 조회) ──
+// ── 목업용 참조 데이터 (실제로는 BaseItem, Monster 등에서 조회) ──
 const REF_WEAPONS = {
   10001: '전투 소총', 10002: '산탄총', 10003: '저격 소총',
   10004: '도끼', 10005: '야구 방망이', 10006: '크로스보우',
@@ -141,24 +141,24 @@ const REF_ITEMS = {
 // 범용 보상 시스템 (3계층 분리)
 // ═══════════════════════════════════════════════════════════
 //
-// [Layer 1] DT_RewardBox — 보상 상자 정의 (비주얼 + 메타데이터)
+// [Layer 1] RewardBox — 보상 상자 정의 (비주얼 + 메타데이터)
 //   어떤 시스템이든 boxId만 참조하면 보상 지급 가능
 //   category: 'mission' | 'milestone' | 'class_level' | 'event' | ...
 //   classFilter: null(공용) | 'Brick' | 'Crow' | ... (클래스 전용)
 //
-// [Layer 2] DT_RandomSpawnKey — 슬롯별 확률 정의
+// [Layer 2] RandomSpawnKey — 슬롯별 확률 정의
 //   각 슬롯은 독립 롤 → 1~N개 결과
 //   notSpawnRatio: 빈 결과 확률 (1000 기준, 0=보장)
-//   groupId: DT_ItemSpawnGroup 참조
+//   groupId: ItemSpawnGroup 참조
 //
-// [Layer 3] DT_ItemSpawnGroup — 가중 아이템 풀
+// [Layer 3] ItemSpawnGroup — 가중 아이템 풀
 //   rate: 가중치, min/max: 수량 범위
 //
-// 참조 체인: DT_RewardBox.spawnKeyId → DT_RandomSpawnKey → groupId → DT_ItemSpawnGroup
+// 참조 체인: RewardBox.spawnKeyId → RandomSpawnKey → groupId → ItemSpawnGroup
 // ═══════════════════════════════════════════════════════════
 
-// ─── [Layer 3] DT_ItemSpawnGroup ─────────────────────
-const DT_ItemSpawnGroup = {
+// ─── [Layer 3] ItemSpawnGroup ─────────────────────
+const ItemSpawnGroup = {
   // 무기류
   GRP_WPN_MAIN: [
     { name: '전투 소총', rarity: 'Rare', rate: 250, min: 1, max: 1 },
@@ -237,8 +237,8 @@ const DT_ItemSpawnGroup = {
   ],
 };
 
-// ─── [Layer 2] DT_RandomSpawnKey ─────────────────────
-const DT_RandomSpawnKey = {
+// ─── [Layer 2] RandomSpawnKey ─────────────────────
+const RandomSpawnKey = {
   SK_WPN:        { slots: [{ notSpawnRatio: 0, groupId: 'GRP_WPN_MAIN' }, { notSpawnRatio: 400, groupId: 'GRP_WPN_SUB' }] },
   SK_ARM:        { slots: [{ notSpawnRatio: 0, groupId: 'GRP_ARM_MAIN' }, { notSpawnRatio: 350, groupId: 'GRP_ARM_SUB' }] },
   SK_SUP:        { slots: [{ notSpawnRatio: 0, groupId: 'GRP_SUP_MAIN' }, { notSpawnRatio: 300, groupId: 'GRP_SUP_SUB' }] },
@@ -247,9 +247,9 @@ const DT_RandomSpawnKey = {
   SK_MS_PREMIUM: { slots: [{ notSpawnRatio: 0, groupId: 'GRP_MS_PREMIUM_1' }, { notSpawnRatio: 200, groupId: 'GRP_MS_PREMIUM_2' }, { notSpawnRatio: 500, groupId: 'GRP_MS_PREMIUM_3' }] },
 };
 
-// ─── [Layer 1] DT_RewardBox — 범용 보상 상자 정의 ────
+// ─── [Layer 1] RewardBox — 범용 보상 상자 정의 ────
 // 어떤 시스템이든 boxId로 참조 가능
-const DT_RewardBox = {
+const RewardBox = {
   // ── 일일 미션 보상 ──
   BOX_WPN:  { name: '무기 상자',   icon: '⚔️', grade: 'Rare',      description: '다양한 무기류가 들어있는 상자',           spawnKeyId: 'SK_WPN',  category: 'mission', classFilter: null },
   BOX_ARM:  { name: '방어구 상자', icon: '🛡️', grade: 'Rare',      description: '방어구와 보호 장비가 들어있는 상자',       spawnKeyId: 'SK_ARM',  category: 'mission', classFilter: null },
@@ -355,16 +355,16 @@ const MISSION_POOLS = {
 // ─── 보상 시스템 API ─────────────────────────────────
 // boxId → RewardBox 조회
 function getRewardBox(boxId) {
-  return DT_RewardBox[boxId] || null;
+  return RewardBox[boxId] || null;
 }
 
 // SpawnKey의 슬롯들을 resolve (groupId → 실제 group 데이터)
 function resolveSlots(spawnKeyId) {
-  const key = DT_RandomSpawnKey[spawnKeyId];
+  const key = RandomSpawnKey[spawnKeyId];
   if (!key) return [];
   return key.slots.map(slot => ({
     notSpawnRatio: slot.notSpawnRatio,
-    group: DT_ItemSpawnGroup[slot.groupId] || [],
+    group: ItemSpawnGroup[slot.groupId] || [],
   }));
 }
 
@@ -393,7 +393,7 @@ function rollSlots(slots) {
 
 // boxId로 보상 롤 (어떤 시스템이든 이거만 호출)
 function rollRewardBox(boxId) {
-  const box = DT_RewardBox[boxId];
+  const box = RewardBox[boxId];
   if (!box) return [{ name: '알 수 없는 아이템', rarity: 'Common', count: 1 }];
   const slots = resolveSlots(box.spawnKeyId);
   return rollSlots(slots);
@@ -705,7 +705,7 @@ function TopNav() {
 function makeBoxTooltip(box, extra) {
   const slots = resolveSlots(box.spawnKeyId);
   const items = getPossibleItems(slots);
-  const spawnKey = DT_RandomSpawnKey[box.spawnKeyId];
+  const spawnKey = RandomSpawnKey[box.spawnKeyId];
   const maxItems = spawnKey ? spawnKey.slots.length : 0;
   const rarityRange = getRarityRange(slots);
   return { icon: box.icon, name: box.name, color: getBoxColor(box), borderColor: getBoxBorder(box), description: box.description, items, extra, slotCount: slots.length, maxItems, rarityRange };

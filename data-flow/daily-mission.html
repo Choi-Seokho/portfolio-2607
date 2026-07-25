@@ -36,12 +36,12 @@
 
   <div class="content-header">
     <p class="eyebrow">DATA STRUCTURE</p>
-    <h1>🔗 데이터 흐름 · 일일 미션</h1>
+    <h1>🗓️ 일일 미션</h1>
     <p>일일 미션의 슬롯 기반 미션 풀과, 여러 콘텐츠가 함께 쓰는 범용 보상 상자 구조를 dbdiagram.io로 그려봤습니다.</p>
   </div>
 
   <div class="note-box">
-    실제 서비스 중인 DT_*.Json 데이터의 컬럼명을 직접 대조해서 구성했습니다. 실 밸런스 수치, 사내 문서 링크 등
+    실제 서비스 중인 *.Json 데이터의 컬럼명을 직접 대조해서 구성했습니다. 실 밸런스 수치, 사내 문서 링크 등
     민감한 데이터는 포함하지 않았습니다. 아래는 <a href="https://dbdiagram.io" target="_blank" rel="noopener">dbdiagram.io</a>의
     "DBML-in-Link" 뷰어를 임베드한 것으로, 별도 계정이나 서버 저장 없이 DBML 원문만으로 즉석에서 렌더링됩니다.
   </div>
@@ -50,10 +50,10 @@
     <h3>개요</h3>
     <p>
       일일 미션을 설계할 때, 슬롯별 미션 풀과 누적 완료 마일스톤이 각자 다른 보상 구조를 갖지 않도록
-      <strong>범용 보상 상자(DT_RewardBox)</strong> 하나를 공유하게 만들었습니다.
-      또한 미션 목표(<code>DT_MissionObjective</code>)는 일일 미션 전용이 아니라 여러 미션 시스템이 함께 참조하는 공용 테이블입니다.
-      <code>DT_MissionObjective.GameModeGroup</code>은 <a href="game-mode.html">게임 모드 다이어그램</a>의
-      <code>DT_GameMode_Group.Name</code>을 그대로 참조해, "이 미션은 어떤 게임 모드에서 진행할 수 있는가"를 게임 모드 구조 재사용만으로 표현합니다.
+      <strong>범용 보상 상자(RewardBox)</strong> 하나를 공유하게 만들었습니다.
+      또한 미션 목표(<code>MissionObjective</code>)는 일일 미션 전용이 아니라 여러 미션 시스템이 함께 참조하는 공용 테이블입니다.
+      <code>MissionObjective.GameModeGroup</code>은 <a href="game-mode.html">게임 모드 다이어그램</a>의
+      <code>GameMode_Group.Name</code>을 그대로 참조해, "이 미션은 어떤 게임 모드에서 진행할 수 있는가"를 게임 모드 구조 재사용만으로 표현합니다.
     </p>
   </div>
 
@@ -72,9 +72,9 @@
   <div class="proto-section">
     <h3>설계 포인트</h3>
     <ol class="feature-list">
-      <li><strong>범용 보상 상자 재사용</strong>: 미션 풀과 마일스톤이 각자 보상 구조를 새로 만들지 않고, <code>DT_RewardBox</code> 하나를 <code>GroupId</code>로 공유하도록 설계했습니다.</li>
+      <li><strong>범용 보상 상자 재사용</strong>: 미션 풀과 마일스톤이 각자 보상 구조를 새로 만들지 않고, <code>RewardBox</code> 하나를 <code>GroupId</code>로 공유하도록 설계했습니다.</li>
       <li><strong>클래스별 변형을 그룹으로 묶기</strong>: 같은 보상 그룹 안에서도 <code>ClassFilter</code>로 클래스 전용 변형을 나눠, 겉보기엔 하나의 보상이지만 실제로는 클래스별로 다른 아이템이 나가도록 설계했습니다.</li>
-      <li><strong>미션 목표 테이블 재사용</strong>: <code>DT_MissionObjective</code>는 일일 미션만을 위한 테이블이 아니라, 여러 미션 시스템이 함께 참조하는 공용 목표 정의입니다.</li>
+      <li><strong>미션 목표 테이블 재사용</strong>: <code>MissionObjective</code>는 일일 미션만을 위한 테이블이 아니라, 여러 미션 시스템이 함께 참조하는 공용 목표 정의입니다.</li>
       <li><strong>게임 모드와의 교차 참조</strong>: 미션이 진행 가능한 게임 모드 조건을, 별도 로직 없이 <a href="game-mode.html">게임 모드 그룹</a> 이름을 그대로 참조하는 것만으로 표현합니다.</li>
     </ol>
   </div>
