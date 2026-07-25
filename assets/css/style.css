@@ -150,7 +150,6 @@ img { max-width: 100%; display: block; }
 .hero p.lead {
   color: var(--color-text-muted);
   font-size: 1.05rem;
-  max-width: 60ch;
 }
 
 .contact-links {
