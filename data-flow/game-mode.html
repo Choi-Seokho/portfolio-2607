@@ -63,8 +63,9 @@
       <a id="dfOpenLink" href="#" target="_blank" rel="noopener">↗ 새 탭에서 크게 보기</a>
       <span style="color: var(--color-text-muted); font-size: 0.85rem;"> (임베드가 보이지 않으면 이 링크를 이용해주세요)</span>
     </p>
-    <div style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
+    <div class="diagram-embed-wrap" style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;">
       <iframe id="dfFrame" title="게임 모드 데이터 관계도" style="width: 100%; height: 560px; border: 0; display: block;" loading="lazy"></iframe>
+      <div id="dfLoading" class="diagram-embed-loading"><span class="spinner"></span>관계도 불러오는 중...</div>
     </div>
   </div>
 
@@ -89,7 +90,7 @@
 <script src="assets/game-mode.dbml.js"></script>
 <script src="assets/dbdiagram-embed.js"></script>
 <script>
-  mountDbdiagramEmbed(GM_DBML, document.getElementById('dfFrame'), document.getElementById('dfOpenLink'));
+  mountDbdiagramEmbed(GM_DBML, document.getElementById('dfFrame'), document.getElementById('dfOpenLink'), document.getElementById('dfLoading'));
 </script>
 
 </body>

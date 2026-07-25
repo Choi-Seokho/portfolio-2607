@@ -188,7 +188,8 @@ img { max-width: 100%; display: block; }
 }
 
 .section-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
@@ -205,6 +206,7 @@ img { max-width: 100%; display: block; }
 
 .section-card .icon {
   font-size: 1.5rem;
+  line-height: 1;
   margin-bottom: 12px;
 }
 
@@ -235,6 +237,7 @@ img { max-width: 100%; display: block; }
   margin: 0;
   color: var(--color-text-muted);
   font-size: 0.9rem;
+  min-height: 3.4em;
 }
 
 .section-card .status {
@@ -250,6 +253,15 @@ img { max-width: 100%; display: block; }
 
 .section-card .status.ready {
   background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.section-card .cta {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: var(--color-accent);
 }
 
@@ -766,6 +778,29 @@ table.clean-table.compare td:nth-child(3) { width: 45%; }
 /* 세로가 긴 문서 페이지 스캔본 등 폭을 좁게 제한하고 싶을 때 */
 .shot-card.doc-page { max-width: 470px; margin: 0 auto; }
 
+/* 이미지 없이 텍스트만으로 다른 페이지로 유도하는 카드(바로가기) */
+.shot-card.link-card {
+  padding: 18px 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+.shot-card.link-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  text-decoration: none;
+}
+.shot-card.link-card .cta {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+.shot-card.link-card:hover .cta { text-decoration: underline; }
+
 .resume-section h3.sub-heading {
   font-size: 1rem;
   margin: 32px 0 4px;
@@ -824,4 +859,41 @@ table.clean-table.compare td:nth-child(3) { width: 45%; }
 
 @media (max-width: 600px) {
   .back-to-top { right: 16px; bottom: 16px; width: 40px; height: 40px; }
+}
+
+/* ===== dbdiagram.io 임베드 로딩 표시 ===== */
+.diagram-embed-wrap {
+  position: relative;
+}
+
+.diagram-embed-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  transition: opacity 0.2s ease;
+}
+
+.diagram-embed-loading .spinner {
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: diagram-spin 0.8s linear infinite;
+}
+
+.diagram-embed-loading.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes diagram-spin {
+  to { transform: rotate(360deg); }
 }

@@ -3,9 +3,12 @@
    https://dbdiagram.io/embed#c=... 형태의 URL을 만듦. 계정/서버 저장 없이 그 자리에서 렌더링됨.
    URL fragment(#)는 서버로 전송되지 않아 DBML 내용이 dbdiagram.io 서버 로그에 남지 않음. */
 
-function mountDbdiagramEmbed(dbml, iframeEl, linkEl) {
+function mountDbdiagramEmbed(dbml, iframeEl, linkEl, loadingEl) {
   const base64 = btoa(unescape(encodeURIComponent(dbml)));
   const url = 'https://dbdiagram.io/embed#c=' + encodeURIComponent(base64);
+  if (loadingEl) {
+    iframeEl.addEventListener('load', () => loadingEl.classList.add('is-hidden'), { once: true });
+  }
   if (iframeEl) iframeEl.src = url;
   if (linkEl) linkEl.href = url;
 }
