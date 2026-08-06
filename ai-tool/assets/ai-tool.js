@@ -32,6 +32,7 @@
     detailPanel: document.getElementById('mgDetailPanel'),
     history: document.getElementById('mgHistory'),
     side: document.getElementById('mgSide'),
+    hint: document.getElementById('mgHint'),
   };
 
   if (!el.viewport) return; // 이 페이지에 데모가 없으면 종료
@@ -309,6 +310,10 @@
     applyTransform();
   }
 
+  function markHintSeen() {
+    if (el.hint) el.hint.classList.add('mg-hint-seen');
+  }
+
   // ===== 이벤트 바인딩 =====
   el.viewport.addEventListener('mousedown', (e) => {
     state.dragging = true;
@@ -316,6 +321,7 @@
     state.lastX = e.clientX;
     state.lastY = e.clientY;
     el.viewport.classList.add('dragging');
+    markHintSeen();
   });
   window.addEventListener('mousemove', (e) => {
     if (!state.dragging) return;
@@ -336,6 +342,7 @@
   el.viewport.addEventListener('wheel', (e) => {
     e.preventDefault();
     zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.15 : 0.87);
+    markHintSeen();
   }, { passive: false });
 
   el.zoomIn.addEventListener('click', () => {

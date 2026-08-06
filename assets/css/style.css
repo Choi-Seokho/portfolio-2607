@@ -708,14 +708,15 @@ table.clean-table.compare td:nth-child(3) { width: 45%; }
   background: var(--color-accent);
 }
 .version-history .v-tag {
-  display: inline-block;
+  display: block;
+  width: fit-content;
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--color-accent);
   background: var(--color-accent-soft);
   border-radius: 999px;
   padding: 1px 9px;
-  margin-right: 8px;
+  margin-bottom: 6px;
 }
 
 .demo-cta {

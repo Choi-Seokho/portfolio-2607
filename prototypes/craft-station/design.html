@@ -120,6 +120,7 @@
       <li><strong>성장 가능 상태 표시</strong>: 잠금 해제·레벨업이 가능해지는 순간 실시간으로 시각 피드백</li>
       <li><strong>3D 아이템 프리뷰</strong>: 제작 화면 중앙에 선택한 아이템의 3D 모델을 표시, 마우스 드래그로 회전 가능</li>
       <li><strong>알림(레드닷)</strong>: 미등록 설계도 / 잠금해제 가능 / 레벨업 가능 중 하나라도 해당되면 진입점에 표시</li>
+      <li><strong>계정 단위 공유</strong>: 게임 내 첫 계정 공유 사례로, 제작대 해금과 설계도 수집처럼 시간 투자가 큰 콘텐츠를 캐릭터별로 나누면 다양한 캐릭터를 플레이하는 장점이 오히려 단점으로 느껴질 수 있다고 판단해 계정 내 모든 캐릭터가 공유하는 콘텐츠로 설계</li>
     </ol>
   </div>
 
@@ -143,10 +144,10 @@
 
   <div class="proto-section">
     <h3>데이터 구조</h3>
-    <p style="color: var(--color-text-muted); margin-bottom: 16px;">
-      6개 테이블로 제작대 정의·성장·레시피·재료를 분리 설계했습니다.
-      → <a href="../../data-flow/craft-station.html">인터랙티브 다이어그램으로 컬럼 관계 보기</a>
-    </p>
+    <div class="demo-cta">
+      <a class="primary" href="../../data-flow/craft-station.html">인터랙티브 다이어그램으로 컬럼 관계 보기 →</a>
+      <span style="color: var(--color-text-muted); font-size: 0.82rem; flex-basis: 100%;">6개 테이블로 제작대 정의·성장·레시피·재료를 분리 설계했습니다</span>
+    </div>
     <table class="clean-table">
       <tbody>
         <tr><th>제작대 정의</th><td>제작대 종류, 초기 해금 여부, 최대 레벨 등 기본 정보</td></tr>
@@ -187,8 +188,8 @@
 </main>
 
 <footer class="site-footer">
-  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오입니다.</p>
-  <p>게시가 허락된 내용으로만 구성되어 있습니다.</p>
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오이므로 작성자의 동의 없는 무단 사용을 금지합니다.</p>
+  <p>게시가 허가된 내용으로만 구성되어 있으며 보안을 위해 일부 내용이 변형되어있을 수 있습니다.</p>
 </footer>
 
 <button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>

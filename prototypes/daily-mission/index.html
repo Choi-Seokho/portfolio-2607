@@ -430,7 +430,7 @@ function App() {
   const [rerollCount, setRerollCount] = useState(0);
   const [rerollingId, setRerollingId] = useState(null); // 리롤 연출 중인 미션 id
   const [floatingQueue, setFloatingQueue] = useState([]); // 미션 완료 플로팅 큐
-  const MAX_REROLLS = 3;
+  const MAX_REROLLS = 5;
 
   const completedCount = useMemo(() => missions.filter(m => m.current >= m.target).length, [missions]);
 
