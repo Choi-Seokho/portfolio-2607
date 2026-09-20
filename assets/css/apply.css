@@ -1,0 +1,56 @@
+/* 지원용 이력서 페이지(apply/*) 전용 스타일 — style.css 위에 덧붙여 사용 */
+
+.apply-bar {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.apply-bar-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.apply-bar .brand {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--color-text);
+}
+
+.apply-portfolio-link {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.apply-portfolio-link:hover { text-decoration: none; opacity: 0.85; }
+
+/* 인쇄 / PDF 저장 */
+@media print {
+  .apply-bar,
+  .back-to-top { display: none !important; }
+
+  body { background: #fff; }
+  .page { padding-bottom: 0; }
+
+  .timeline-item,
+  .keyword-block,
+  .final-appeal,
+  .profile-card,
+  .info-box { break-inside: avoid; }
+
+  /* 접힌 담당업무도 인쇄 시 모두 보이도록 */
+  details > *:not(summary) { display: block; }
+}

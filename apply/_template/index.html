@@ -5,23 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
 <title>이력서 | Choi Seokho · Game Designer</title>
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png" />
-<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
-<link rel="stylesheet" href="../assets/css/style.css" />
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/icons/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/icons/favicon-16.png" />
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../../assets/css/style.css" />
+<link rel="stylesheet" href="../../assets/css/apply.css" />
 </head>
 <body>
 
-<header class="site-header">
-  <nav class="site-nav">
-    <a class="brand" href="../index.html">Choi Seokho · Game Designer</a>
-    <ul>
-      <li><a class="nav-link" href="../index.html">소개</a></li>
-      <li><a class="nav-link active" href="index.html">이력서</a></li>
-      <li><a class="nav-link" href="../career/index.html">경력기술서</a></li>
-      <li><a class="nav-link" href="../prototypes/craft-station/design.html">포트폴리오</a></li>
-    </ul>
-  </nav>
+<!--
+  지원용 이력서 템플릿 (이력서 + 자기소개서)
+  사용법: 이 폴더를 apply/<slug>/ 로 복제한 뒤 "회사별 수정" 주석 부분만 바꿉니다.
+  포트폴리오 사이트에서는 링크하지 않으므로, 제출할 회사의 URL만 직접 전달합니다.
+-->
+
+<header class="apply-bar">
+  <div class="apply-bar-inner">
+    <span class="brand">Choi Seokho · Game Designer</span>
+    <a class="apply-portfolio-link" href="../../index.html">포트폴리오 보기 →</a>
+  </div>
 </header>
 
 <main class="page">
@@ -43,7 +45,7 @@
     </div>
   </div>
 
-  <!-- 희망근무조건 / 지원분야 / 학력 -->
+  <!-- 희망근무조건 / 지원분야 / 학력 (회사별 수정: 지원분야 태그) -->
   <div class="info-grid">
     <div class="info-box">
       <h3>희망 근무조건</h3>
@@ -219,6 +221,52 @@
     </table>
   </section>
 
+  <!-- 자기소개서 (회사별 수정: 소개 문구, 키워드 블록, 최종 어필 전체) -->
+  <section class="resume-section cover-letter">
+    <h2>자기소개서</h2>
+    <p style="color: var(--color-text-muted); margin-bottom: 24px;">
+      11년간 게임 기획자로 일하며 쌓아온 경험과, 그 과정에서 만들어진 업무 방식을 아래 키워드로 설명합니다.
+    </p>
+
+    <div class="keyword-block">
+      <h3>키워드 1. 다양한 경험</h3>
+      <p>게임 기획을 시작한 지 11년이 넘었지만, 저는 시스템 기획자라는 타이틀에 갇히지 않고 필요한 순간마다 새로운 역할을 맡아왔습니다.</p>
+      <p>첫 회사에서는 기획팀이 팀장과 저, 단 둘 뿐이었습니다. AI 스크립트를 다룰 수 있는 사람이 아무도 없었고 결국 기획팀에서 맡아야 하는 업무였기 때문에, AI에 대한 이해가 전무한 상태에서 제가 그 업무를 맡게 됐습니다. 여러 게임의 캐릭터 움직임을 분석하고 AI 서적을 참고하며 기초를 다졌고, 이후에는 필요한 기능을 먼저 정리해 프로그래머에게 제안하는 수준까지 성장해 게임 내 모든 PC·NPC의 AI와 스킬 동작 방식을 전담했습니다. 이 과정에서 배경 디자이너의 업무 부담을 덜기 위해 자체 엔진을 사용한 레벨 디자인까지 자연스럽게 맡게 됐습니다.</p>
+      <p>돌이켜보면 '저만 할 수 있는 업무'를 계속 늘려온 것이 조직 관점에서는 리스크였다는 것도 함께 배운 시간이었습니다.</p>
+    </div>
+
+    <div class="keyword-block">
+      <h3>키워드 2. 문제 해결 능력</h3>
+      <p>정답이 정해져 있지 않은 문제일수록, 가설을 빠르게 세우고 검증하는 방식으로 접근하는 것이 제 방식입니다.</p>
+      <p>Factorial Games 합류 당시, 프로토타입 직후로 실제 기획서 하나 없이 개발이 진행되던 상황이었습니다. 기초 데이터 흐름부터 다시 설계하며 조작 방식의 근본적인 문제(화면 터치 조작 범위와 과다)를 발견해 전반적인 조작을 버튼-패드 기반으로 전면 개편했고, 탄속과 슈팅감 표현 문제를 3D-2D 변환 조준 방식으로 해결해 협력사 SQEX의 인정을 받아 실제 도입까지 이끌었습니다.</p>
+      <p>프로젝트 막바지에는 SQEX 요청으로 듀얼패드 슈팅에서 TPS로의 전면 전환이라는, 불가능하다고 여겨진 미션도 맡았습니다. 전투 핵심 인원으로 TFT를 꾸려 일주일 만에 방향성을 정의하고, 완성도보다 '재미가 있는지'부터 빠르게 검증하는 방식으로 개발·테스트·피드백을 실시간으로 돌린 결과, 마일스톤 기간 내에 모든 기능을 유지한 채 장르를 전환하는 것에 성공했습니다.</p>
+    </div>
+
+    <div class="keyword-block">
+      <h3>키워드 3. 책임감</h3>
+      <p>저는 기획자의 역할이 일정을 철저히 관리해 다른 팀 담당자들이 미리 대비할 수 있게 만드는 것, 그리고 그렇게 나온 결과물의 퀄리티까지 책임지는 것이라고 생각합니다.</p>
+      <p>원웨이티켓스튜디오에서 마일스톤 일정이 모두 확정된 상황에서 유저 피드백으로 인해 갑작스러운 일정 조율이 필요한 적이 있었습니다. 당시 기획팀장으로서 팀원은 물론 타 팀까지 기존 범위를 모두 소화하며 퀄리티까지 챙기는 것은 현실적으로 어렵다고 판단했습니다. 저는 먼저 기획·아트·테크 전 파트 담당자의 실제 워킹 데이를 직접 확인한 후, PD와 논의해 우선순위를 정리한 뒤 리드 회의를 소집해 일정을 재조정했습니다. 이후 단위가 큰 업무는 기획팀원에게 분배하고, 단위가 작은 업무는 제가 직접 맡아 빠르게 처리했습니다. 소통 단계를 줄이고 PD에게 바로 컨펌받을 수 있는 구조를 만드는 것이 당시로서는 가장 빠른 방법이라 판단했기 때문입니다. 그 결과 유저 테스트에 필요한 모든 결과물을 기한 내 완성할 수 있었습니다.</p>
+    </div>
+
+    <div class="keyword-block">
+      <h3>키워드 4. 커뮤니케이션</h3>
+      <p>하나의 문제에 몰입하다 보면 시야가 좁아지기 쉽다고 생각합니다. 그래서 저는 협업을 통해 생각을 확장하는 것을 중요하게 여깁니다.</p>
+      <p>원웨이티켓스튜디오에서 근접 전투 시스템 전면 개편을 맡았을 때, 당면한 목표는 "퀄리티를 올려야 한다는 것" 뿐 구체적인 해결책이 없는 상태였습니다. 저는 애니메이션·클라이언트 담당자 각 1명이 포함된 TFT 구성을 제안했고, 매일 문제점과 해결 방향을 논의해 매주 아이디어를 취합했습니다. 다들 주어진 마일스톤 기간 내에 끝내는 것이 불가능하다고 판단했지만, 전체 수량에 압도되기보다 무기 하나를 먼저 완성해 작업 규모를 가늠해보자고 제안했습니다. 실제로 하나를 완성하고 나니 남은 작업의 전체 그림을 파악할 수 있었고, 예상보다 높아진 퀄리티에 멤버들의 몰입도도 함께 올라갔습니다. 그 결과 마일스톤 기간 내에 모든 무기 시스템을 고도화했고, PD의 만족은 물론 이어진 유저 테스트에서도 긍정적인 평가를 받았습니다. 혼자였다면 이만한 결과를 만들어내기 어려웠을 것이라 생각합니다. 각 파트 전문가와 지속적으로 소통하며 관점을 모은 것이 이 성과를 가능하게 한 핵심이었습니다.</p>
+    </div>
+
+    <div class="keyword-block">
+      <h3>키워드 5. 나에게 게임이란</h3>
+      <p>어렸을 때부터 게임을 즐겁게 플레이해왔지만, 기획자가 된 이후에는 오히려 분석하며 플레이하느라 온전히 즐기지 못하는 시기가 있었고, 게임이 점점 재미없어지기까지 했습니다. 그 후로는 플레이할 때만큼은 기획자의 시선을 내려놓고 충분히 즐긴 뒤, 어느 지점에서 왜 재미를 느꼈는지 복기하는 방식으로 바꿨습니다. 슈퍼마리오의 풀과 구름이 BGM 박자에 맞춰 움직이는 것을 '왜 신이 나지?'를 되짚다 알게 됐고, 스파이더맨은 화면 연출과 캐릭터 모션, 사운드가 정교하게 맞물려 숙련될수록 자유자재로 움직이는 감각을 준다는 것을 알게 됐습니다. 이 과정에서 제작자의 의도를 더 깊이 느끼게 됐고, 게임은 예전보다 더 좋아졌습니다.</p>
+      <p>최근에는 PC, 콘솔, 모바일 외에 보드 게임에도 취미를 붙여 거의 매일 플레이하고 있는데, 이런 복기의 재미는 보드 게임에서 더 직접적으로 느껴집니다. 룰북만으로는 이해되지 않던 재미 요소가 실제 플레이에서 '이래서 이런 룰이었구나' 하고 이해될 때가 즐겁고, 자연스럽게 제가 만드는 게임이나 참여 중인 프로젝트에 적용해보곤 합니다.</p>
+    </div>
+
+    <div class="final-appeal">
+      <h3>최종 어필</h3>
+      <p>업무를 받으면 저는 가장 먼저 그 업무를 전달한 팀장 또는 PD에게 제가 이해한 의도가 맞는지 확인합니다. 이후 가능한 해결 방향을 2~3가지 안으로 나눠 각각의 장단점을 정리하고, 이를 팀 구성원과 리드에게 공유해 방향성이 맞는지 한 번 더 확인한 뒤에야 실제 업무를 진행합니다. 기획서 작성이 끝난 뒤에야 이해가 어긋났다는 걸 알게 되면 그만큼 시간 손실이 크기 때문입니다.</p>
+      <p>지시자와 의도를 정확히 맞추는 이 과정이, 결과적으로 업무를 제대로, 그리고 빠르게 해내는 가장 확실한 방법이라고 생각합니다. 11년간 시스템, 전투, 레벨 기획을 넘나들며 쌓아온 경험도 결국 이 과정 위에서 만들어진 결과였습니다. 다음 프로젝트에서도 이 방식으로 팀이 필요로 하는 순간에 확실한 결과로 답하겠습니다.</p>
+    </div>
+  </section>
+
   <!-- 병역사항 -->
   <section class="resume-section">
     <h2>병역사항</h2>
@@ -237,7 +285,13 @@
 </footer>
 
 <button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
-<script src="../assets/js/back-to-top.js"></script>
+<script src="../../assets/js/back-to-top.js"></script>
+<script>
+  // 인쇄/PDF 저장 시 접힌 "담당업무 자세히 보기"를 모두 펼침
+  window.addEventListener('beforeprint', function () {
+    document.querySelectorAll('details').forEach(function (d) { d.open = true; });
+  });
+</script>
 
 </body>
 </html>
