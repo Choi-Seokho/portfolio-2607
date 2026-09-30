@@ -63,6 +63,31 @@
   </div>
 
   <div class="proto-section">
+    <h3>설계 의도</h3>
+    <div style="overflow-x:auto;">
+      <table class="clean-table intent">
+        <thead>
+          <tr><th>해결하려던 문제</th><th>설계 방향</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>메인 미션은 클리어 주기가 길고 특정 허들 구간에서 진행이 오래 정체되어 이탈을 유발</td><td>매일 초기화되는 5개 목표로, 접속할 때마다 확인할 목표가 항상 존재하도록 설계</td></tr>
+          <tr><td>플레이어가 일부 콘텐츠만 반복해서 소비함</td><td>슬롯마다 성격(전투 / 탐색 / 경제 / 생존 / PvP)을 부여하고 파쇄·거래소·제작·무기 사용 유도 등 미션 타입을 새로 추가</td></tr>
+          <tr><td>단순 일일 미션만으로는 동기 부여가 부족함</td><td>일일 미션 보상으로 설계도를 얻을 수 있게 확장해 제작대 리뉴얼과 연결</td></tr>
+          <tr><td>미션 종류가 늘어날 때마다 보상 로직을 새로 만들어야 함</td><td>미션 타입과 무관하게 동작하는 범용 3계층 보상 구조로 재사용성 확보</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="proto-section">
+    <h3>성과</h3>
+    <ol class="feature-list">
+      <li>매일 확인할 목표를 제공해 접속 빈도를 끌어올림</li>
+      <li>인게임 파밍 외에 설계도 획득 경로가 생겨, 제작대 리뉴얼과 함께 파밍의 목적성이 강화됨</li>
+    </ol>
+  </div>
+
+  <div class="proto-section">
     <h3>화면</h3>
     <div class="shot-gallery">
       <div class="shot-card">
@@ -82,15 +107,6 @@
         <p class="caption">보상 획득 후: 수동 수령 처리 이후의 화면 상태</p>
       </div>
     </div>
-  </div>
-
-  <div class="proto-section">
-    <h3>성과</h3>
-    <ol class="feature-list">
-      <li>기존 메인 미션은 클리어 주기가 길고 특정 허들 구간에서 진행이 오래 정체되는 경향이 있어 이탈을 유발 - 매일 목표를 제공해 접속 빈도를 끌어올림</li>
-      <li>기존 미션 타입에 파쇄·거래소·제작·무기 사용 유도 등 다양한 타입을 새로 추가해, 각 콘텐츠를 골고루 소비하도록 설계</li>
-      <li>단순 일일 미션만으로는 동기 부여가 부족하다고 판단해, 일일 미션을 통해 설계도도 획득할 수 있도록 확장 - 인게임 파밍 외의 획득 경로를 추가해 목적성을 강화</li>
-    </ol>
   </div>
 
   <div class="proto-section">
