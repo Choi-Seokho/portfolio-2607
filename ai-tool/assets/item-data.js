@@ -70,11 +70,11 @@ const DV_ITEM_ROWS = [
   // BaseID 1007: 고대 유물 표본 — Legendary만 존재
   { Index: '10076', BaseID: '1007', Rarity: 'Legendary', Value: 3200, Weight: 0.4, Desc: '학계에 보고되지 않은 미확인 유물 표본.' },
 
-  // BaseID 1008: 봉인된 연구 일지 — Junk~Common (⚠ String 누락 데모)
+  // BaseID 1008: 봉인된 연구 일지 — Junk~Common (String 누락 데모)
   { Index: '10081', BaseID: '1008', Rarity: 'Junk', Value: 15, Weight: 0.4, Desc: '표지가 봉인되어 내용을 알 수 없는 일지.' },
   { Index: '10082', BaseID: '1008', Rarity: 'Common', Value: 50, Weight: 0.4, Desc: '일부 페이지가 해독된 봉인 일지.' },
 
-  // BaseID 1009: ⚠ BaseItem 자체가 존재하지 않음 (참조 끊김 데모)
+  // BaseID 1009: BaseItem 자체가 존재하지 않음 (참조 끊김 데모)
   { Index: '10091', BaseID: '1009', Rarity: 'Junk', Value: 10, Weight: 0.3, Desc: '출처가 명확하지 않은 부품 조각.' },
 
   // BaseID 1010은 BaseItem/String만 존재하고 Item 없음 (미사용 데이터 데모, 아래 DV_BASEITEM_ROWS 참고)
@@ -90,9 +90,9 @@ const DV_BASEITEM_ROWS = [
   { BaseID: '1005', StringTableID: 'ItemName_1005', Category: '자원', Desc: '정찰용 드론을 조립·수리하는 데 쓰이는 부품.' },
   { BaseID: '1006', StringTableID: 'ItemName_1006', Category: '도구', Desc: '장거리 무선 통신을 위한 휴대 단말기.' },
   { BaseID: '1007', StringTableID: 'ItemName_1007', Category: '유물', Desc: '출처를 알 수 없는 고대의 유물 조각.' },
-  // ⚠ 의도적 오류: String 테이블에 ItemName_1008 행이 없음 (문자열 누락)
+  // 의도적 오류: String 테이블에 ItemName_1008 행이 없음 (문자열 누락)
   { BaseID: '1008', StringTableID: 'ItemName_1008', Category: '유물', Desc: '표지가 봉인된 채 발견된 정체불명의 연구 기록물.' },
-  // ⚠ 미사용(고아) 데이터: 이 BaseID를 참조하는 Item이 없음
+  // 미사용(고아) 데이터: 이 BaseID를 참조하는 Item이 없음
   { BaseID: '1010', StringTableID: 'ItemName_1010', Category: '도구', Desc: '예전에 쓰이던 구형 휴대용 발전기. 현재는 사용되지 않는다.' },
 ];
 
@@ -151,11 +151,11 @@ const DV_TABLES = {
 function dvResolveItemName(item) {
   const baseItem = DV_BASEITEM_ROWS.find((b) => b.BaseID === item.BaseID);
   if (!baseItem) {
-    return { status: 'broken', text: `⚠ BaseItem 없음 (BaseID ${item.BaseID})` };
+    return { status: 'broken', text: `BaseItem 없음 (BaseID ${item.BaseID})` };
   }
   const str = DV_STRING_ROWS.find((s) => s.StringID === baseItem.StringTableID);
   if (!str) {
-    return { status: 'broken', text: `⚠ String 없음 (StringID ${baseItem.StringTableID})` };
+    return { status: 'broken', text: `String 없음 (StringID ${baseItem.StringTableID})` };
   }
   return { status: 'ok', text: str.Korean };
 }

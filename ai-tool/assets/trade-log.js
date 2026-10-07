@@ -229,7 +229,7 @@
     }
     const hint = state.onlyMatched
       ? '실제로 구매까지 체결된 거래 기준 TOP 5입니다.'
-      : '⚠ 등록가 기준 TOP 5입니다 — 회수·만료된(안 팔린) 매물이 섞여 있을 수 있습니다.';
+      : '등록가 기준 TOP 5입니다 — 회수·만료된(안 팔린) 매물이 섞여 있을 수 있습니다.';
     el.tabContent.innerHTML = `
       <h4>최고가 거래 TOP 5</h4>
       <p style="font-size:0.78rem;color:${state.onlyMatched ? '#7d7d88' : '#f97316'};margin:0 0 10px;">${hint}</p>

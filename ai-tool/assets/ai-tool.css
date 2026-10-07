@@ -521,3 +521,47 @@ table.tl-table tr.selected td { background: #22222f; }
   .tool-toolbar { flex-direction: column; align-items: stretch; }
   .mg-search { min-width: 0; }
 }
+
+/* ===== BattleLogViewer 데모 (무기 픽률 · 승률) ===== */
+table.wm-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+table.wm-table th {
+  background: #16161c; color: #9a9aa6; text-align: left; padding: 9px 14px; font-weight: 600;
+  border-bottom: 1px solid #2a2a33; white-space: nowrap; cursor: pointer; user-select: none;
+}
+table.wm-table th:hover, table.wm-table th.sorted { color: #eaeaf0; }
+table.wm-table td { padding: 8px 14px; border-bottom: 1px solid #1e1e26; color: #d0d0d8; vertical-align: middle; }
+table.wm-table tr:hover td { background: #1a1a22; }
+table.wm-table tr.wm-dim td { color: #6f6f7a; }
+.wm-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; }
+.wm-slot { margin-left: 8px; font-size: 0.72rem; color: #7d7d88; }
+.wm-bar { display: inline-block; width: 90px; height: 7px; background: #1c1c24; border-radius: 4px; overflow: hidden; vertical-align: middle; margin-right: 8px; }
+.wm-bar-fill { height: 100%; background: #6366f1; }
+.wm-bar-val { font-variant-numeric: tabular-nums; }
+.wm-note-tag { margin-left: 8px; font-size: 0.68rem; font-weight: 500; color: #8a8a94; background: #22222b; padding: 2px 7px; border-radius: 999px; }
+.wm-hint { margin: 10px 2px 0; font-size: 0.78rem; color: #7d7d88; }
+.wm-scatter { width: 100%; height: auto; display: block; }
+.wm-grid { stroke: #24242d; stroke-width: 1; }
+.wm-axis-main { stroke: #3a3a46; stroke-width: 1.2; }
+.wm-dash { stroke-dasharray: 4 4; stroke: #3a3a46; }
+.wm-tick { fill: #6f6f7a; font-size: 10px; }
+.wm-base-label { fill: #8b8bf5; font-size: 10.5px; font-weight: 600; }
+.wm-quad { fill: #5b5b66; font-size: 10.5px; font-weight: 600; }
+.wm-axis-label { fill: #8a8a94; font-size: 11px; }
+.wm-label { fill: #d0d0d8; font-size: 11px; }
+.wm-legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 8px 2px 16px; font-size: 0.78rem; color: #b7b7c2; }
+.wm-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
+.wm-legend-note { color: #7d7d88; margin-left: auto; }
+.wm-insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.wm-insight { padding: 12px 14px; border-radius: 8px; background: #16161c; border: 1px solid #2a2a33; border-left-width: 3px; }
+.wm-insight.wm-tone-hot { border-left-color: #f97316; }
+.wm-insight.wm-tone-hidden { border-left-color: #4ade80; }
+.wm-insight.wm-tone-over { border-left-color: #f87171; }
+.wm-insight-title { font-size: 0.78rem; font-weight: 700; color: #eaeaf0; margin-bottom: 6px; }
+.wm-insight-names { font-size: 0.85rem; color: #d0d0d8; line-height: 1.6; }
+.wm-insight-names span { color: #8a8a94; font-size: 0.75rem; }
+.wm-insight-desc { margin-top: 8px; font-size: 0.74rem; color: #7d7d88; line-height: 1.5; }
+.wm-steps { margin: 0; padding-left: 20px; }
+.wm-steps li { margin-bottom: 4px; }
+@media (max-width: 760px) {
+  .wm-legend-note { margin-left: 0; flex-basis: 100%; }
+}
