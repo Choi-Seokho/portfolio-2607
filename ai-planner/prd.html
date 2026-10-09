@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>기획 산출물 | AI 프로덕트 기획 포트폴리오 · Choi Seokho</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png" />
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../assets/css/style.css" />
+<link rel="stylesheet" href="../assets/css/apply.css" />
+<link rel="stylesheet" href="ai-planner.css" />
+<script data-goatcounter="https://choi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="apply-bar">
+  <div class="apply-bar-inner">
+    <a class="brand" href="index.html">Choi Seokho</a>
+    <nav class="ap-bar-links" aria-label="페이지">
+      <a href="index.html">소개</a>
+      <a href="prd.html" class="is-active" aria-current="page">기획 산출물</a>
+      <a href="ai.html">AI 도구 활용</a>
+      <a href="collab.html">협업과 의사결정</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="ap-page-head">
+    <p class="eyebrow">01 · 기획 산출물</p>
+    <h1>제작대 리뉴얼 PRD</h1>
+    <p class="lead">「The Midnight Walkers」(PC 좀비 익스트랙션 FPS)의 제작(Craft) 시스템 리뉴얼 기획입니다. 사내 기획서를 PRD 형식으로 다시 정리했고, 실제 수치와 사내 문서 링크는 뺐습니다.</p>
+    <nav class="ap-toc" aria-label="이 페이지의 항목">
+      <a href="#role">역할</a>
+      <a href="#problem">문제 정의</a>
+      <a href="#stories">사용자 스토리</a>
+      <a href="#flow">유저 플로우</a>
+      <a href="#policy">정책</a>
+      <a href="#data">데이터 구조</a>
+      <a href="#decisions">의사결정 기록</a>
+      <a href="#prototype">프로토타입</a>
+      <a href="#result">출시 후 결과</a>
+    </nav>
+  </section>
+
+  <section class="ap-section" id="role">
+    <h2>역할</h2>
+    <p>기획팀 팀장으로서 이 건을 직접 기획했습니다. 문제 정의, 규칙과 데이터 테이블 설계, 화면 구조 기획, 클릭해 볼 수 있는 프로토타입 제작, 다국어 텍스트 키 정리와 최종 목록 확정까지 맡았습니다.</p>
+  </section>
+
+  <section class="ap-section" id="problem">
+    <h2>배경과 문제 정의</h2>
+    <div class="ap-table-wrap">
+      <table class="ap-table stack">
+        <thead><tr><th>해결하려던 문제</th><th>설계 방향</th></tr></thead>
+        <tbody>
+          <tr><td data-label="해결하려던 문제">제작대가 아이템을 만드는 기능으로만 쓰여, 파밍과 성장을 이어주는 역할을 하지 못함</td><td data-label="설계 방향">파밍 목적, 수집, 거래 요소를 결합하고, 제작대 자체가 잠금 해제와 레벨업으로 성장하는 구조로 개편</td></tr>
+          <tr><td data-label="해결하려던 문제">모든 장비를 직접 제작하는 구조라 인게임 파밍(획득)과 제작의 목적이 겹침</td><td data-label="설계 방향">"보유 장비 강화"로 전환해 파밍은 획득, 제작대는 강화로 역할을 분리</td></tr>
+          <tr><td data-label="해결하려던 문제">상위 장비를 목표로 삼을 장기 동기가 부족함</td><td data-label="설계 방향">설계도 수집과 등록 시스템, 도감으로 장기 수집 목표 제공</td></tr>
+          <tr><td data-label="해결하려던 문제">시간 투자가 큰 콘텐츠를 캐릭터별로 나누면, 여러 캐릭터를 플레이하는 장점이 오히려 단점이 됨</td><td data-label="설계 방향">제작대 해금과 설계도 수집을 계정 단위로 공유 (게임 내 첫 계정 공유 사례)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ap-section" id="stories">
+    <h2>사용자 스토리와 수용 조건</h2>
+    <ol class="story-list">
+      <li>
+        <div class="who">스토리 1</div>
+        플레이어로서, 필요한 장비 종류에 맞는 제작대를 골라 쓰고 싶다.
+        <ul class="ac"><li>수용 조건: 제작대는 5종(회복, 무기, 방어구, 유틸리티, 재료)이며, 어떤 제작대에 어떤 레시피가 속하는지는 데이터로 설정한다.</li></ul>
+      </li>
+      <li>
+        <div class="who">스토리 2</div>
+        플레이어로서, 재료를 모아 제작대를 해금하고 성장시켜 더 높은 등급의 장비를 만들고 싶다.
+        <ul class="ac"><li>수용 조건: 초기에는 회복 제작대만 해금 상태이고 나머지는 재료를 모아 잠금 해제한다. 제작대는 Lv.1~5이며, 레벨이 오르면 제작 가능한 최대 등급이 확장되어 해당 등급 이하를 모두 제작할 수 있다.</li></ul>
+      </li>
+      <li>
+        <div class="who">스토리 3</div>
+        플레이어로서, 설계도를 얻으면 등록해 새 레시피를 계속 쓰고, 수집 현황을 한눈에 보고 싶다.
+        <ul class="ac"><li>수용 조건: 설계도는 등록 시 인벤토리에서 소모되고 해당 레시피가 영구 해금된다. 도감은 전체, 등록, 미발견 탭으로 상태를 보여준다.</li></ul>
+      </li>
+      <li>
+        <div class="who">스토리 4</div>
+        플레이어로서, 제작을 기다리지 않고 바로 결과를 받고 싶다.
+        <ul class="ac"><li>수용 조건: 제작은 대기열과 제작 시간 없이 즉시 완료되고, 결과물은 창고로 지급된다. 재화 비용 없이 아이템 재료만 사용하며, 즉시성은 2단계 연출(타격, 완성)로 보완한다.</li></ul>
+      </li>
+      <li>
+        <div class="who">스토리 5</div>
+        플레이어로서, 캐릭터를 바꿔도 제작대 해금과 설계도 수집 진행을 이어가고 싶다.
+        <ul class="ac"><li>수용 조건: 제작대 해금과 설계도 수집은 계정 단위로 저장되어 같은 계정의 모든 캐릭터가 공유한다.</li></ul>
+      </li>
+      <li>
+        <div class="who">스토리 6</div>
+        플레이어로서, 해금이나 레벨업이 가능해졌을 때 놓치지 않고 알고 싶다.
+        <ul class="ac"><li>수용 조건: 미등록 설계도, 해금 가능, 레벨업 가능 중 하나라도 해당하면 진입점에 알림(레드닷)을 표시한다.</li></ul>
+      </li>
+    </ol>
+  </section>
+
+  <section class="ap-section" id="flow">
+    <h2>유저 플로우</h2>
+    <div class="flow">
+      <div>
+        <p class="flow-label">제작</p>
+        <div class="flow-row">
+          <div class="flow-node is-start">제작대 선택<small>5종 카드, 잠금 · 해금 가능 · 해금 상태 표시</small></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">잠금 해제 확인<small>재료를 모았을 때만 진행</small></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">제작 화면<small>카테고리 · 3D 프리뷰 · 재료 선택 (3단)</small></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">제작<small>타격, 완성 2단계 연출, 즉시 완료</small></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node is-end">창고로 지급<small>계정 단위 저장</small></div>
+        </div>
+      </div>
+      <div>
+        <p class="flow-label">성장</p>
+        <div class="flow-row">
+          <div class="flow-node is-start">재료 모으기<small>인게임 파밍</small></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">제작대 레벨업<small>Lv.1~5, 성장 가능 상태 알림</small></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node is-end">제작 가능 최대 등급 확장<small>해당 등급 이하 모두 제작 가능</small></div>
+        </div>
+      </div>
+      <div>
+        <p class="flow-label">설계도</p>
+        <div class="flow-row">
+          <div class="flow-node is-start">설계도 획득<small>인게임 파밍, 일일 미션</small></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">설계도 등록<small>인벤토리에서 소모</small></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">레시피 영구 해금<small>해당 제작대에서 제작 가능</small></div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node is-end">설계도 도감<small>전체 · 등록 · 미발견 탭</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="policy">
+    <h2>정책 정의</h2>
+    <div class="ap-table-wrap">
+      <table class="ap-table">
+        <tbody>
+          <tr><td>제작대 수</td><td>5종 (회복 / 무기 / 방어구 / 유틸리티 / 재료)</td></tr>
+          <tr><td>초기 해금</td><td>회복 제작대만 기본 제공, 나머지는 재료를 모아 잠금 해제</td></tr>
+          <tr><td>최대 레벨</td><td>Lv.5, 레벨이 오를수록 제작 가능한 최대 등급이 확장</td></tr>
+          <tr><td>제작 방식</td><td>즉시 제작 (대기열, 제작 시간 없음), 2단계 연출로 즉시성 보완</td></tr>
+          <tr><td>장비 재료</td><td>레시피당 1종 1개 사용, 스탯은 결과물에 항상 승계</td></tr>
+          <tr><td>설계도</td><td>등록 시 인벤토리에서 소모, 이후 해당 레시피 영구 해금</td></tr>
+          <tr><td>수령 위치</td><td>창고(Stash) 고정 지급</td></tr>
+          <tr><td>저장 범위</td><td>계정 단위 저장 (같은 계정의 모든 캐릭터가 공유)</td></tr>
+          <tr><td>재화 비용</td><td>없음, 아이템 재료만으로 제작</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ap-section" id="data">
+    <h2>데이터 구조</h2>
+    <p class="ap-sub">제작대 정의, 성장, 레시피, 재료를 테이블 6개로 나눴습니다. 덕분에 레시피와 소속 제작대를 코드 수정 없이 데이터로 바꿀 수 있습니다.</p>
+    <div class="ap-table-wrap">
+      <table class="ap-table">
+        <tbody>
+          <tr><td>제작대 정의</td><td>제작대 종류, 초기 해금 여부, 최대 레벨 등 기본 정보</td></tr>
+          <tr><td>제작대 레벨</td><td>레벨별 요구 재료와 레벨업 시 확장되는 제작 가능 등급</td></tr>
+          <tr><td>제작 레시피</td><td>결과 아이템, 필요 재료(또는 설계도), 소속 제작대</td></tr>
+          <tr><td>통합 재료</td><td>잠금 해제, 레벨업, 제작에서 공통으로 쓰는 재료 묶음 (재화와 아이템 통합)</td></tr>
+          <tr><td>재료 타입 열거형</td><td>재료가 재화인지 아이템인지 구분</td></tr>
+          <tr><td>공용 상수</td><td>재료 최대 종류 수 등 시스템 전역 설정값</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ap-block">
+      <h3>설계 포인트</h3>
+      <ul>
+        <li><strong>통합 재료 테이블 재사용</strong>: 잠금 해제, 레벨업, 제작이 각자 재료 테이블을 따로 갖지 않고, <code>WorkbenchMeterial</code> 하나를 <code>GroupId</code>로 묶어 공유하도록 설계했습니다. 재료 구성을 바꿀 때 한 곳만 고치면 됩니다.</li>
+        <li><strong>서버, 클라이언트 필드 분리</strong>: 같은 테이블 안에서도 서버 로직에 필요한 필드와 클라이언트 표시 전용 필드(아이콘, 정렬 순서 등)를 구분해 표시했습니다.</li>
+        <li><strong>교차 등급 제작</strong>: 레시피의 장비 재료 필드가 결과 아이템과 다른 등급을 참조할 수 있게 해, "낮은 등급 장비를 재료로 더 높은 등급 장비를 만드는" 요구를 데이터 구조에서부터 지원했습니다.</li>
+        <li><strong>이름 조회 체인</strong>: 제작대 이름이든 아이템 이름이든 결국 <code>String</code> 하나로 모이게 해, 다국어 처리를 일관되게 유지했습니다.</li>
+      </ul>
+    </div>
+
+    <div class="ap-block">
+      <h3>데이터 관계도</h3>
+      <div class="ap-embed" id="diagramEmbed">
+        <div class="ap-embed-bar">
+          <span class="label"><span class="ap-live-dot"></span>마우스 휠로 확대·축소, 드래그로 이동할 수 있습니다</span>
+          <button type="button" class="ap-embed-btn" data-fullscreen="diagramEmbed">전체 화면</button>
+        </div>
+        <div class="ap-diagram-stage diagram-embed-wrap">
+          <iframe id="dfFrame" title="제작대 리뉴얼 데이터 관계도" loading="lazy"></iframe>
+          <div id="dfLoading" class="diagram-embed-loading"><span class="spinner"></span>관계도 불러오는 중...</div>
+        </div>
+      </div>
+      <p class="ap-note">사내 기획서(DBML)를 바탕으로 테이블, 컬럼, 참조 관계를 재현했고, 실제 밸런스 수치와 사내 문서 링크는 넣지 않았습니다. dbdiagram.io의 임베드 뷰어로 그렸습니다. 관계도가 보이지 않으면 <a id="dfOpenLink" href="#" target="_blank" rel="noopener">dbdiagram.io에서 열어 주세요</a>.</p>
+    </div>
+  </section>
+
+  <section class="ap-section" id="decisions">
+    <h2>의사결정 기록</h2>
+    <div class="ap-table-wrap">
+      <table class="ap-table stack">
+        <thead><tr><th>단계</th><th>결정과 이유</th></tr></thead>
+        <tbody>
+          <tr><td data-label="단계">초기</td><td data-label="결정과 이유">제작대별 레시피와 재료 구조를 설계하고, 클릭해 볼 수 있는 프로토타입으로 3단 레이아웃 제작 화면을 먼저 검증</td></tr>
+          <tr><td data-label="단계">변경</td><td data-label="결정과 이유">등급 범위(최소~최대) 방식을 "해당 등급 이하 모두 제작 가능"한 단일 최대 등급 방식으로 단순화. UI 표기도 범위 텍스트에서 등급 색상 뱃지로 변경</td></tr>
+          <tr><td data-label="단계">변경</td><td data-label="결정과 이유">3D 아이템 프리뷰를 고정 앵글에서 마우스 드래그로 회전하는 방식으로 바꾸고 프로토타입에 반영</td></tr>
+          <tr><td data-label="단계">변경</td><td data-label="결정과 이유">상단 진입점의 알림(레드닷) 표시 조건을 3가지로 정의해 성장 가능 상태를 놓치지 않도록 보완</td></tr>
+          <tr><td data-label="단계">정리</td><td data-label="결정과 이유">기획서 전반의 다국어 텍스트 키를 전수 점검해 중복과 누락을 정리하고 최종 목록 확정</td></tr>
+          <tr><td data-label="단계">결정</td><td data-label="결정과 이유">해금과 설계도 수집은 시간 투자가 큰 콘텐츠라 캐릭터별로 나누면 여러 캐릭터를 플레이하는 장점이 단점이 된다고 판단해, 계정 단위로 설계</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ap-section" id="prototype">
+    <h2>컨셉 합의용 프로토타입</h2>
+    <p class="ap-sub">문서만으로 설명하기 어려운 3단 화면과 성장 흐름은 클릭해 볼 수 있는 프로토타입으로 보완했습니다. 개발 수준의 구현이 아니라 컨셉을 합의하기 위한 산출물이고, 직접 눌러 보며 규칙을 확인해 의사결정 기록에 반영했습니다.</p>
+
+    <div class="ap-embed" id="protoEmbed">
+      <div class="ap-embed-bar">
+        <span class="label"><span class="ap-live-dot"></span>제작대 선택, 제작, 레벨업, 설계도 등록을 직접 눌러 볼 수 있습니다 (PC 화면 권장)</span>
+        <button type="button" class="ap-embed-btn" data-fullscreen="protoEmbed" hidden>전체 화면</button>
+      </div>
+      <div class="ap-proto-stage" id="protoStage" data-src="prototype/index.html" data-title="제작대 리뉴얼 프로토타입">
+        <button type="button" class="ap-proto-start" id="protoStart">
+          <img src="assets/shots/craft-01-landing.jpg" alt="" />
+          <span class="cta">
+            <span class="play">프로토타입 실행하기</span>
+            <span class="hint">처음 실행할 때 몇 초 걸릴 수 있습니다</span>
+          </span>
+        </button>
+        <div class="ap-proto-loading" id="protoLoading" hidden><span class="spinner"></span>프로토타입 불러오는 중...</div>
+      </div>
+    </div>
+
+    <div class="ap-block">
+      <h3>주요 화면</h3>
+      <div class="shot-gallery compact">
+        <div class="shot-card"><img src="assets/shots/craft-01-landing.jpg" alt="제작대 선택 화면" loading="lazy" /><p class="caption">제작대 선택 화면</p></div>
+        <div class="shot-card"><img src="assets/shots/craft-02-crafting.jpg" alt="제작 화면" loading="lazy" /><p class="caption">제작 화면 (3단 레이아웃)</p></div>
+        <div class="shot-card"><img src="assets/shots/craft-03-levelup.jpg" alt="제작대 레벨업" loading="lazy" /><p class="caption">제작대 레벨업</p></div>
+        <div class="shot-card"><img src="assets/shots/craft-04-blueprint-book.jpg" alt="설계도 도감" loading="lazy" /><p class="caption">설계도 도감</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="result">
+    <h2>출시 후 결과</h2>
+    <ul>
+      <li>개편 후 유저의 평균 이탈 시점이 7일에서 18일로 늘어, 플레이 수명이 길어졌습니다.</li>
+      <li>커뮤니티와 디스코드에서 "할 거리가 늘어 플레이 동기가 살아났다"는 반응이 나와, 설계도 수집 요소가 의도대로 작동했다고 판단했습니다.</li>
+      <li>모든 장비를 직접 제작하던 구조를 "보유 장비 강화"로 바꾼 뒤, 아이템 옵션의 가치가 올라가고 파밍의 목적도 더 분명해졌습니다.</li>
+    </ul>
+  </section>
+
+  <nav class="ap-pager" aria-label="이전, 다음 페이지">
+    <a class="prev" href="index.html"><span>이전</span>← 소개</a>
+    <a class="next" href="ai.html"><span>다음</span>02 AI 도구 활용 →</a>
+  </nav>
+
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오이므로 작성자의 동의 없는 무단 사용을 금지합니다.</p>
+  <p>게시가 허가된 내용으로만 구성되어 있으며 보안을 위해 일부 내용이 변형되어있을 수 있습니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../assets/js/back-to-top.js"></script>
+<script src="assets/diagram/craft-station.dbml.js"></script>
+<script src="assets/diagram/dbdiagram-embed.js"></script>
+<script>
+  mountDbdiagramEmbed(CS_DBML, document.getElementById('dfFrame'), document.getElementById('dfOpenLink'), document.getElementById('dfLoading'));
+</script>
+<script src="assets/embed.js"></script>
+
+</body>
+</html>

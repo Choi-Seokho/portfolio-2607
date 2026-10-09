@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>AI 도구 활용 | AI 프로덕트 기획 포트폴리오 · Choi Seokho</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png" />
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../assets/css/style.css" />
+<link rel="stylesheet" href="../assets/css/apply.css" />
+<link rel="stylesheet" href="assets/tool/ai-tool.css" />
+<link rel="stylesheet" href="ai-planner.css" />
+<script data-goatcounter="https://choi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="apply-bar">
+  <div class="apply-bar-inner">
+    <a class="brand" href="index.html">Choi Seokho</a>
+    <nav class="ap-bar-links" aria-label="페이지">
+      <a href="index.html">소개</a>
+      <a href="prd.html">기획 산출물</a>
+      <a href="ai.html" class="is-active" aria-current="page">AI 도구 활용</a>
+      <a href="collab.html">협업과 의사결정</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="ap-page-head">
+    <p class="eyebrow">02 · AI 도구 활용</p>
+    <h1>AI로 만든 기획 데이터 도구</h1>
+    <p class="lead">주로 Claude Code를 썼습니다. 개인 생산성 도구에 그치지 않고, 기획팀이 함께 쓰는 데이터 검증, 로그 분석 도구를 만드는 데 썼습니다. 아래 데모는 실제 사내 도구를 가상 데이터로 다시 구성한 것이라, 이 페이지 안에서 바로 조작해 볼 수 있습니다.</p>
+    <div class="ap-stats">
+      <div class="ap-stat"><strong>30+</strong><span>제작한 UI 모듈</span></div>
+      <div class="ap-stat"><strong>2</strong><span>자체 구축 MCP 서버</span></div>
+      <div class="ap-stat"><strong>20+</strong><span>Claude Code 스킬</span></div>
+      <div class="ap-stat"><strong>50+</strong><span>누적 세션 로그</span></div>
+    </div>
+    <nav class="ap-toc" aria-label="이 페이지의 항목">
+      <a href="#cases">사례와 검증</a>
+      <a href="#demos">데모 직접 조작하기</a>
+      <a href="#how">AI를 쓰는 방식</a>
+      <a href="#timeline">만들어 온 과정</a>
+    </nav>
+  </section>
+
+  <section class="ap-section" id="cases">
+    <h2>무엇을, 왜, 어떻게 만들고 어떻게 검증했나</h2>
+    <p class="ap-sub">도구 이름을 누르면 아래에서 해당 데모가 열립니다.</p>
+    <div class="ap-table-wrap">
+      <table class="ap-table stack">
+        <thead><tr><th>결과물</th><th>풀려던 문제</th><th>AI 활용 방식</th><th>검증과 결과</th></tr></thead>
+        <tbody>
+          <tr>
+            <td data-label="결과물"><a href="#demo-dataviewer">데이터 뷰어</a></td>
+            <td data-label="풀려던 문제">아이템 이름이 테이블 3개를 거쳐 완성되는데, 참조가 끊기거나 문자열이 빠져도 겉으로는 알기 어려움</td>
+            <td data-label="AI 활용 방식">키 값 하나로 전체 테이블을 검색해 참조 체인을 보여주는 도구를 Claude Code로 제작</td>
+            <td data-label="검증과 결과">끊긴 참조, 문자열 누락, 미사용 데이터를 한 번에 확인. 데모에서는 일부러 넣은 오류 3건을 찾아내는 시나리오로 보여줌</td>
+          </tr>
+          <tr>
+            <td data-label="결과물"><a href="#demo-tradelog">거래 로그 뷰어</a></td>
+            <td data-label="풀려던 문제">OpenSearch 기본 대시보드로는 원하는 시각화가 어렵고, 기획자와 매니저도 로그를 쉽게 볼 수 있어야 했음</td>
+            <td data-label="AI 활용 방식">원시 로그를 경제 분석 대시보드로 바꾸는 도구를 Claude Code로 제작</td>
+            <td data-label="검증과 결과">개발 중 등록 로그만 보면 안 팔린 매물이 최고가 순위에 섞이는 문제를 발견해, 거래 ID로 등록과 구매 로그를 매칭하고 체결된 거래만 집계하도록 수정</td>
+          </tr>
+          <tr>
+            <td data-label="결과물"><a href="#demo-battlelog">전투 로그 뷰어 (무기 픽률, 승률)</a></td>
+            <td data-label="풀려던 문제">출시 후 무기 선택과 성능을 감이 아니라 로그로 확인하고 싶었음</td>
+            <td data-label="AI 활용 방식">입장 로그와 킬 로그를 결합하고, 킬 로그에 없는 피해자의 무기는 입장 로그를 역추적해 집계하는 도구를 제작</td>
+            <td data-label="검증과 결과">데스가 보유 무기 전부에 집계되는 한계를 밝히고, 전체 평균을 기준선으로 삼아 상대 비교로만 해석. 표본이 적은 무기는 걸러서 봄</td>
+          </tr>
+          <tr>
+            <td data-label="결과물"><a href="#demo-mapgenie">맵 지니</a></td>
+            <td data-label="풀려던 문제">레벨 맵의 아이템, 몬스터, 기믹 스폰 위치와 드롭 확률을 지도 위에서 한 번에 확인하고 싶었음</td>
+            <td data-label="AI 활용 방식">맵 이미지 위에 스폰 위치를 겹쳐 보여주고 드롭 테이블과 연결하는 도구를 여러 세션에 걸쳐 점진적으로 개선</td>
+            <td data-label="검증과 결과">아이템 이름으로 검색하면 그 아이템을 드롭하는 오브젝트만 지도에 표시되어, 배치와 드롭 데이터를 한 화면에서 확인</td>
+          </tr>
+          <tr>
+            <td data-label="결과물"><a href="prd.html#prototype">제작대 인터랙티브 프로토타입</a></td>
+            <td data-label="풀려던 문제">문서만으로 설명하기 어려운 3단 화면과 성장 흐름을 합의해야 했음</td>
+            <td data-label="AI 활용 방식">클릭해 볼 수 있는 HTML 프로토타입을 AI로 제작</td>
+            <td data-label="검증과 결과">직접 눌러 보며 규칙을 확인하고, 3D 프리뷰 회전과 알림 조건 등을 문서에 반영</td>
+          </tr>
+          <tr>
+            <td data-label="결과물">경제 대시보드 점검</td>
+            <td data-label="풀려던 문제">대시보드 집계가 실제 로그와 맞는지 확인이 필요했음</td>
+            <td data-label="AI 활용 방식">집계 로직을 직접 점검</td>
+            <td data-label="검증과 결과">로그 필드 불일치로 코인 수입이 실제의 1/10로 과소 집계되던 문제를 찾아 수정</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ap-section" id="demos">
+    <h2>데모 직접 조작하기</h2>
+    <p class="ap-sub">탭을 눌러 도구를 바꿔 볼 수 있습니다. 로그 데이터, 무기 이름, 수치는 실제 서비스 데이터가 아닌 가상 데이터이고, 구조와 동작 방식만 재현했습니다.</p>
+    <div class="demo-tabs" role="tablist" aria-label="AI 도구 데모">
+      <button type="button" role="tab" id="tab-dataviewer" aria-controls="demo-dataviewer" aria-selected="true">데이터 뷰어</button>
+      <button type="button" role="tab" id="tab-tradelog" aria-controls="demo-tradelog" aria-selected="false" tabindex="-1">거래 로그 뷰어</button>
+      <button type="button" role="tab" id="tab-battlelog" aria-controls="demo-battlelog" aria-selected="false" tabindex="-1">전투 로그 뷰어</button>
+      <button type="button" role="tab" id="tab-mapgenie" aria-controls="demo-mapgenie" aria-selected="false" tabindex="-1">맵 지니</button>
+    </div>
+    <div class="demo-panel" id="demo-dataviewer" role="tabpanel" aria-labelledby="tab-dataviewer">
+  <section class="tool-section">
+    <p class="tool-eyebrow">DataViewer</p>
+    <h2>JSON 게임 데이터를 SQL처럼 조회하는 도구</h2>
+    <p class="tool-desc">
+      이 도구의 핵심은 단순 조회가 아니라, <strong>키 값 하나를 전체 테이블 대상으로 한 번에 검색해 참조 무결성을 확인하는 것</strong>이었습니다.
+      아이템 이름은 <code>Item.BaseID → BaseItem.StringTableID → String.Korean</code> 3단계를 거쳐야 완성되는데,
+      이 체인 어딘가가 끊기거나 안 쓰이는 데이터가 남아있어도 겉으로는 티가 안 납니다. 아래 데모는 그 체인을 재현하고,
+      키 검색으로 끊긴 참조·미사용 데이터를 실제로 찾아냅니다.
+      <strong>테이블·컬럼명·데이터는 전부 가칭으로 재구성한 샘플입니다 (실제 게임 스키마 아님).</strong>
+    </p>
+
+    <div class="tool-frame dv-app">
+      <div class="tool-live-banner"><span class="tool-live-dot"></span>Live Demo · 실제로 조작 가능한 도구입니다. 검색창에 값을 입력하고 탭을 눌러 직접 조회해보세요</div>
+      <div class="tool-toolbar dv-global-search-bar">
+        <span class="dv-table-tag">전역 키 검색</span>
+        <input type="text" id="dvGlobalSearchInput" placeholder="Index / BaseID / StringID / 분류명 등 (예: 1009, ItemName_1008, 1010)" />
+        <button class="tool-btn primary" id="dvGlobalSearchBtn">전체 테이블 검색</button>
+        <button class="tool-btn" id="dvGlobalResetBtn">초기화</button>
+      </div>
+
+      <div class="tool-toolbar">
+        <div class="dv-tabs" id="dvTabs"></div>
+        <select id="dvRaritySelect">
+          <option value="">전체 등급 (Item 탭 전용)</option>
+        </select>
+      </div>
+      <div class="dv-table-wrap">
+        <table class="dv-table">
+          <thead>
+            <tr id="dvHeaderRow"></tr>
+          </thead>
+          <tbody id="dvTableBody"></tbody>
+        </table>
+      </div>
+      <div class="dv-footer"><span><span id="dvCount"></span><span id="dvErrorCount" class="dv-error-count"></span></span><span>가상 샘플 데이터 · 실제 스키마 아님</span></div>
+    </div>
+
+    <div class="note-box">
+      <strong>주황색 표시 안내</strong>: <code>ResolvedName</code>의 "String 없음"은 참조하는 StringTableID가
+      String 테이블에 없어 이름이 끊긴 데이터를, <code>RefCount</code>의 "0건 (미사용)"은 어떤 Item도 참조하지 않는
+      미사용 데이터를 뜻합니다. 실제 업무에서도 이런 표시로 대량의 테이블 중 정리가 필요한 항목을 빠르게 찾아냈습니다.
+      표 우측 하단 표시 개수 옆의 <strong>Error N건</strong>이 현재 탭에 몇 건의 이상이 있는지 바로 보여줍니다.
+    </div>
+
+    <div class="real-use-block">
+      <span class="real-use-label">실사용 화면</span>
+      <div class="real-use-grid">
+        <div class="real-use-card">
+          <img src="assets/tool/screenshots/dataviewer-real-use-global-search.png" alt="데이터 조회 실사용 화면 - 키 값 검색을 통한 사용처 확인" loading="lazy" />
+          <p class="caption">키 값 하나로 166개 전체 테이블을 검색해 42개 테이블·800건의 사용처를 한 번에 확인하는 실제 화면입니다.</p>
+        </div>
+        <div class="real-use-card">
+          <img src="assets/tool/screenshots/dataviewer-real-use-item-search.png" alt="데이터 조회 실사용 화면 - 아이템 스폰 그룹에서 아이템 이름 검색" loading="lazy" />
+          <p class="caption">아이템 이름으로 스폰 그룹 테이블을 검색해 해당 아이템의 실제 획득처(드랍 경로)를 추적하는 실제 화면입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+    </div>
+    <div class="demo-panel" id="demo-tradelog" role="tabpanel" aria-labelledby="tab-tradelog" hidden>
+  <section class="tool-section">
+    <p class="tool-eyebrow">TradeLogViewer</p>
+    <h2>거래소 원시 로그를 경제 분석 대시보드로 바꾸는 도구</h2>
+    <p class="tool-desc">
+      기획자·매니저도 OpenSearch 없이 시각적으로 정리된 정보를 볼 수 있어야 했는데, OpenSearch 기본 제공 대시보드만으로는
+      원하는 방식의 시각화에 한계가 있어 직접 개발했습니다. 개발 중 거래 <strong>등록</strong> 로그만 보면 "최고가 매물"에
+      실제로 안 팔린 아이템이 섞여 나오는 문제를 발견해, <code>TradeId</code>로 등록·구매 로그를 매칭해 실제로 체결된
+      거래만 걸러내도록 수정했습니다. 아래 데모에서 우측 상단 <strong>"체결된 거래만 보기"</strong> 토글을 꺼보면 그
+      차이를 직접 확인할 수 있습니다.
+      <strong>로그 데이터는 실제 서비스 로그가 아닌 데모용으로 가상 재구성했습니다.</strong>
+    </p>
+
+    <div class="tool-frame tl-app">
+      <div class="tool-live-banner"><span class="tool-live-dot"></span>Live Demo · 실제로 조작 가능한 도구입니다. "체결된 거래만 보기" 토글을 꺼보고 검색으로 직접 필터링해보세요</div>
+      <div class="tool-toolbar">
+        <div class="tl-search">
+          <input type="text" id="tlItemSearch" placeholder="아이템명 검색 (예: 손전등)" />
+        </div>
+        <div class="tl-search">
+          <input type="text" id="tlUserSearch" placeholder="구매자 검색 (예: 한밤의그림자)" />
+        </div>
+        <select id="tlRaritySelect">
+          <option value="">전체 등급</option>
+        </select>
+        <button class="tool-btn" id="tlResetBtn">초기화</button>
+      </div>
+      <div class="tool-toolbar">
+        <div class="tl-type-filters" id="tlTypeFilters"></div>
+        <label class="tl-match-toggle">
+          <input type="checkbox" id="tlMatchToggle" checked />
+          체결된 거래만 보기 (개요 · 최고가 순위 기준)
+        </label>
+      </div>
+
+      <div class="tl-stat-row" id="tlStatRow"></div>
+
+      <div class="tl-tabs" id="tlTabs">
+        <div class="tl-tab active" data-tab="overview">개요</div>
+        <div class="tl-tab" data-tab="items">인기아이템</div>
+        <div class="tl-tab" data-tab="price">가격분석</div>
+        <div class="tl-tab" data-tab="users">유저활동</div>
+        <div class="tl-tab" data-tab="timeline">시간대</div>
+      </div>
+      <div class="tl-tab-content" id="tlTabContent"></div>
+
+      <div class="tl-detail-panel" id="tlDetailPanel"><span class="empty">로그를 클릭하면 상세 정보가 표시됩니다.</span></div>
+
+      <div class="tl-table-wrap">
+        <table class="tl-table">
+          <thead>
+            <tr id="tlHeaderRow">
+              <th class="tl-th" data-key="time">시간</th><th class="tl-th" data-key="type">유형</th><th class="tl-th" data-key="itemName">아이템</th><th class="tl-th" data-key="rarity">등급</th><th class="tl-th" data-key="count">수량</th><th class="tl-th" data-key="price">가격</th><th class="tl-th" data-key="tradeId">거래ID</th><th class="tl-th" data-key="buyerName">구매자</th>
+            </tr>
+          </thead>
+          <tbody id="tlTableBody"></tbody>
+        </table>
+      </div>
+      <div class="tl-pagination" id="tlPagination">
+        <button class="tl-page-btn" id="tlPagePrev" type="button">‹ 이전</button>
+        <span class="tl-page-info" id="tlPageInfo"></span>
+        <button class="tl-page-btn" id="tlPageNext" type="button">다음 ›</button>
+      </div>
+      <div class="dv-footer"><span id="tlCount"></span><span>가상 샘플 로그 · 실제 서비스 데이터 아님</span></div>
+    </div>
+
+    <div class="note-box">
+      <strong>"체결된 거래만 보기" 토글 안내</strong>: 토글을 끄면 <strong>등록가 기준</strong> 최고가 TOP 5를 보여줍니다.
+      등록만 되고 실제로는 안 팔리거나 회수·만료된 매물도 순위에 섞여, 실제와 다른 순위가 나올 수 있습니다. 토글을 켜면
+      <code>TradeId</code>로 구매 로그와 매칭된, <strong>실제로 체결된 거래</strong>만 집계합니다. 개발 중 실제로 겪었던
+      데이터 착시 문제를 그대로 재현한 것입니다.
+    </div>
+
+    <div class="real-use-block">
+      <span class="real-use-label">실사용 화면</span>
+      <div class="real-use-grid">
+        <div class="real-use-card">
+          <img src="assets/tool/screenshots/tradelogviewer-real-use.png" alt="거래소 로그 분석 실사용 화면 - 개요 탭" loading="lazy" />
+          <p class="caption">사내에서 실제로 사용 중인 거래소 로그 분석 화면입니다. 로그 검색 결과는 비밀 유지를 위해 포함하지 않았습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+    </div>
+    <div class="demo-panel" id="demo-battlelog" role="tabpanel" aria-labelledby="tab-battlelog" hidden>
+  <section class="tool-section">
+    <p class="tool-eyebrow">BattleLogViewer</p>
+    <h2>출시에 맞춰 만든, 무기 선택과 승률을 읽는 전투 로그 분석 도구</h2>
+    <p class="tool-desc">
+      개발 단계에서는 로그 분석보다 개발 속도와 QA 편의가 먼저라 맵 지니·데이터 뷰어 같은 도구를 만들었습니다.
+      출시 시점부터는 유저가 실제로 <strong>무엇을 고르고 어떻게 싸우는지</strong> 바로 확인할 수 있어야 해서,
+      로그 분석 툴을 추가로 구축했습니다. 아래는 그중 무기 분석 화면을 가상 데이터로 재구성한 데모입니다.
+      모드·클래스·슬롯과 최소 표본을 바꿔보며 무기별 픽률과 승률을 확인하고, <strong>"픽률 × 승률"</strong> 탭에서
+      밸런스 논의 대상이 되는 무기를 찾아보세요.
+      <strong>로그 데이터와 무기 이름, 수치는 실제 서비스 데이터가 아닌 데모용으로 가상 구성했습니다.</strong>
+    </p>
+
+    <div class="tool-frame tl-app">
+      <div class="tool-live-banner"><span class="tool-live-dot"></span>Live Demo · 실제로 조작 가능한 도구입니다. 필터를 바꾸고 "픽률 × 승률" 탭도 확인해 보세요</div>
+      <div class="tool-toolbar">
+        <select id="wmMode">
+          <option value="all">전체 모드</option>
+          <option value="solo">솔로</option>
+          <option value="trio">트리오</option>
+        </select>
+        <select id="wmClass">
+          <option value="0">전체 클래스</option>
+        </select>
+        <select id="wmSlot">
+          <option value="0">전체 슬롯</option>
+          <option value="1">주무기</option>
+          <option value="2">보조무기</option>
+        </select>
+        <select id="wmMinSample">
+          <option value="0">최소 표본 없음</option>
+          <option value="30" selected>최소 표본 30건</option>
+          <option value="100">최소 표본 100건</option>
+          <option value="200">최소 표본 200건</option>
+        </select>
+        <button class="tool-btn" id="wmResetBtn">초기화</button>
+      </div>
+
+      <div class="tl-stat-row" id="wmStatRow"></div>
+
+      <div class="tl-tabs" id="wmTabs">
+        <div class="tl-tab active" data-tab="table">무기별 통계</div>
+        <div class="tl-tab" data-tab="scatter">픽률 × 승률</div>
+      </div>
+      <div class="tl-tab-content" id="wmTabContent"></div>
+
+      <div class="dv-footer"><span id="wmCount"></span><span>가상 샘플 로그 · 실제 서비스 데이터 아님</span></div>
+    </div>
+
+    <div class="note-box">
+      <strong>집계 방식</strong>
+      <ol class="wm-steps">
+        <li><strong>픽률</strong>: 입장 로그에서 유저가 들고 들어간 무기(주무기·보조무기)를 집계합니다.</li>
+        <li><strong>킬</strong>: PvP 킬 로그에 기록된 처치 무기를 집계합니다.</li>
+        <li><strong>데스</strong>: 킬 로그에는 피해자의 무기가 없어서, 피해자의 입장 로그를 (매치, 유저) 키로 역추적해 입장 시 보유한 무기에 집계합니다.</li>
+        <li><strong>승률</strong> = 킬 ÷ (킬 + 데스). 데스가 보유한 무기 전부에 잡히므로 평균 승률은 50%보다 낮게 나오고, 그래서 <strong>전체 평균을 기준선</strong>으로 삼아 평균 대비 높고 낮음을 판단합니다.</li>
+      </ol>
+      <p style="margin:10px 0 0">
+        <strong>해석할 때 주의한 점</strong>: 입장 후 무기를 바꿔도 데스에는 반영되지 않고, 데스는 보유한 무기 전부에 잡히므로
+        절대 수치보다 <strong>무기 간 상대 비교</strong>에 적합합니다. 표본이 적은 무기는 승률이 극단값이 되기 쉬워,
+        데모에서는 최소 표본 기준으로 걸러서 볼 수 있게 했고 픽률과 승률은 함께 봐야 합니다.
+      </p>
+    </div>
+  </section>
+    </div>
+    <div class="demo-panel" id="demo-mapgenie" role="tabpanel" aria-labelledby="tab-mapgenie" hidden>
+  <section class="tool-section">
+    <p class="tool-eyebrow">MapGenie</p>
+    <h2>맵 위에 스폰 데이터를 시각화하는 도구</h2>
+    <p class="tool-desc">
+      레벨 맵 이미지 위에 아이템/몬스터/기믹 스폰 위치를 겹쳐 보여주는 도구입니다. 검색 버그 수정 → 검색 캐싱 →
+      타입별 필터 오버레이 → SVG 아이콘 도입 → Enum 연동 한글 표시 → 드롭테이블 연동 순으로, 여러 세션에 걸쳐 점진적으로 다듬었습니다.
+      상자·아이템 스포너를 클릭하면 등급별 드롭 확률과 드롭 아이템 목록이 표시되고, 아이템 이름으로 검색하면
+      해당 아이템을 드롭하는 오브젝트만 지도에 필터링되어 표시됩니다.
+      <strong>맵 이미지는 실제 사용 중인 레벨 디자인 블루프린트이며, 스폰 위치/드롭 데이터는 데모용으로 가상 재구성했습니다.</strong>
+    </p>
+
+    <div class="tool-frame mg-app">
+      <div class="tool-live-banner"><span class="tool-live-dot"></span>Live Demo · 실제로 조작 가능한 도구입니다. 지도를 드래그·확대해보고 스포너를 클릭해보세요</div>
+      <div class="tool-toolbar">
+        <div class="mg-floor-tabs" id="mgFloorTabs"></div>
+        <div class="mg-search">
+          <input type="text" id="mgSearchInput" placeholder="스폰 이름 검색 (예: 좀비, 상자, 탈출)" />
+          <button class="tool-btn primary" id="mgSearchBtn">검색</button>
+        </div>
+        <button class="tool-btn" id="mgResetBtn">전체 초기화</button>
+      </div>
+
+      <div class="mg-demo-body">
+        <div class="mg-viewport" id="mgViewport">
+          <div class="mg-stage" id="mgStage">
+            <img id="mgMapImage" alt="레벨 맵" draggable="false" />
+          </div>
+          <div class="mg-hint" id="mgHint">드래그로 이동 · 휠로 확대/축소</div>
+          <div class="mg-zoom-controls">
+            <button class="tool-btn" id="mgZoomIn">+</button>
+            <button class="tool-btn" id="mgZoomOut">–</button>
+            <button class="tool-btn" id="mgZoomReset">⟳</button>
+          </div>
+        </div>
+
+        <aside class="mg-side" id="mgSide">
+          <div class="mg-filter-panel">
+            <h4>타입 필터</h4>
+            <label class="mg-filter-all-row">
+              <input type="checkbox" id="mgFilterAll" checked>
+              <span>전체 <span id="mgFilterAllCount"></span></span>
+            </label>
+            <div id="mgFilterList"></div>
+          </div>
+          <div class="mg-filter-panel mg-item-search-panel">
+            <h4>아이템 드롭 검색</h4>
+            <div class="mg-item-search-row">
+              <input type="text" id="mgItemSearchInput" placeholder="아이템명 검색 (예: 손전등)" />
+              <button class="tool-btn" id="mgItemSearchBtn">검색</button>
+            </div>
+            <div class="mg-item-search-hint" id="mgItemSearchHint">검색한 아이템을 드롭하는 오브젝트만 지도에 표시됩니다.</div>
+          </div>
+          <div class="mg-detail-panel" id="mgDetailPanel"></div>
+        </aside>
+      </div>
+
+      <div class="mg-history" id="mgHistory"></div>
+    </div>
+
+    <div class="real-use-block">
+      <span class="real-use-label">실사용 화면</span>
+      <div class="real-use-grid">
+        <div class="real-use-card">
+          <img src="assets/tool/screenshots/mapgenie-real-use.png" alt="맵지니 실사용 화면 - 드링크 검색으로 드랍 포인트 확인" loading="lazy" />
+          <p class="caption">사내에서 실제로 사용 중인 맵지니 화면. "드링크"로 검색해 병원 수술실 맵 위에 드랍 포인트만 필터링해 보여주는 모습입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+    </div>
+  </section>
+
+  <section class="ap-section" id="how">
+    <h2>AI를 쓰는 방식</h2>
+    <p class="ap-sub">단발성 코드 생성이 아니라, 반복되는 개발, QA, 문서화 과정을 함께 설계하고 자동화하는 방향으로 썼습니다.</p>
+    <div class="ap-cards ap-cards-3">
+      <div class="ap-card">
+        <h3>맥락을 이어받는 작업</h3>
+        <p>CLAUDE.md와 날짜별 세션 로그를 도입해, 새 세션도 이전 작업의 맥락을 이어받게 했습니다. 작업 기록과 재현이 가능합니다.</p>
+        <span class="tag">Markdown</span><span class="tag">세션 로그</span>
+      </div>
+      <div class="ap-card">
+        <h3>사내 문서와 코드에 연결</h3>
+        <p>UE5 C++ 소스에서 Enum과 Struct를 조회하는 MCP 서버, 기획서를 검색하고 정합성을 확인하는 MCP 서버를 TypeScript로 직접 만들어, AI가 사내 코드와 문서까지 참조하게 했습니다.</p>
+        <span class="tag">MCP</span><span class="tag">TypeScript</span>
+      </div>
+      <div class="ap-card">
+        <h3>반복 작업의 표준화</h3>
+        <p>로그 뷰어를 손으로 4번 만든 뒤 공통 클래스로 뽑아내고, 슬래시 커맨드(스킬)로 자동 생성되게 했습니다. 세션 로그를 스스로 분석해 스킬 후보를 찾는 스킬도 만들었습니다.</p>
+        <span class="tag">스킬화</span><span class="tag">BaseLogViewer</span>
+      </div>
+      <div class="ap-card">
+        <h3>출시에 맞춘 로그 분석</h3>
+        <p>개발 중에는 개발 속도와 QA 편의를 위한 도구를 먼저 만들었고, 출시 시점부터는 유저 행동을 바로 확인할 수 있도록 로그 분석 툴을 추가했습니다. 콘텐츠, 경제, 무기 선택과 이탈 구간을 밸런스 논의의 근거로 씁니다.</p>
+        <span class="tag">OpenSearch</span><span class="tag">로그 분석</span>
+      </div>
+      <div class="ap-card">
+        <h3>웹 밖의 도구까지</h3>
+        <p>기획팀 실무자가 쓰는 Excel(VBA) 기반 데이터 편집기 5종(스폰 에디터, 크래프트 에디터 등)을 만들고 유지보수했습니다. 한글 인코딩 처리 같은 공통 패턴은 여러 툴에 재사용했습니다.</p>
+        <span class="tag">VBA</span><span class="tag">비개발자용 툴</span>
+      </div>
+      <div class="ap-card">
+        <h3>AI 없이도 도는 도구</h3>
+        <p>Claude Code 없이도 동작하는 Perforce diff 기반 QA 리포트 툴을 만들어, AI로 만든 도구가 AI 없이도 팀에서 쓰이게 했습니다.</p>
+        <span class="tag">QA</span><span class="tag">bat · PowerShell · Node</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="timeline">
+    <h2>만들어 온 과정</h2>
+    <p class="ap-sub">세션이 쌓일수록 도구 자체가 나아지는 구조를 만들었습니다.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">세션 히스토리 체계화</span><span class="period">2025-12-31</span></div>
+        <p class="project-desc">CLAUDE.md + 날짜별 세션 로그(.claude/session-logs/) 구조를 도입해, 매 세션이 이전 맥락을 이어받도록 함. 이후 모든 작업의 기록·재현이 가능해짐.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">MCP 서버 자체 구축</span><span class="period">2026-01</span></div>
+        <p class="project-desc">Perforce/UE5 C++ 소스를 분석하는 <code>tmw-analyzer</code>, Confluence 기획서를 검색·검증하는 <code>confluence-mcp-server</code>를 TypeScript로 직접 구현해 Claude의 지식 범위를 사내 코드/문서까지 확장.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">반복 작업의 스킬화</span><span class="period">2026-01 ~ 02</span></div>
+        <p class="project-desc">로그 뷰어 모듈을 4번 손으로 반복 제작한 뒤 <code>BaseLogViewer</code> 공통 클래스로 추출, <code>/new-log-viewer</code> 스킬로 자동 생성 전환. 세션 로그 자체를 분석해 스킬 후보를 뽑는 <code>session-insights</code> 메타 스킬까지 구축.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">출시 시점에 맞춘 로그 분석</span><span class="period">출시 시점</span></div>
+        <p class="project-desc">개발 단계에서는 개발 속도와 QA 편의를 위한 도구(맵 지니, 데이터 뷰어)를 먼저 만들었고, 출시 시점에 맞춰 유저 행동을 바로 볼 수 있는 로그 분석 툴(거래 로그, 전투 로그의 무기 픽률·승률 등)을 추가로 구축.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">데이터 이상 탐지</span><span class="period">2026-03</span></div>
+        <p class="project-desc">경제 대시보드 집계 로직을 점검하다 로그 필드 불일치(<code>@timestamp</code> vs <code>Time</code>)로 코인 수입이 실제의 1/10로 과소 집계되던 문제를 발견·수정.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="job-meta"><span class="company">독립 실행형 QA 툴</span><span class="period">2026-04</span></div>
+        <p class="project-desc">Claude Code 세션 없이도 동작하는 Perforce diff 기반 QA 리포트 툴(bat + PowerShell + Node)을 산출 - AI로 만든 도구가 AI 없이도 팀에서 굴러가는 단계까지 확장.</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="ap-pager" aria-label="이전, 다음 페이지">
+    <a class="prev" href="prd.html"><span>이전</span>← 01 기획 산출물</a>
+    <a class="next" href="collab.html"><span>다음</span>03 협업과 의사결정 →</a>
+  </nav>
+
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오이므로 작성자의 동의 없는 무단 사용을 금지합니다.</p>
+  <p>게시가 허가된 내용으로만 구성되어 있으며 보안을 위해 일부 내용이 변형되어있을 수 있습니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../assets/js/back-to-top.js"></script>
+<script src="assets/tool/item-data.js"></script>
+<script src="assets/tool/map-data.js"></script>
+<script src="assets/tool/map-drop-data.js"></script>
+<script src="assets/tool/ai-tool.js"></script>
+<script src="assets/tool/trade-log-data.js"></script>
+<script src="assets/tool/trade-log.js"></script>
+<script src="assets/tool/battle-log-data.js"></script>
+<script src="assets/tool/battle-log.js"></script>
+<script src="assets/demo-tabs.js"></script>
+
+</body>
+</html>

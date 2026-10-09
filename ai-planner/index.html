@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
-<title>AI 프로덕트 기획 포트폴리오 | Choi Seokho</title>
+<title>소개 | AI 프로덕트 기획 포트폴리오 · Choi Seokho</title>
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png" />
 <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
@@ -18,12 +18,11 @@
 <header class="apply-bar">
   <div class="apply-bar-inner">
     <a class="brand" href="index.html">Choi Seokho</a>
-    <nav class="ap-bar-links" aria-label="목차">
-      <a href="#fit">공고와의 연결</a>
-      <a href="#prd">기획 산출물</a>
-      <a href="#ai">AI 도구 활용</a>
-      <a href="#collab">협업과 의사결정</a>
-      <a href="#domain">지원 관점</a>
+    <nav class="ap-bar-links" aria-label="페이지">
+      <a href="index.html" class="is-active" aria-current="page">소개</a>
+      <a href="prd.html">기획 산출물</a>
+      <a href="ai.html">AI 도구 활용</a>
+      <a href="collab.html">협업과 의사결정</a>
     </nav>
   </div>
 </header>
@@ -34,340 +33,67 @@
     <p class="eyebrow">PORTFOLIO · AI PRODUCT PLANNING</p>
     <h1>모호한 요구사항을 정의하고, 기획 산출물을 동작하는 프로토타입으로 제작하는 기획자</h1>
     <p class="lead">11년간 모바일과 PC 게임 서비스를 기획했습니다. 최근에는 Claude Code로 기획 데이터 검증 툴과 로그 분석 툴을 직접 만들었고, 기획팀뿐 아니라 QA와 사업팀도 이 툴을 씁니다.</p>
-    <p class="lead">이 페이지는 <strong>개발이 참조할 기획 산출물</strong>과 <strong>AI 도구 활용 결과물</strong>을 실제 작업 기준으로 정리한 것입니다.</p>
+    <p class="lead">이 포트폴리오는 <strong>개발이 참조할 기획 산출물</strong>과 <strong>AI 도구 활용 결과물</strong>을 실제 작업 기준으로 정리한 것입니다. 프로토타입과 데모는 각 페이지 안에서 바로 실행해 볼 수 있습니다.</p>
   </section>
 
-  <!-- ===== 공고와의 연결 ===== -->
+  <section class="ap-section" id="guide">
+    <h2>구성</h2>
+    <p class="ap-sub">위 메뉴나 아래 카드로 각 장을 볼 수 있습니다.</p>
+    <div class="ap-guide">
+      <a href="prd.html">
+        <span class="no">01</span>
+        <strong>기획 산출물</strong>
+        <span class="desc">제작대 리뉴얼을 PRD 형식으로 정리했습니다. 데이터 관계도와 프로토타입도 함께 볼 수 있습니다.</span>
+        <span class="go">보기 →</span>
+      </a>
+      <a href="ai.html">
+        <span class="no">02</span>
+        <strong>AI 도구 활용</strong>
+        <span class="desc">AI로 만든 데이터 검증, 로그 분석 도구를 어떻게 만들고 검증했는지, 그리고 데모 4개를 직접 조작해 볼 수 있습니다.</span>
+        <span class="go">보기 →</span>
+      </a>
+      <a href="collab.html">
+        <span class="no">03</span>
+        <strong>협업과 의사결정</strong>
+        <span class="desc">기획서가 개발과 디자인이 작업할 수 있는 형태가 되도록 조율한 사례입니다.</span>
+        <span class="go">보기 →</span>
+      </a>
+    </div>
+  </section>
+
   <section class="ap-section" id="fit">
     <h2>공고와의 연결</h2>
     <p class="ap-sub">요구 역량별로 한 일과 위치를 정리했습니다.</p>
     <div class="ap-table-wrap">
-      <table class="ap-table">
+      <table class="ap-table stack">
         <thead><tr><th>요구 역량</th><th>한 일</th><th>위치</th></tr></thead>
         <tbody>
-          <tr><td>모호한 요구사항을 문제 정의, 기능, 프로세스, 데이터 구조로 구조화</td><td>제작대 리뉴얼에서 문제 4가지를 정의하고, 규칙, 화면 구조, 데이터 테이블 6종으로 구조화</td><td><a href="#prd">1장</a></td></tr>
-          <tr><td>개발 참조용 기획 산출물 (PRD, 유저 스토리, 플로우, 정책 정의)</td><td>사용자 스토리 6건과 수용 조건, 유저 플로우, 정책 표, 데이터 구조를 한 문서로 정리</td><td><a href="#prd">1장</a></td></tr>
-          <tr><td>컨셉 합의용 인터랙티브 프로토타입</td><td>3단 레이아웃 제작 화면을 클릭해 볼 수 있는 프로토타입으로 먼저 검증하고, 결과를 문서에 반영</td><td><a href="#prd">1장</a></td></tr>
-          <tr><td>생성형 AI 도구의 실제 업무 활용</td><td>Claude Code로 데이터 검증 툴, 로그 분석 툴, 자체 MCP 서버 2개를 만들어 팀이 함께 사용</td><td><a href="#ai">2장</a></td></tr>
-          <tr><td>AI 결과물의 정확성 검증</td><td>집계 오류와 데이터 착시를 찾아 수정한 사례, 분석의 한계를 밝히고 해석 기준을 정한 사례</td><td><a href="#ai">2장</a></td></tr>
-          <tr><td>기획, 개발, 디자인 조직과 요구사항 조율</td><td>직군 합동 TFT 구성, 일정이 바뀔 때의 우선순위 재조정, 장르 전환 과제</td><td><a href="#collab">3장</a></td></tr>
-          <tr><td>출시 후 지표와 VOC 기반 개선</td><td>이탈 시점과 커뮤니티 반응을 보고 기획을 고치고, 출시 시점에 맞춰 로그 분석 툴을 구축</td><td><a href="#prd">1장</a> · <a href="#ai">2장</a></td></tr>
-          <tr><td>Markdown, 데이터 구조 이해</td><td>기획 문서와 작업 기록을 Markdown으로 관리하고, 데이터 흐름도(dbdiagram)로 테이블 관계를 설계</td><td><a href="#prd">1장</a></td></tr>
-          <tr><td>교육, EdTech 도메인</td><td>직접 경험은 없습니다. 접근 방법은 4장에 적었습니다.</td><td><a href="#domain">4장</a></td></tr>
+          <tr><td data-label="요구 역량">모호한 요구사항을 문제 정의, 기능, 프로세스, 데이터 구조로 구조화</td><td data-label="한 일">제작대 리뉴얼에서 문제 4가지를 정의하고, 규칙, 화면 구조, 데이터 테이블 6종으로 구조화</td><td data-label="위치"><a href="prd.html#problem">기획 산출물</a></td></tr>
+          <tr><td data-label="요구 역량">개발 참조용 기획 산출물 (PRD, 유저 스토리, 플로우, 정책 정의)</td><td data-label="한 일">사용자 스토리 6건과 수용 조건, 유저 플로우, 정책 표, 데이터 구조를 한 문서로 정리</td><td data-label="위치"><a href="prd.html#stories">기획 산출물</a></td></tr>
+          <tr><td data-label="요구 역량">컨셉 합의용 인터랙티브 프로토타입</td><td data-label="한 일">3단 레이아웃 제작 화면을 클릭해 볼 수 있는 프로토타입으로 먼저 검증하고, 결과를 문서에 반영</td><td data-label="위치"><a href="prd.html#prototype">기획 산출물</a></td></tr>
+          <tr><td data-label="요구 역량">생성형 AI 도구의 실제 업무 활용</td><td data-label="한 일">Claude Code로 데이터 검증 툴, 로그 분석 툴, 자체 MCP 서버 2개를 만들어 팀이 함께 사용</td><td data-label="위치"><a href="ai.html#cases">AI 도구 활용</a></td></tr>
+          <tr><td data-label="요구 역량">AI 결과물의 정확성 검증</td><td data-label="한 일">집계 오류와 데이터 착시를 찾아 수정한 사례, 분석의 한계를 밝히고 해석 기준을 정한 사례</td><td data-label="위치"><a href="ai.html#cases">AI 도구 활용</a></td></tr>
+          <tr><td data-label="요구 역량">기획, 개발, 디자인 조직과 요구사항 조율</td><td data-label="한 일">직군 합동 TFT 구성, 일정이 바뀔 때의 우선순위 재조정, 장르 전환 과제</td><td data-label="위치"><a href="collab.html">협업과 의사결정</a></td></tr>
+          <tr><td data-label="요구 역량">출시 후 지표와 VOC 기반 개선</td><td data-label="한 일">이탈 시점과 커뮤니티 반응을 보고 기획을 고치고, 출시 시점에 맞춰 로그 분석 툴을 구축</td><td data-label="위치"><a href="prd.html#result">기획 산출물</a> · <a href="ai.html#cases">AI 도구 활용</a></td></tr>
+          <tr><td data-label="요구 역량">Markdown, 데이터 구조 이해</td><td data-label="한 일">기획 문서와 작업 기록을 Markdown으로 관리하고, 데이터 흐름도(dbdiagram)로 테이블 관계를 설계</td><td data-label="위치"><a href="prd.html#data">기획 산출물</a></td></tr>
+          <tr><td data-label="요구 역량">교육, EdTech 도메인</td><td data-label="한 일">직접 경험은 없습니다. 접근 방법은 아래에 적었습니다.</td><td data-label="위치"><a href="#domain">아래</a></td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- ===== 1장 기획 산출물 ===== -->
-  <section class="ap-section" id="prd">
-    <h2>1. 기획 산출물: 제작대 리뉴얼 (PRD 형식)</h2>
-    <p class="ap-sub">「The Midnight Walkers」(PC 좀비 익스트랙션 FPS)의 제작(Craft) 시스템 리뉴얼 기획입니다. 사내 기획서를 PRD 형식으로 다시 정리했고, 실제 수치와 사내 문서 링크는 뺐습니다.</p>
-
-    <div class="ap-note">
-      <strong>정리 방식</strong>: 문제 정의, 정책, 데이터 구조, 설계 변경 기록은 원래 기획서의 내용입니다. 사용자 스토리와 수용 조건은 핵심 규칙을 이 형식으로 다시 쓴 것이고, 유저 플로우는 규칙과 화면 구조를 바탕으로 그렸습니다.
-    </div>
-
-    <div class="ap-block">
-      <h3>1.1 역할</h3>
-      <p>기획팀 팀장으로서 이 건을 직접 기획했습니다. 문제 정의, 규칙과 데이터 테이블 설계, 화면 구조 기획, 클릭해 볼 수 있는 프로토타입 제작, 다국어 텍스트 키 정리와 최종 목록 확정까지 맡았습니다.</p>
-    </div>
-
-    <div class="ap-block">
-      <h3>1.2 배경과 문제 정의</h3>
-      <div class="ap-table-wrap">
-        <table class="ap-table">
-          <thead><tr><th>해결하려던 문제</th><th>설계 방향</th></tr></thead>
-          <tbody>
-            <tr><td>제작대가 아이템을 만드는 기능으로만 쓰여, 파밍과 성장을 이어주는 역할을 하지 못함</td><td>파밍 목적, 수집, 거래 요소를 결합하고, 제작대 자체가 잠금 해제와 레벨업으로 성장하는 구조로 개편</td></tr>
-            <tr><td>모든 장비를 직접 제작하는 구조라 인게임 파밍(획득)과 제작의 목적이 겹침</td><td>"보유 장비 강화"로 전환해 파밍은 획득, 제작대는 강화로 역할을 분리</td></tr>
-            <tr><td>상위 장비를 목표로 삼을 장기 동기가 부족함</td><td>설계도 수집과 등록 시스템, 도감으로 장기 수집 목표 제공</td></tr>
-            <tr><td>시간 투자가 큰 콘텐츠를 캐릭터별로 나누면, 여러 캐릭터를 플레이하는 장점이 오히려 단점이 됨</td><td>제작대 해금과 설계도 수집을 계정 단위로 공유 (게임 내 첫 계정 공유 사례)</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="ap-block">
-      <h3>1.3 사용자 스토리와 수용 조건</h3>
-      <ol class="story-list">
-        <li>
-          <div class="who">스토리 1</div>
-          플레이어로서, 필요한 장비 종류에 맞는 제작대를 골라 쓰고 싶다.
-          <ul class="ac"><li>수용 조건: 제작대는 5종(회복, 무기, 방어구, 유틸리티, 재료)이며, 어떤 제작대에 어떤 레시피가 속하는지는 데이터로 설정한다.</li></ul>
-        </li>
-        <li>
-          <div class="who">스토리 2</div>
-          플레이어로서, 재료를 모아 제작대를 해금하고 성장시켜 더 높은 등급의 장비를 만들고 싶다.
-          <ul class="ac"><li>수용 조건: 초기에는 회복 제작대만 해금 상태이고 나머지는 재료를 모아 잠금 해제한다. 제작대는 Lv.1~5이며, 레벨이 오르면 제작 가능한 최대 등급이 확장되어 해당 등급 이하를 모두 제작할 수 있다.</li></ul>
-        </li>
-        <li>
-          <div class="who">스토리 3</div>
-          플레이어로서, 설계도를 얻으면 등록해 새 레시피를 계속 쓰고, 수집 현황을 한눈에 보고 싶다.
-          <ul class="ac"><li>수용 조건: 설계도는 등록 시 인벤토리에서 소모되고 해당 레시피가 영구 해금된다. 도감은 전체, 등록, 미발견 탭으로 상태를 보여준다.</li></ul>
-        </li>
-        <li>
-          <div class="who">스토리 4</div>
-          플레이어로서, 제작을 기다리지 않고 바로 결과를 받고 싶다.
-          <ul class="ac"><li>수용 조건: 제작은 대기열과 제작 시간 없이 즉시 완료되고, 결과물은 창고로 지급된다. 재화 비용 없이 아이템 재료만 사용하며, 즉시성은 2단계 연출(타격, 완성)로 보완한다.</li></ul>
-        </li>
-        <li>
-          <div class="who">스토리 5</div>
-          플레이어로서, 캐릭터를 바꿔도 제작대 해금과 설계도 수집 진행을 이어가고 싶다.
-          <ul class="ac"><li>수용 조건: 제작대 해금과 설계도 수집은 계정 단위로 저장되어 같은 계정의 모든 캐릭터가 공유한다.</li></ul>
-        </li>
-        <li>
-          <div class="who">스토리 6</div>
-          플레이어로서, 해금이나 레벨업이 가능해졌을 때 놓치지 않고 알고 싶다.
-          <ul class="ac"><li>수용 조건: 미등록 설계도, 해금 가능, 레벨업 가능 중 하나라도 해당하면 진입점에 알림(레드닷)을 표시한다.</li></ul>
-        </li>
-      </ol>
-    </div>
-
-    <div class="ap-block">
-      <h3>1.4 유저 플로우</h3>
-      <div class="flow">
-        <div>
-          <p class="flow-label">제작</p>
-          <div class="flow-row">
-            <div class="flow-node is-start">제작대 선택<small>5종 카드, 잠금 · 해금 가능 · 해금 상태 표시</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node">잠금 해제 확인<small>재료를 모았을 때만 진행</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node">제작 화면<small>카테고리 · 3D 프리뷰 · 재료 선택 (3단)</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node">제작<small>타격, 완성 2단계 연출, 즉시 완료</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node is-end">창고로 지급<small>계정 단위 저장</small></div>
-          </div>
-        </div>
-        <div>
-          <p class="flow-label">성장</p>
-          <div class="flow-row">
-            <div class="flow-node is-start">재료 모으기<small>인게임 파밍</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node">제작대 레벨업<small>Lv.1~5, 성장 가능 상태 알림</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node is-end">제작 가능 최대 등급 확장<small>해당 등급 이하 모두 제작 가능</small></div>
-          </div>
-        </div>
-        <div>
-          <p class="flow-label">설계도</p>
-          <div class="flow-row">
-            <div class="flow-node is-start">설계도 획득<small>인게임 파밍, 일일 미션</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node">설계도 등록<small>인벤토리에서 소모</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node">레시피 영구 해금<small>해당 제작대에서 제작 가능</small></div>
-            <span class="flow-arrow">→</span>
-            <div class="flow-node is-end">설계도 도감<small>전체 · 등록 · 미발견 탭</small></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ap-block">
-      <h3>1.5 정책 정의</h3>
-      <div class="ap-table-wrap">
-        <table class="ap-table">
-          <tbody>
-            <tr><td>제작대 수</td><td>5종 (회복 / 무기 / 방어구 / 유틸리티 / 재료)</td></tr>
-            <tr><td>초기 해금</td><td>회복 제작대만 기본 제공, 나머지는 재료를 모아 잠금 해제</td></tr>
-            <tr><td>최대 레벨</td><td>Lv.5, 레벨이 오를수록 제작 가능한 최대 등급이 확장</td></tr>
-            <tr><td>제작 방식</td><td>즉시 제작 (대기열, 제작 시간 없음), 2단계 연출로 즉시성 보완</td></tr>
-            <tr><td>장비 재료</td><td>레시피당 1종 1개 사용, 스탯은 결과물에 항상 승계</td></tr>
-            <tr><td>설계도</td><td>등록 시 인벤토리에서 소모, 이후 해당 레시피 영구 해금</td></tr>
-            <tr><td>수령 위치</td><td>창고(Stash) 고정 지급</td></tr>
-            <tr><td>저장 범위</td><td>계정 단위 저장 (같은 계정의 모든 캐릭터가 공유)</td></tr>
-            <tr><td>재화 비용</td><td>없음, 아이템 재료만으로 제작</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="ap-block">
-      <h3>1.6 데이터 구조</h3>
-      <p>제작대 정의, 성장, 레시피, 재료를 테이블 6개로 나눴습니다. 덕분에 레시피와 소속 제작대를 코드 수정 없이 데이터로 바꿀 수 있습니다.</p>
-      <div class="ap-table-wrap">
-        <table class="ap-table">
-          <tbody>
-            <tr><td>제작대 정의</td><td>제작대 종류, 초기 해금 여부, 최대 레벨 등 기본 정보</td></tr>
-            <tr><td>제작대 레벨</td><td>레벨별 요구 재료와 레벨업 시 확장되는 제작 가능 등급</td></tr>
-            <tr><td>제작 레시피</td><td>결과 아이템, 필요 재료(또는 설계도), 소속 제작대</td></tr>
-            <tr><td>통합 재료</td><td>잠금 해제, 레벨업, 제작에서 공통으로 쓰는 재료 묶음 (재화와 아이템 통합)</td></tr>
-            <tr><td>재료 타입 열거형</td><td>재료가 재화인지 아이템인지 구분</td></tr>
-            <tr><td>공용 상수</td><td>재료 최대 종류 수 등 시스템 전역 설정값</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="ap-links"><a href="data-flow/craft-station.html">데이터 관계도 보기 (인터랙티브)</a></div>
-    </div>
-
-    <div class="ap-block">
-      <h3>1.7 의사결정 기록</h3>
-      <div class="ap-table-wrap">
-        <table class="ap-table">
-          <thead><tr><th>단계</th><th>결정과 이유</th></tr></thead>
-          <tbody>
-            <tr><td>초기</td><td>제작대별 레시피와 재료 구조를 설계하고, 클릭해 볼 수 있는 프로토타입으로 3단 레이아웃 제작 화면을 먼저 검증</td></tr>
-            <tr><td>변경</td><td>등급 범위(최소~최대) 방식을 "해당 등급 이하 모두 제작 가능"한 단일 최대 등급 방식으로 단순화. UI 표기도 범위 텍스트에서 등급 색상 뱃지로 변경</td></tr>
-            <tr><td>변경</td><td>3D 아이템 프리뷰를 고정 앵글에서 마우스 드래그로 회전하는 방식으로 바꾸고 프로토타입에 반영</td></tr>
-            <tr><td>변경</td><td>상단 진입점의 알림(레드닷) 표시 조건을 3가지로 정의해 성장 가능 상태를 놓치지 않도록 보완</td></tr>
-            <tr><td>정리</td><td>기획서 전반의 다국어 텍스트 키를 전수 점검해 중복과 누락을 정리하고 최종 목록 확정</td></tr>
-            <tr><td>결정</td><td>해금과 설계도 수집은 시간 투자가 큰 콘텐츠라 캐릭터별로 나누면 여러 캐릭터를 플레이하는 장점이 단점이 된다고 판단해, 계정 단위로 설계</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="ap-block">
-      <h3>1.8 컨셉 합의용 프로토타입</h3>
-      <p>문서만으로 설명하기 어려운 3단 화면과 성장 흐름은 클릭해 볼 수 있는 프로토타입으로 보완했습니다. 개발 수준의 구현이 아니라 컨셉을 합의하기 위한 산출물이고, 직접 눌러 보며 규칙을 확인해 위 변경 기록에 반영했습니다.</p>
-      <div class="shot-gallery compact">
-        <div class="shot-card"><img src="prototype/assets/screenshots/craft-01-landing.jpg" alt="제작대 선택 화면" loading="lazy" /><p class="caption">제작대 선택 화면</p></div>
-        <div class="shot-card"><img src="prototype/assets/screenshots/craft-02-crafting.jpg" alt="제작 화면" loading="lazy" /><p class="caption">제작 화면 (3단 레이아웃)</p></div>
-        <div class="shot-card"><img src="prototype/assets/screenshots/craft-03-levelup.jpg" alt="제작대 레벨업" loading="lazy" /><p class="caption">제작대 레벨업</p></div>
-        <div class="shot-card"><img src="prototype/assets/screenshots/craft-04-blueprint-book.jpg" alt="설계도 도감" loading="lazy" /><p class="caption">설계도 도감</p></div>
-      </div>
-      <div class="ap-links">
-        <a href="prototype/index.html">동작하는 프로토타입 열기 (PC 브라우저 권장)</a>
-      </div>
-    </div>
-
-    <div class="ap-block">
-      <h3>1.9 출시 후 결과</h3>
-      <ul>
-        <li>개편 후 유저의 평균 이탈 시점이 7일에서 18일로 늘어, 플레이 수명이 길어졌습니다.</li>
-        <li>커뮤니티와 디스코드에서 "할 거리가 늘어 플레이 동기가 살아났다"는 반응이 나와, 설계도 수집 요소가 의도대로 작동했다고 판단했습니다.</li>
-        <li>모든 장비를 직접 제작하던 구조를 "보유 장비 강화"로 바꾼 뒤, 아이템 옵션의 가치가 올라가고 파밍의 목적도 더 분명해졌습니다.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ===== 2장 AI 도구 활용 ===== -->
-  <section class="ap-section" id="ai">
-    <h2>2. AI 도구 활용 결과물</h2>
-    <p class="ap-sub">주로 Claude Code를 썼습니다. 개인 생산성 도구에 그치지 않고, 기획팀이 함께 쓰는 데이터 검증, 로그 분석 도구를 만드는 데 썼습니다.</p>
-
-    <div class="ap-stats">
-      <div class="ap-stat"><strong>30+</strong><span>제작한 UI 모듈</span></div>
-      <div class="ap-stat"><strong>2</strong><span>자체 구축 MCP 서버</span></div>
-      <div class="ap-stat"><strong>20+</strong><span>Claude Code 스킬</span></div>
-      <div class="ap-stat"><strong>50+</strong><span>누적 세션 로그</span></div>
-    </div>
-
-    <div class="ap-block">
-      <h3>2.1 사례: 무엇을, 왜, 어떻게 만들고 어떻게 검증했나</h3>
-      <div class="ap-table-wrap">
-        <table class="ap-table">
-          <thead><tr><th>결과물</th><th>풀려던 문제</th><th>AI 활용 방식</th><th>검증과 결과</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>제작대 인터랙티브 프로토타입</td>
-              <td>문서만으로 설명하기 어려운 3단 화면과 성장 흐름을 합의해야 했음</td>
-              <td>클릭해 볼 수 있는 HTML 프로토타입을 AI로 제작</td>
-              <td>직접 눌러 보며 규칙을 확인하고, 3D 프리뷰 회전과 알림 조건 등을 문서에 반영</td>
-            </tr>
-            <tr>
-              <td>데이터 뷰어</td>
-              <td>아이템 이름이 테이블 3개를 거쳐 완성되는데, 참조가 끊기거나 문자열이 빠져도 겉으로는 알기 어려움</td>
-              <td>키 값 하나로 전체 테이블을 검색해 참조 체인을 보여주는 도구를 Claude Code로 제작</td>
-              <td>끊긴 참조, 문자열 누락, 미사용 데이터를 한 번에 확인. 데모에서는 일부러 넣은 오류 3건을 찾아내는 시나리오로 보여줌</td>
-            </tr>
-            <tr>
-              <td>거래 로그 뷰어</td>
-              <td>OpenSearch 기본 대시보드로는 원하는 시각화가 어렵고, 기획자와 매니저도 로그를 쉽게 볼 수 있어야 했음</td>
-              <td>원시 로그를 경제 분석 대시보드로 바꾸는 도구를 Claude Code로 제작</td>
-              <td>개발 중 등록 로그만 보면 안 팔린 매물이 최고가 순위에 섞이는 문제를 발견해, 거래 ID로 등록과 구매 로그를 매칭하고 체결된 거래만 집계하도록 수정</td>
-            </tr>
-            <tr>
-              <td>전투 로그 뷰어 (무기 픽률, 승률)</td>
-              <td>출시 후 무기 선택과 성능을 감이 아니라 로그로 확인하고 싶었음</td>
-              <td>입장 로그와 킬 로그를 결합하고, 킬 로그에 없는 피해자의 무기는 입장 로그를 역추적해 집계하는 도구를 제작</td>
-              <td>데스가 보유 무기 전부에 집계되는 한계를 밝히고, 전체 평균을 기준선으로 삼아 상대 비교로만 해석. 표본이 적은 무기는 걸러서 봄</td>
-            </tr>
-            <tr>
-              <td>경제 대시보드 점검</td>
-              <td>대시보드 집계가 실제 로그와 맞는지 확인이 필요했음</td>
-              <td>집계 로직을 직접 점검</td>
-              <td>로그 필드 불일치로 코인 수입이 실제의 1/10로 과소 집계되던 문제를 찾아 수정</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="ap-note">데모의 로그 데이터, 무기 이름, 수치는 실제 서비스 데이터가 아니라 가상 데이터입니다. 구조와 동작 방식만 재현했습니다.</div>
-    </div>
-
-    <div class="ap-block">
-      <h3>2.2 AI를 쓰는 방식</h3>
-      <div class="ap-cards ap-cards-2">
-        <div class="ap-card">
-          <h3>맥락을 이어받는 작업</h3>
-          <p>CLAUDE.md와 날짜별 세션 로그를 도입해, 새 세션도 이전 작업의 맥락을 이어받게 했습니다. 작업 기록과 재현이 가능합니다.</p>
-          <span class="tag">Markdown</span><span class="tag">세션 로그</span>
-        </div>
-        <div class="ap-card">
-          <h3>사내 문서와 코드에 연결</h3>
-          <p>UE5 C++ 소스에서 Enum과 Struct를 조회하는 MCP 서버, 기획서를 검색하고 정합성을 확인하는 MCP 서버를 TypeScript로 직접 만들어, AI가 사내 코드와 문서까지 참조하게 했습니다.</p>
-          <span class="tag">MCP</span><span class="tag">TypeScript</span>
-        </div>
-        <div class="ap-card">
-          <h3>반복 작업의 표준화</h3>
-          <p>로그 뷰어를 손으로 4번 만든 뒤 공통 클래스로 뽑아내고, 슬래시 커맨드(스킬)로 자동 생성되게 했습니다. 세션 로그를 스스로 분석해 스킬 후보를 찾는 스킬도 만들었습니다.</p>
-          <span class="tag">스킬화</span><span class="tag">BaseLogViewer</span>
-        </div>
-        <div class="ap-card">
-          <h3>AI 없이도 도는 도구</h3>
-          <p>Claude Code 없이도 동작하는 Perforce diff 기반 QA 리포트 툴을 만들어, AI로 만든 도구가 AI 없이도 팀에서 쓰이게 했습니다.</p>
-          <span class="tag">QA</span><span class="tag">bat · PowerShell · Node</span>
-        </div>
-      </div>
-      <div class="ap-links">
-        <a href="tools/overview.html">AI 활용 개요</a>
-        <a href="tools/dataviewer.html">데이터 뷰어 데모</a>
-        <a href="tools/trade-log-viewer.html">거래 로그 뷰어 데모</a>
-        <a href="tools/battle-log-viewer.html">전투 로그 뷰어 데모</a>
-        <a href="tools/mapgenie.html">맵 지니 데모</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 3장 협업과 의사결정 ===== -->
-  <section class="ap-section" id="collab">
-    <h2>3. 협업과 의사결정</h2>
-    <p class="ap-sub">기획서가 개발과 디자인이 작업할 수 있는 형태가 되도록 조율한 사례입니다.</p>
-    <div class="ap-cards">
-      <div class="ap-card">
-        <h3>근접 전투 시스템 전면 개편</h3>
-        <p>목표만 있고 해결책이 없는 상태("퀄리티를 올려야 한다")에서, 애니메이션과 클라이언트 담당자와 TFT를 꾸려 매일 문제와 해결 방향을 논의하고 매주 아이디어를 모았습니다.</p>
-        <p>전체 규모에 눌리지 않도록 무기 하나를 먼저 완성해 작업량을 가늠한 뒤 전체로 넓혔고, 마일스톤 안에 모든 무기 시스템을 고도화했습니다.</p>
-      </div>
-      <div class="ap-card">
-        <h3>일정이 바뀐 상황의 우선순위 조정</h3>
-        <p>마일스톤이 확정된 뒤 유저 피드백으로 일정을 바꿔야 했을 때, 기획, 아트, 테크 각 파트의 실제 작업 가능 일정을 직접 확인했습니다.</p>
-        <p>PD와 우선순위를 정리하고 리드 회의를 열어 일정을 다시 맞췄으며, 큰 업무는 팀원에게 나누고 작은 업무는 직접 맡아 유저 테스트에 필요한 결과물을 기한 안에 끝냈습니다.</p>
-      </div>
-      <div class="ap-card">
-        <h3>장르 전환 과제</h3>
-        <p>협력사 요청으로 듀얼 패드 슈터를 TPS로 바꿔야 했을 때, 핵심 인원으로 TFT를 꾸려 일주일 안에 방향을 정했습니다.</p>
-        <p>완성도보다 재미가 있는지를 먼저 확인하며 개발, 테스트, 피드백을 짧게 반복했고, 마일스톤 안에 전환을 마쳤습니다.</p>
-      </div>
-    </div>
-    <div class="ap-block">
-      <h3>일을 진행하는 방식</h3>
-      <p>일을 받으면 먼저 요청한 사람과 목표를 맞춥니다. 그다음 해결 방향을 2~3가지로 정리해 장단점과 추천안을 내고, 팀과 리드의 의견을 반영해 방향을 정합니다. 방향이 어긋난 채 기획서를 끝까지 쓰면 팀 전체의 시간이 낭비되기 때문입니다.</p>
-    </div>
-  </section>
-
-  <!-- ===== 4장 지원 관점 ===== -->
   <section class="ap-section" id="domain">
-    <h2>4. 이 포지션에 대한 관점</h2>
+    <h2>이 포지션에 대한 관점</h2>
     <div class="ap-block">
       <p>교육 서비스와 에듀테크 도메인은 직접 경험한 적이 없습니다. 대신 11년간 게임 서비스에서 문제를 정의하고, 개발이 참조할 산출물로 정리하고, 프로토타입으로 합의하고, 출시 후 지표와 반응으로 다시 고치는 과정을 반복했습니다. 이 방법은 도메인이 달라도 같다고 생각합니다.</p>
       <p>학습자와 교육 현장의 요구는 PoC와 사용자 의견에서 먼저 배우겠습니다. AI 도구는 새로 나오면 작업에 직접 적용해 보고 결과가 맞는지 확인하면서 익혀 왔고, 앞으로도 그렇게 하겠습니다.</p>
     </div>
     <p class="ap-footer-contact">최석호 · 010-2389-1005 · shc85105@gmail.com</p>
   </section>
+
+  <nav class="ap-pager" aria-label="다음 페이지">
+    <a class="next" href="prd.html"><span>다음</span>01 기획 산출물 →</a>
+  </nav>
 
 </main>
 

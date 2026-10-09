@@ -18,7 +18,7 @@ const MG_FLOORS = [
   {
     id: 'A',
     label: '1F 로비/사무구역',
-    image: 'assets/map/LV_BCF_A.jpg',
+    image: 'assets/tool/map/LV_BCF_A.jpg',
     markers: [
       { type: 'PlayerSpawnPoint', x: 35.4, y: 40, name: '메인 출입구' },
       { type: 'PlayerSpawnPoint', x: 58.6, y: 71.9, name: '보조 출입구' },
@@ -81,7 +81,7 @@ const MG_FLOORS = [
   {
     id: 'B',
     label: '루프탑/상층부',
-    image: 'assets/map/LV_BCF_B.jpg',
+    image: 'assets/tool/map/LV_BCF_B.jpg',
     markers: [
       { type: 'PlayerSpawnPoint', x: 41.6, y: 71.1, name: '비상계단 출입구' },
       { type: 'PlayerSpawnPoint', x: 67.2, y: 40.8, name: '동측 출입구' },
