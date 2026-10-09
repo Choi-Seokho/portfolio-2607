@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>BattleLogViewer | Choi Seokho</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/icons/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/icons/favicon-16.png" />
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../../assets/css/style.css" />
+<link rel="stylesheet" href="../../assets/css/apply.css" />
+<link rel="stylesheet" href="../ai-planner.css" />
+<link rel="stylesheet" href="assets/ai-tool.css" />
+<script data-goatcounter="https://choi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="apply-bar">
+  <div class="apply-bar-inner">
+    <a class="brand" href="../index.html">Choi Seokho</a>
+    <nav class="ap-bar-links" aria-label="이동">
+      <a href="../index.html">AI 프로덕트 기획 포트폴리오로 돌아가기</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <nav class="subtab-nav subtab-nav--inner">
+    <a href="overview.html">개요</a>
+    <a href="mapgenie.html">맵 지니</a>
+    <a href="dataviewer.html">데이터 뷰어</a>
+    <a href="trade-log-viewer.html">거래 로그 뷰어</a>
+    <a class="active" href="battle-log-viewer.html">전투 로그 뷰어</a>
+  </nav>
+
+  <!-- ===== BattleLogViewer ===== -->
+  <section class="tool-section">
+    <p class="tool-eyebrow">DEMO 04 · BattleLogViewer</p>
+    <h2>출시에 맞춰 만든, 무기 선택과 승률을 읽는 전투 로그 분석 도구</h2>
+    <p class="tool-desc">
+      개발 단계에서는 로그 분석보다 개발 속도와 QA 편의가 먼저라 맵 지니·데이터 뷰어 같은 도구를 만들었습니다.
+      출시 시점부터는 유저가 실제로 <strong>무엇을 고르고 어떻게 싸우는지</strong> 바로 확인할 수 있어야 해서,
+      로그 분석 툴을 추가로 구축했습니다. 아래는 그중 무기 분석 화면을 가상 데이터로 재구성한 데모입니다.
+      모드·클래스·슬롯과 최소 표본을 바꿔보며 무기별 픽률과 승률을 확인하고, <strong>"픽률 × 승률"</strong> 탭에서
+      밸런스 논의 대상이 되는 무기를 찾아보세요.
+      <strong>로그 데이터와 무기 이름, 수치는 실제 서비스 데이터가 아닌 데모용으로 가상 구성했습니다.</strong>
+    </p>
+
+    <div class="tool-frame tl-app">
+      <div class="tool-live-banner"><span class="tool-live-dot"></span>Live Demo · 실제로 조작 가능한 도구입니다. 필터를 바꾸고 "픽률 × 승률" 탭도 확인해 보세요</div>
+      <div class="tool-toolbar">
+        <select id="wmMode">
+          <option value="all">전체 모드</option>
+          <option value="solo">솔로</option>
+          <option value="trio">트리오</option>
+        </select>
+        <select id="wmClass">
+          <option value="0">전체 클래스</option>
+        </select>
+        <select id="wmSlot">
+          <option value="0">전체 슬롯</option>
+          <option value="1">주무기</option>
+          <option value="2">보조무기</option>
+        </select>
+        <select id="wmMinSample">
+          <option value="0">최소 표본 없음</option>
+          <option value="30" selected>최소 표본 30건</option>
+          <option value="100">최소 표본 100건</option>
+          <option value="200">최소 표본 200건</option>
+        </select>
+        <button class="tool-btn" id="wmResetBtn">초기화</button>
+      </div>
+
+      <div class="tl-stat-row" id="wmStatRow"></div>
+
+      <div class="tl-tabs" id="wmTabs">
+        <div class="tl-tab active" data-tab="table">무기별 통계</div>
+        <div class="tl-tab" data-tab="scatter">픽률 × 승률</div>
+      </div>
+      <div class="tl-tab-content" id="wmTabContent"></div>
+
+      <div class="dv-footer"><span id="wmCount"></span><span>가상 샘플 로그 · 실제 서비스 데이터 아님</span></div>
+    </div>
+
+    <div class="note-box">
+      <strong>집계 방식</strong>
+      <ol class="wm-steps">
+        <li><strong>픽률</strong>: 입장 로그에서 유저가 들고 들어간 무기(주무기·보조무기)를 집계합니다.</li>
+        <li><strong>킬</strong>: PvP 킬 로그에 기록된 처치 무기를 집계합니다.</li>
+        <li><strong>데스</strong>: 킬 로그에는 피해자의 무기가 없어서, 피해자의 입장 로그를 (매치, 유저) 키로 역추적해 입장 시 보유한 무기에 집계합니다.</li>
+        <li><strong>승률</strong> = 킬 ÷ (킬 + 데스). 데스가 보유한 무기 전부에 잡히므로 평균 승률은 50%보다 낮게 나오고, 그래서 <strong>전체 평균을 기준선</strong>으로 삼아 평균 대비 높고 낮음을 판단합니다.</li>
+      </ol>
+      <p style="margin:10px 0 0">
+        <strong>해석할 때 주의한 점</strong>: 입장 후 무기를 바꿔도 데스에는 반영되지 않고, 데스는 보유한 무기 전부에 잡히므로
+        절대 수치보다 <strong>무기 간 상대 비교</strong>에 적합합니다. 표본이 적은 무기는 승률이 극단값이 되기 쉬워,
+        데모에서는 최소 표본 기준으로 걸러서 볼 수 있게 했고 픽률과 승률은 함께 봐야 합니다.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오이므로 작성자의 동의 없는 무단 사용을 금지합니다.</p>
+  <p>게시가 허가된 내용으로만 구성되어 있으며 보안을 위해 일부 내용이 변형되어있을 수 있습니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../../assets/js/back-to-top.js"></script>
+
+<script src="assets/battle-log-data.js"></script>
+<script src="assets/battle-log.js"></script>
+
+</body>
+</html>
