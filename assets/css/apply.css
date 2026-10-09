@@ -32,14 +32,37 @@
   .apply-bar,
   .back-to-top { display: none !important; }
 
-  body { background: #fff; }
+  body { background: #fff; zoom: 0.9; }
   .page { padding-bottom: 0; }
+  .info-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
+  @page { size: A4; margin: 14mm 12mm; }
+
+  /* 한 덩어리는 페이지 중간에서 잘리지 않게 */
   .timeline-item,
   .keyword-block,
   .final-appeal,
   .profile-card,
-  .info-box { break-inside: avoid; }
+  .info-grid,
+  .info-box,
+  .keep-together,
+  .clean-table tr { break-inside: avoid; page-break-inside: avoid; }
+
+  /* 제목은 다음 내용과 같은 페이지에 (제목만 페이지 끝에 남지 않게) */
+  .resume-section > h2,
+  .content-header,
+  .timeline-item .job-meta,
+  .timeline-item .role-line,
+  .timeline-item .project-title,
+  .keyword-block h3,
+  .final-appeal h3 { break-after: avoid; page-break-after: avoid; }
+
+  /* 섹션 제목 바로 다음의 첫 덩어리는 제목 앞에서 끊기지 않게 (제목과 함께 다음 페이지로) */
+  .timeline > .timeline-item:first-child,
+  .cover-letter > h2 + .keyword-block { break-before: avoid; page-break-before: avoid; }
+
+  /* 문단이 한두 줄만 남지 않게 */
+  p, li { orphans: 3; widows: 3; }
 
   /* 접힌 담당업무도 인쇄 시 모두 보이도록 */
   details > *:not(summary) { display: block; }
