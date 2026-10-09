@@ -152,32 +152,6 @@ img { max-width: 100%; display: block; }
   font-size: 1.05rem;
 }
 
-.contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.contact-links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  background: var(--color-surface);
-  color: var(--color-text);
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.contact-links a:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  text-decoration: none;
-}
-
 /* ===== 섹션 카드 그리드 (메인 페이지) ===== */
 .section-grid {
   display: grid;

@@ -115,8 +115,6 @@
 .ap-guide span.desc { font-size: 0.86rem; color: var(--color-text-muted); }
 .ap-guide .go { margin-top: auto; padding-top: 6px; font-size: 0.84rem; font-weight: 700; color: var(--color-accent); }
 
-.ap-footer-contact { margin-top: 12px; color: var(--color-text-muted); font-size: 0.9rem; }
-
 /* 이전 · 다음 장 */
 .ap-pager {
   display: flex; justify-content: space-between; gap: 12px;
