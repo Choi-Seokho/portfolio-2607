@@ -231,27 +231,10 @@ body {
 .scroll-area::-webkit-scrollbar-track { background: transparent; }
 .scroll-area::-webkit-scrollbar-thumb { background: #222230; border-radius: 3px; }
 .scroll-area::-webkit-scrollbar-thumb:hover { background: #333345; }
-
-/* 이 포트폴리오 상단 메뉴 */
-.ap-proto-bar { height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 20px; background: #0d0d12; border-bottom: 1px solid #24242d; overflow-x: auto; white-space: nowrap; }
-.ap-proto-bar a { color: #a8a8b4; text-decoration: none; font: 600 13px/1 'Noto Sans KR', sans-serif; }
-.ap-proto-bar a:hover, .ap-proto-bar a.is-active { color: #e8c15a; }
-.ap-proto-bar .brand { color: #e8e8ee; font-size: 14px; }
-.ap-proto-bar nav { display: flex; gap: 18px; }
 </style>
 <script data-goatcounter="https://choi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
-<header class="ap-proto-bar">
-  <a class="brand" href="../index.html">Choi Seokho</a>
-  <nav aria-label="목차">
-    <a href="../index.html#fit">공고와의 연결</a>
-    <a href="../index.html#prd" class="is-active">기획 산출물</a>
-    <a href="../index.html#ai">AI 도구 활용</a>
-    <a href="../index.html#collab">협업과 의사결정</a>
-    <a href="../index.html#domain">지원 관점</a>
-  </nav>
-</header>
 <div id="root"></div>
 
 <script type="text/babel">
@@ -4616,7 +4599,7 @@ function App() {
   };
 
   return React.createElement('div', {
-      style: { height: 'calc(100vh - 44px)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }
+      style: { height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }
     },
     React.createElement(TopNav),
     // Blueprint Status Preview 버튼 (좌상단 플로팅)
@@ -4727,5 +4710,6 @@ function App() {
 
 ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
 </script>
+<a href="../index.html#prd" id="apBack" style="position:fixed;right:12px;bottom:12px;z-index:99999;padding:7px 14px;border-radius:999px;background:rgba(20,20,26,0.82);color:#e8e8ee;font:600 13px/1 'Noto Sans KR',sans-serif;text-decoration:none;border:1px solid rgba(255,255,255,0.18);">← 포트폴리오로 돌아가기</a>
 </body>
 </html>

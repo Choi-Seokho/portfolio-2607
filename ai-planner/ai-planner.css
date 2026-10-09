@@ -8,7 +8,6 @@
 }
 
 .ap-bar-links a { color: var(--color-text-muted); font-weight: 600; }
-.ap-bar-links a.is-active { color: var(--color-accent); }
 .ap-bar-links a:hover { color: var(--color-accent); text-decoration: none; }
 
 .ap-hero { padding: 48px 0 8px; }
