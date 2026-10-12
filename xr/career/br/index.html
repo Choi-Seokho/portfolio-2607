@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>BR Games 경력기술서 | Choi Seokho · Game Designer</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../../../assets/icons/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../../../assets/icons/favicon-16.png" />
+<link rel="apple-touch-icon" href="../../../assets/icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../../../assets/css/style.css" />
+<script data-goatcounter="https://choi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="brand" href="../../index.html">Choi Seokho · Game Designer</a>
+    <ul>
+      <li><a class="nav-link" href="../../index.html">소개</a></li>
+      <li><a class="nav-link active" href="../index.html">경력기술서</a></li>
+      <li><a class="nav-link" href="../../prototypes/craft-station/design.html">포트폴리오</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="page">
+  <nav class="subtab-nav">
+    <a href="../oneway/index.html">OneWayTicketStudio</a>
+    <a href="../factorial/index.html">Factorial Games</a>
+    <a href="../fit/index.html">FIT</a>
+    <a class="active" href="../br/index.html">BR Games</a>
+  </nav>
+
+  <div class="content-header">
+    <p class="eyebrow">CAREER · BR Games</p>
+    <h1>BR Games</h1>
+    <p>2014.09 ~ 2017.11 · 기획팀 사원 · Mobile RTS <em>Tales Craft</em></p>
+  </div>
+
+  <section class="career-summary">
+    <h2>성과 요약</h2>
+    <ul>
+      <li><strong>출시부터 라이브까지</strong> · 프로젝트 초기부터 소프트 런칭(One Store), 정식 출시(Google·App Store), 라이브 서비스까지 참여</li>
+      <li><strong>조작 체계 정립</strong> · 레퍼런스 없이 플레이 테스트를 반복해 모바일 RTS 터치 조작 규칙을 직접 정립, 개발·QA 공통 기준 문서화</li>
+      <li><strong>레벨·AI 전담</strong> · 퇴사 전까지 모든 맵 제작을 담당하고, 게임 내 모든 PC·NPC의 AI와 스킬 동작 방식을 전담</li>
+    </ul>
+  </section>
+
+  <section class="resume-section">
+    <h2>조작 방식 정의</h2>
+    <p>모바일 RTS Tales Craft의 터치 조작 체계를 레퍼런스 없이 플레이 테스트를 반복하며 직접 정립했습니다. 터치 인터페이스라는 제약 안에서 스타크래프트 같은 PC RTS에서 쓰이는 조작을 거의 대부분 구현해, 유닛 선택·이동부터 건설·스킬·업그레이드까지 하나의 일관된 규칙으로 묶었습니다. 테스트를 거듭하며 굳힌 조작 규칙들은 최종적으로 조작 가이드 문서로 정리해 개발팀·QA의 공통 기준으로 삼았습니다.</p>
+
+    <h3 class="sub-heading">목적</h3>
+    <p class="sub-desc">버튼이 많아 조작이 복잡해지고, 터치 미스 등 오류가 발생하는 문제를 완화</p>
+
+    <h3 class="sub-heading">해결 방법</h3>
+    <div style="overflow-x:auto;">
+      <table class="clean-table compare">
+        <thead>
+          <tr><th>구분</th><th>문제점</th><th>해결 방법</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>유닛 선택</th>
+            <td>그룹 선택 버튼을 누른 뒤 사각형으로 드래그하는 방식(스타크래프트 방식)은 조작 단계가 많아 번거로웠음</td>
+            <td>경로를 따라 아군 유닛을 선택하는 한 붓 그리기 방식으로 변경. 단일 선택(터치)·다중 선택(경로 드래그)으로 규칙 확정</td>
+          </tr>
+          <tr>
+            <th>이동/공격 이동 전환</th>
+            <td>이동/공격 이동 전환이 버튼 토글 방식이라 빠르게 전환하기 어려웠음</td>
+            <td>1회 터치는 이동, 2회 이상 터치는 공격 이동(어택땅)으로 전환(연타하는 플레이 패턴 반영). 이동/공격 이동 동작을 서로 변경할 수 있는 옵션 추가</td>
+          </tr>
+          <tr>
+            <th>취소 동작</th>
+            <td>기능마다 취소 동작 방식이 달라 헷갈리기 쉬웠음</td>
+            <td>모든 취소 동작을 아이콘을 위/아래로 플릭하는 동작 하나로 통일</td>
+          </tr>
+          <tr>
+            <th>건물 건설 / 스킬 사용</th>
+            <td>초기에는 클릭 투 클릭 방식이라 클릭 미스가 발생하기 쉬웠고, 정교한 위치 지정이 어려웠음</td>
+            <td>Drag &amp; Drop으로 변경, 드래그 중 더미(예상 위치) 표시로 정교한 배치 가능. 아이콘 자리로 되돌리면 취소되는 규칙을 건설·스킬에 동일 적용</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub-desc">위와 같은 방식으로 출시까지 조작 방식을 체계화함</p>
+
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/control-ui-overview.png" alt="인게임 UI 및 기능 오버뷰" loading="lazy" />
+        <p class="caption">인게임 진입 시 첫 화면: 자원 현황·일꾼·병력 생산·미니맵 등 UI 요소 정의</p>
+      </div>
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/control-multiselect.png" alt="유닛 다중 선택 Drag&amp;Drop 조작 가이드" loading="lazy" />
+        <p class="caption">유닛 근처에서 Drag &amp; Drop 시 이동 경로 상의 유닛을 다중 선택하는 조작 정의</p>
+      </div>
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/control-select-cancel.png" alt="유닛 선택 해제 조작 가이드" loading="lazy" />
+        <p class="caption">유닛 선택 해제: 하단에 표시된 유닛 아이콘을 위로 밀면 해당 유닛이 선택 해제됨</p>
+      </div>
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/control-skill-use.png" alt="스킬 사용 Drag&amp;Drop 조작 정의" loading="lazy" />
+        <p class="caption">스킬 사용: 스킬 아이콘을 원하는 영역으로 Drag &amp; Drop해 시전, 건설과 동일하게 아이콘 자리로 되돌리면 취소되도록 규칙 통일</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2>레벨 디자인</h2>
+    <p>PvE 반복 콘텐츠 <strong>‘천공의 섬(Infinity Battle)’</strong>의 스테이지 진입 구조와 전투 방식을 기획하고, 하나의 공용 MAP으로 여러 Stage를 운용할 수 있도록 적 배치 지점·공격 방향·아군 시작점을 표준화된 레이아웃으로 설계했습니다.</p>
+    <div style="overflow-x:auto;">
+      <table class="clean-table">
+        <tbody>
+          <tr><th>진입 조건</th><td>진입 시 타이머 노출, 영웅 최대 3명 소환(자원·인구 제한 없음), 모든 적 처치 시 승리</td></tr>
+          <tr><th>MAP 구성</th><td>공용 Map에 적 배치 지점 3곳 + 아군 시작점 1곳을 두어 스테이지별 난이도만 다르게 구성</td></tr>
+          <tr><th>진행 구조</th><td>화면보다 큰 월드맵을 좌우 스크롤하며 Stage를 순차적으로 오픈하는 진행 구조 설계</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub-desc">신규 콘텐츠를 제안할 때는 이처럼 스테이지 진입 구조·전투 방식·MAP 구성을 기획 문서로 정리해 제안서를 작성합니다.</p>
+
+    <div class="shot-gallery">
+      <div class="shot-card doc-page">
+        <img src="../../../career/br/assets/screenshots/level-map-composition.png" alt="천공의 섬 기획 문서 8페이지 - 전투 방식 및 MAP 구성" loading="lazy" />
+        <p class="caption">천공의 섬 기획 문서 8p: 전투 방식(영웅 소환)과 MAP 구성(적군 배치 지점·아군 시작점·공격 방향)을 함께 정리</p>
+      </div>
+    </div>
+
+    <h3 class="sub-heading">맵 제작 예시 (PvP)</h3>
+    <p class="sub-desc">PvP 밸런스를 고려해 직접 제작한 맵 중 일부입니다. 이미 존재하는 콘텐츠는 빠르게 테스트 가능한 레벨을 만들어 플레이 테스트를 진행한 뒤 결과를 정리하는 방식으로 작업합니다.</p>
+    <div class="shot-gallery compact">
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/map-pvp-1v1.png" alt="map[000][000]-PvP_1vs1" loading="lazy" />
+        <p class="caption">map[000][000] · PvP_1vs1</p>
+      </div>
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/map-pvp-2v2.png" alt="map[000][001]-PvP_2vs2" loading="lazy" />
+        <p class="caption">map[000][001] · PvP_2vs2</p>
+      </div>
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/map-pvp-2v2-b.png" alt="map[000][002]-PvP_2vs2" loading="lazy" />
+        <p class="caption">map[000][002] · PvP_2vs2</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2>공격대 시스템</h2>
+    <p>생산 단계 없이 Preset으로 지정한 유닛(영웅+병력)을 즉시 투입하는 <strong>‘공격대(Attacking Forces)’</strong> 전투 시스템을 기획했습니다. 자원 채집 → 건설 → 생산 → 전투로 이어지는 기존 RTS 전투와 달리, 이벤트 전투·거점전·보스전처럼 채집·건설·생산 단계를 생략한 콘텐츠에 사용되는 별도 전투 체계입니다.</p>
+
+    <h3 class="sub-heading">목적</h3>
+    <p class="sub-desc">PvP 외에도 반복 플레이가 가능한 콘텐츠가 필요했음</p>
+
+    <h3 class="sub-heading">해결 방법</h3>
+    <p class="sub-desc">모든 유닛을 자유롭게 쓸 수 있으면 가장 강한 유닛으로만 클리어하는 단순 반복 플레이가 되기 쉬우므로, 보유한 유닛 안에서 덱을 구성해 플레이하는 방식으로 콘텐츠를 설계</p>
+
+    <div style="overflow-x:auto;">
+      <table class="clean-table">
+        <tbody>
+          <tr><th>UI 구성</th><td>영웅 슬롯 + 병력 슬롯(연방 상극인 라미아/타이탄 동시 배치 불가, 총 12슬롯)으로 구성된 Attacking Forces UI 설계</td></tr>
+          <tr><th>배치 방식</th><td>영웅은 Drag &amp; Drop, 병력은 터치·홀드(COC류 게임의 병력 생산 참고)로 배치·해제하는 입력 방식 정의</td></tr>
+          <tr><th>업그레이드</th><td>공격대 업그레이드로 영웅 슬롯 Unlock 및 배치 가능 병력 인구수 증가</td></tr>
+          <tr><th>전투력 수치화</th><td>유닛별 초당 공격력(공격력 ÷ 공격 속도)을 합산한 Forces ATK 수치로 공격대 전투력을 수치화</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="shot-gallery">
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/raid-ui-layout.png" alt="공격대 시스템 UI 배치" loading="lazy" />
+        <p class="caption">공격대 UI 전체 배치: 영웅/병력 배치 슬롯, Forces ATK, 소대 전환, 업그레이드 버튼 정의</p>
+      </div>
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/raid-hero-slot.png" alt="영웅 배치 슬롯 Drag&amp;Drop 동작" loading="lazy" />
+        <p class="caption">영웅 배치 슬롯: Drag &amp; Drop을 통한 배치·해제, 배치 시 아이콘 상태 변화 정의</p>
+      </div>
+      <div class="shot-card">
+        <img src="../../../career/br/assets/screenshots/raid-upgrade.png" alt="공격대 업그레이드 팝업" loading="lazy" />
+        <p class="caption">공격대 업그레이드: 영웅 슬롯 Unlock, 병력 인구수 증가 등 업그레이드 요소 설계</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오이므로 작성자의 동의 없는 무단 사용을 금지합니다.</p>
+  <p>게시가 허가된 내용으로만 구성되어 있으며 보안을 위해 일부 내용이 변형되어있을 수 있습니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../../../assets/js/back-to-top.js"></script>
+
+</body>
+</html>
