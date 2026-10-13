@@ -35,11 +35,15 @@
   body { background: #fff; zoom: 0.9; }
   .page { padding-bottom: 0; }
   .info-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  section.resume-section { margin-bottom: 32px; }
+  .skill-list { gap: 5px; }
+  .skill-list li { padding: 7px 14px; }
 
   @page { size: A4; margin: 14mm 12mm; }
 
   /* 한 덩어리는 페이지 중간에서 잘리지 않게 */
-  .timeline-item,
+  .job-head,
+  .duty,
   .keyword-block,
   .final-appeal,
   .profile-card,
@@ -51,9 +55,7 @@
   /* 제목은 다음 내용과 같은 페이지에 (제목만 페이지 끝에 남지 않게) */
   .resume-section > h2,
   .content-header,
-  .timeline-item .job-meta,
-  .timeline-item .role-line,
-  .timeline-item .project-title,
+  .job-head,
   .keyword-block h3,
   .final-appeal h3 { break-after: avoid; page-break-after: avoid; }
 
@@ -69,15 +71,6 @@
 }
 
 
-/* 회사별 주요 성과 (담당업무 위에 항상 노출) */
-.achievement-list {
-  margin: 0 0 12px;
-  padding-left: 20px;
-  font-size: 0.92rem;
-}
-
-.achievement-list li { margin-bottom: 4px; }
-.achievement-list li::marker { color: var(--color-accent); }
 
 .content-header .resume-tagline {
   margin: 4px 0 0;
@@ -97,3 +90,23 @@
   font-weight: 600;
   text-decoration: underline;
 }
+
+/* 경력 항목: 담당 업무 · 주요 성과 */
+.duty {
+  margin: 12px 0 0;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.duty-title { margin: 0 0 4px; font-weight: 700; font-size: 0.85rem; color: var(--color-accent); }
+.duty-list { margin: 0 0 10px; padding-left: 18px; font-size: 0.9rem; }
+.duty-list li { margin-bottom: 3px; }
+.duty-list strong { display: inline-block; min-width: 6.5em; }
+.duty-list.result strong { min-width: 0; }
+
+.detail-link { margin: 0; font-size: 0.85rem; }
+.detail-link a { font-weight: 600; text-decoration: underline; }
+
+.timeline-item .leave-reason { margin-top: 12px; }
