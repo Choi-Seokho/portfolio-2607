@@ -1,0 +1,566 @@
+{
+  "schema_version": 1,
+  "note": "효과 블록 카탈로그. 룰 엔진 레지스트리와 카드 에디터 드롭다운의 기준. 원본은 prototype/tools/effect_catalog_source.py",
+  "common_keys": {
+    "timing": "timings 중 하나 (기본 immediate)",
+    "target": "targets 중 하나 (기본 self)",
+    "condition": "conditions 중 하나 이상을 담은 객체",
+    "duration": "grant_status 외에도 이번 행동 · 차례 한정 효과에 사용"
+  },
+  "categories": {
+    "resource": "자원 · 카드",
+    "vitality": "체력 · 스테미너",
+    "combat": "공격 수정 (이번 공격에만)",
+    "defense": "방어 (공격받을 때 반응)",
+    "movement": "이동",
+    "status": "지속 상태",
+    "map": "맵 · 적",
+    "shelter": "쉘터 규칙 수정 (시설 · 생존자 배치 중)",
+    "passive": "상시 능력 (장착 · 보유 · 조건 충족 중)"
+  },
+  "blocks": {
+    "gain_coin": {
+      "category": "resource",
+      "desc": "코인을 얻는다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "pay_coin": {
+      "category": "resource",
+      "desc": "코인을 낸다. 낼 수 없으면 이 효과를 쓸 수 없다(비용).",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "gain_vp": {
+      "category": "resource",
+      "desc": "승점을 얻는다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "gain_material": {
+      "category": "resource",
+      "desc": "재료 토큰을 얻는다. (프로토타입은 부품 1종)",
+      "params": {
+        "material": "str",
+        "amount": "int"
+      }
+    },
+    "draw_supply": {
+      "category": "resource",
+      "desc": "보급품 덱에서 뽑는다. 함정 · 크롤러는 즉시 처리.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "take_open_supply": {
+      "category": "resource",
+      "desc": "드러난 보급품 중 원하는 카드 1장을 가져온다.",
+      "params": {}
+    },
+    "draw_investigation": {
+      "category": "resource",
+      "desc": "조사 카드를 뽑는다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "draw_player_card": {
+      "category": "resource",
+      "desc": "자신의 플레이어 카드 덱에서 뽑는다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "look_top_take": {
+      "category": "resource",
+      "desc": "덱 위에서 look장을 보고 take장을 손으로, 나머지는 원래 순서대로 되돌린다.",
+      "params": {
+        "look": "int",
+        "take": "int"
+      }
+    },
+    "cycle_hand": {
+      "category": "resource",
+      "desc": "손패에서 원하는 만큼 버리고 버린 수만큼 다시 뽑는다.",
+      "params": {}
+    },
+    "discard_supply": {
+      "category": "resource",
+      "desc": "조건에 맞는 보급품 카드 1장을 버린다(비용).",
+      "params": {
+        "min_sell": "int"
+      }
+    },
+    "sell_now": {
+      "category": "resource",
+      "desc": "가방의 보급품 카드를 판매가만큼 코인으로 바꾼다(정비가 아니어도).",
+      "params": {
+        "count": "int"
+      }
+    },
+    "bag_overflow": {
+      "category": "resource",
+      "desc": "이번 행동에서 가방 용량을 무시하고 추가로 획득할 수 있는 장수.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "peek_player_card": {
+      "category": "resource",
+      "desc": "다른 플레이어 1명이 무작위로 공개한 플레이어 카드 1장을 확인한다.",
+      "params": {}
+    },
+    "access_storage": {
+      "category": "resource",
+      "desc": "쉘터 밖(챕터 중)에서도 자신의 창고와 가방 사이에서 카드를 원하는 만큼 교환한다.",
+      "params": {}
+    },
+    "heal": {
+      "category": "vitality",
+      "desc": "체력을 회복한다. \"full\"이면 최대치까지.",
+      "params": {
+        "hp": "int_or_full"
+      }
+    },
+    "restore_stamina": {
+      "category": "vitality",
+      "desc": "스테미너를 회복한다. \"full\"이면 최대치까지.",
+      "params": {
+        "amount": "int_or_full"
+      }
+    },
+    "transfer_stamina": {
+      "category": "vitality",
+      "desc": "자신의 스테미너를 대상에게 넘겨준다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "lose_stamina": {
+      "category": "vitality",
+      "desc": "스테미너를 잃는다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "take_damage": {
+      "category": "vitality",
+      "desc": "피해를 받는다(공격이 아님: 방어구만 적용, 방어 · 회피 카드 불가).",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "revive": {
+      "category": "vitality",
+      "desc": "탈진한 캐릭터를 부활시킨다.",
+      "params": {
+        "hp": "int_or_full_or_half",
+        "stamina": "int_or_full"
+      }
+    },
+    "rest_multiplier": {
+      "category": "vitality",
+      "desc": "이번 휴식의 체력 · 스테미너 회복량을 곱한다.",
+      "params": {
+        "factor": "int"
+      }
+    },
+    "attack_bonus": {
+      "category": "combat",
+      "desc": "이번 공격의 공격력에 더한다. per를 주면 그 수만큼(최대 max).",
+      "params": {
+        "amount": "int?",
+        "per": "enum?:bag_count",
+        "max": "int?"
+      }
+    },
+    "range_bonus": {
+      "category": "combat",
+      "desc": "이번 공격의 사거리에 더한다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "bonus_move": {
+      "category": "movement",
+      "desc": "카드를 쓰면 캐릭터의 이동 행동과 별개로 max_move칸까지 따로 이동한다(행동 끝 전, 2026-10-18 전력 질주).",
+      "params": {
+        "max_move": "int"
+      }
+    },
+    "ricochet": {
+      "category": "combat",
+      "desc": "이번 공격이 맞으면(피해 1 이상) 맞은 대상 주변 range칸 이내의 다른 적 모두에게 고정 피해 damage(토큰 판정 · 방어 없음, 추가 공격에는 적용 안 함). 2026-10-18 사냥꾼 도탄 사격.",
+      "params": {
+        "range": "int",
+        "damage": "int"
+      }
+    },
+    "dice_advantage": {
+      "category": "combat",
+      "desc": "이번 공격에 주사위를 여러 번 굴려 가장 높은 결과를 쓴다.",
+      "params": {
+        "rolls": "int"
+      }
+    },
+    "extra_attack": {
+      "category": "combat",
+      "desc": "같은 무기로 행동 소모 없이 한 번 더 공격한다(공격 1번당 최대 1번, 연쇄 없음).",
+      "params": {
+        "condition": "enum?:not_skull"
+      }
+    },
+    "attack_override": {
+      "category": "combat",
+      "desc": "주사위를 굴리지 않고 공격력을 정해진 방식으로 계산한다.",
+      "params": {
+        "mode": "enum:double_weapon",
+        "max_range": "int?"
+      }
+    },
+    "deal_damage": {
+      "category": "combat",
+      "desc": "대상에게 피해를 준다. no_dice면 주사위 없이 고정.",
+      "params": {
+        "amount": "int",
+        "no_dice": "bool?",
+        "range": "int?",
+        "target": "enum?:enemy|all_enemies_in_cell"
+      }
+    },
+    "splash_damage": {
+      "category": "combat",
+      "desc": "주변의 다른 대상(적 · 캐릭터)에게도 무기 공격력만큼 피해(무기 특수 효과, 대상의 방어력 적용). on_dice x2(치명일 때) 또는 on_hit + once_per_chapter(챕터에 1번 쓰겠다고 고른 공격이 맞으면, 2026-10-17).",
+      "params": {
+        "range": "int",
+        "once_per_chapter": "bool?"
+      }
+    },
+    "counter_attack": {
+      "category": "combat",
+      "desc": "공격받아 피해를 적용한 뒤, 판정 주사위가 on_dice 중 하나면 공격한 대상에게 고정 피해 damage를 준다. 반격은 공격이 아니다(재반격 · 반응 없음).",
+      "params": {
+        "on_dice": "list",
+        "max_distance": "int",
+        "damage": "int"
+      }
+    },
+    "stun": {
+      "category": "combat",
+      "desc": "기절: 그 적은 다음 적 차례에 아무것도 하지 않는다(무기 특수 효과). once_per_chapter면 챕터에 1번, 공격할 때 쓰겠다고 골랐을 때만.",
+      "params": {
+        "once_per_chapter": "bool?",
+        "faces": "list?"
+      }
+    },
+    "root": {
+      "category": "combat",
+      "desc": "속박: 그 적은 다음 적 차례에 이동하지 않는다. 사거리 안이면 공격은 한다(무기 특수 효과).",
+      "params": {
+        "faces": "list?"
+      }
+    },
+    "poison": {
+      "category": "combat",
+      "desc": "독: 적 차례가 시작될 때마다 그 적에게 고정 피해 1, turns번. 독으로 쓰러지면 처치 보상은 독을 건 쪽. label bleed = 출혈(독 1)(무기 특수 효과).",
+      "params": {
+        "turns": "int",
+        "label": "str?",
+        "faces": "list?"
+      }
+    },
+    "knockback": {
+      "category": "combat",
+      "desc": "밀어내기: 그 적을 공격자 반대쪽 바로 뒤 칸으로 1칸 민다. 맵 끝 · 장애물 · 다른 말 · 숨은 적 칸 · 시작 칸이면 막힘. collision이 있으면 막혔을 때 고정 피해(무기 특수 효과).",
+      "params": {
+        "collision": "int?",
+        "faces": "list?"
+      }
+    },
+    "lifesteal": {
+      "category": "combat",
+      "desc": "흡혈: 공격자 체력 +amount(최대 체력까지). 대상이 쓰러져도 적용(무기 특수 효과).",
+      "params": {
+        "amount": "int",
+        "faces": "list?"
+      }
+    },
+    "defense_bonus": {
+      "category": "defense",
+      "desc": "이번에 받는 공격에서 방어력에 더한다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "reduce_damage": {
+      "category": "defense",
+      "desc": "이번에 받는 피해를 줄인다(방어력 적용 후).",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "evade": {
+      "category": "defense",
+      "desc": "이번 공격을 완전히 무효로 한다('회피 불가' 공격 제외).",
+      "params": {}
+    },
+    "intercept": {
+      "category": "defense",
+      "desc": "같은 칸 아군이 받을 공격을 자신이 대신 받는다.",
+      "params": {}
+    },
+    "move_bonus": {
+      "category": "movement",
+      "desc": "이번 이동 행동의 이동력에 더한다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "move_then_attack": {
+      "category": "movement",
+      "desc": "이동력 max_move 이하로 이동한 뒤 즉시 공격한다(행동 1회).",
+      "params": {
+        "max_move": "int"
+      }
+    },
+    "pull_ally": {
+      "category": "movement",
+      "desc": "사거리 안의 아군 캐릭터를 자신의 칸으로 옮긴다(이동력 소모 없음).",
+      "params": {
+        "range": "int"
+      }
+    },
+    "grant_status": {
+      "category": "status",
+      "desc": "대상에게 지속 상태를 준다. status 목록은 statuses 참조.",
+      "params": {
+        "status": "status",
+        "duration": "duration",
+        "amount": "int?",
+        "range": "int?",
+        "count": "int?"
+      }
+    },
+    "noise": {
+      "category": "map",
+      "desc": "소음을 낸다. at=self면 이 캐릭터 위치, chosen_cell이면 range 이내 칸 하나.",
+      "params": {
+        "at": "enum?:self|chosen_cell",
+        "range": "int?"
+      }
+    },
+    "spawn_enemy": {
+      "category": "map",
+      "desc": "지정한 적을 출현시킨다(기본: 카드를 가져간 캐릭터의 칸).",
+      "params": {
+        "enemy": "str"
+      }
+    },
+    "mod_revive": {
+      "category": "shelter",
+      "desc": "의무실 부활을 바꾼다. cost는 비용 증감, hp는 부활 체력.",
+      "params": {
+        "cost": "int?",
+        "hp": "int_or_full?"
+      }
+    },
+    "mod_upgrade_cost": {
+      "category": "shelter",
+      "desc": "시설 레벨업 비용(부품)을 바꾼다.",
+      "params": {
+        "amount": "int",
+        "target": "enum?:other_facilities|this_facility"
+      }
+    },
+    "mod_heal": {
+      "category": "shelter",
+      "desc": "시설의 회복량을 바꾼다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "mod_mission_draw": {
+      "category": "shelter",
+      "desc": "챕터 준비 때 보는 미션 카드 수를 바꾼다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "mod_black_market_cost": {
+      "category": "shelter",
+      "desc": "암시장 구매 비용을 바꾼다.",
+      "params": {
+        "amount": "int"
+      }
+    },
+    "mod_card_cost": {
+      "category": "shelter",
+      "desc": "특정 카드의 코인 비용을 바꾼다.",
+      "params": {
+        "card": "str",
+        "coin": "int"
+      }
+    },
+    "free_card_use": {
+      "category": "shelter",
+      "desc": "정해진 종류의 카드를 주기마다 비용 없이 쓴다.",
+      "params": {
+        "kind": "str",
+        "per": "enum:round|turn",
+        "count": "int"
+      }
+    },
+    "card_bonus_recover": {
+      "category": "shelter",
+      "desc": "이 종류 카드를 쓰면 주기마다 거리 상관없이 내 캐릭터 하나를 추가 회복(구원자 특전 1, 2026-10-17).",
+      "params": {
+        "kind": "str",
+        "hp": "int?",
+        "stamina": "int?",
+        "per": "enum:round|turn",
+        "count": "int"
+      }
+    },
+    "draw_look_extra": {
+      "category": "shelter",
+      "desc": "뽑을 때 1장 더 보고 고른다(deck: player|supply|enemy).",
+      "params": {
+        "amount": "int",
+        "decks": "list",
+        "per": "enum?:round",
+        "count": "int?"
+      }
+    },
+    "rest_bonus": {
+      "category": "shelter",
+      "desc": "휴식 회복량에 더한다(체력 hp, 스테미너 stamina 각각).",
+      "params": {
+        "hp": "int?",
+        "stamina": "int?"
+      }
+    },
+    "stat_mod": {
+      "category": "passive",
+      "desc": "능력치를 바꾼다(stat: bag | move | defense | weapon_range).",
+      "params": {
+        "stat": "enum:bag|move|defense|weapon_range",
+        "amount": "int"
+      }
+    },
+    "allow_grapple": {
+      "category": "passive",
+      "desc": "그래플링 훅 통로로 이동할 수 있다. once_per_round이면 장비 없이 라운드당 1번(닌자, 2026-10-08).",
+      "params": {
+        "once_per_round": "bool?"
+      }
+    },
+    "skull_reroll": {
+      "category": "passive",
+      "desc": "내 공격이 빗나감(💀)이면 한 번 다시 꺼낸다(해체 전문가 약점 파악, 2026-10-08).",
+      "params": {}
+    },
+    "rough_free": {
+      "category": "passive",
+      "desc": "험지에 들어갈 때 이동력이 1만 든다(그래플링은 소모하지 않음, 닌자, 2026-10-08).",
+      "params": {}
+    },
+    "forbid_evade": {
+      "category": "passive",
+      "desc": "회피 카드를 사용할 수 없다.",
+      "params": {}
+    },
+    "ignore_armor": {
+      "category": "passive",
+      "desc": "이 무기의 공격은 방어력을 무시한다(관통).",
+      "params": {}
+    },
+    "wild_investigation": {
+      "category": "passive",
+      "desc": "보스 탐색 때 원하는 색 조사 카드 1장으로 취급한다.",
+      "params": {}
+    },
+    "pass_hidden_enemies": {
+      "category": "passive",
+      "desc": "감춰진 적이 있는 칸을 드러내지 않고 지나간다(멈추면 드러남).",
+      "params": {}
+    }
+  },
+  "statuses": {
+    "ignore_zone_attacks": "적이 있는 칸에서 행동해도 공격받지 않음",
+    "pass_through_enemies": "적이 있는 칸을 지나갈 수 있음(count로 칸 수 제한, 감춰진 적은 드러나지 않음)",
+    "untargetable": "적의 이동 목표 · 공격 대상에서 제외(연막)",
+    "taunt": "range 이내 적의 이동 목표 · 공격 대상을 자신으로 고정(도발)",
+    "defense_up": "방어력 +amount(철벽)",
+    "marked": "이 적을 공격할 때 해골이면 한 번 다시 굴림(추적 표식)"
+  },
+  "durations": [
+    "this_action",
+    "this_move",
+    "this_turn",
+    "enemy_turn",
+    "round"
+  ],
+  "timings": {
+    "immediate": "획득 · 사용 즉시 (기본값)",
+    "anytime": "자기 차례 중 원할 때",
+    "on_attack": "자신이 공격할 때",
+    "on_hit": "공격받을 때 (반응)",
+    "on_move": "이동 행동을 할 때",
+    "on_rest": "휴식 행동을 할 때",
+    "turn_end": "자기 차례가 끝날 때",
+    "maintenance": "정비 중",
+    "chapter_start": "챕터 준비 때"
+  },
+  "targets": {
+    "self": "사용한 캐릭터 (기본값)",
+    "same_cell_ally": "같은 칸의 아군(같은 플레이어) 캐릭터, 자신 포함",
+    "same_cell_any": "같은 칸의 모든 캐릭터",
+    "chosen_enemy": "사거리 안의 적 하나",
+    "own_active_character": "탈진하지 않은 자신의 캐릭터 하나"
+  },
+  "hooks": {
+    "passive": "조건이 맞는 동안 항상",
+    "on_attack": "자신이 공격할 때",
+    "on_hit": "공격받을 때",
+    "on_rest": "휴식할 때",
+    "on_draw": "카드를 뽑을 때",
+    "on_interact": "상호작용할 때 (cell_type으로 한정)",
+    "on_boss_kill": "보스를 처치했을 때",
+    "on_kill": "일반 적을 처치했을 때(2026-10-08 신규 직업)",
+    "on_loot": "쓰러진 캐릭터를 약탈했을 때(2026-10-08 신규 직업)",
+    "on_sell": "보급품을 판매할 때"
+  },
+  "conditions": {
+    "distance_max": "대상과의 거리가 N 이하",
+    "distance_min": "대상과의 거리가 N 이상",
+    "hp_at_most_half": "생명력이 기본 생명력의 절반 이하",
+    "bag_count_min": "가방 칸(카드 + 부품 토큰)이 N 이상",
+    "bag_full": "가방이 가득 참",
+    "armor_equipped": "방어구를 장착함",
+    "destination_has_boss": "이동 목적지에 보스가 있음",
+    "not_skull": "주사위 결과가 해골이 아님"
+  },
+  "events": {
+    "enemy_killed": "적을 처치함 (exclude_boss · zone(처치한 적이 있던 칸의 구역 색) · enemy(적 종류) 옵션)",
+    "interact_cell": "칸에서 상호작용함 (cell_type · zone 옵션)",
+    "evade_success": "회피 카드로 공격을 무효로 함",
+    "gain_token": "토큰을 얻음 (token)",
+    "gain_card": "카드를 얻어 가방에 넣음 (kind: supply(함정 · 크롤러 제외) · investigation), 장수만큼",
+    "gain_coin": "코인을 얻음(판매 제외), 개수만큼",
+    "gain_material": "자원 토큰을 얻음 (material), 개수만큼",
+    "facility_level_up": "시설 레벨을 올림",
+    "facility_max": "시설을 Max 레벨로 만듦",
+    "survivor_assigned": "생존자를 시설에 새로 배치함",
+    "bm_bought": "암시장에서 카드를 얻음",
+    "full_equip": "장비 슬롯 3칸을 모두 채운 캐릭터가 생김",
+    "looted": "쓰러진 캐릭터를 약탈함(1장 이상)",
+    "attack_damaged": "공격으로 생명력을 1 이상 줄임 (target_kind)"
+  },
+  "keywords": {
+    "fixed_damage": "고정 피해: 주사위를 굴리지 않고, 방어력 · 방어 카드 · 회피 카드 · 진통제 없이 적힌 수치만큼 그대로 생명력을 줄인다. 공격이 아니므로 반응을 묻지 않는다."
+  },
+  "custom_handlers": {}
+}

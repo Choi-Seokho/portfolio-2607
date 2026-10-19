@@ -1,0 +1,483 @@
+{
+  "schema_version": 1,
+  "note": "보급품 카드 덱 (프로토타입). 노션 '보급품' 페이지와 동기화 (아이템 페이지는 2026-09-28 보급품에 병합). sell = 판매가(코인), 함정 · 적은 0(판매 불가, 획득 즉시 처리) / 2026-10-17 무기 개편: 보급품 무기는 시작 무기보다 수치가 좋거나 특수 효과(on_hit, engine/weapons.js)가 있다 / 2026-10-17 확률(토큰 면) 효과는 \"챕터에 1번 사용\"(once_per_chapter)으로 바꿈 — 보드게임에서 쓸 수 있게",
+  "cards": [
+    {
+      "id": "w_hatchet",
+      "kind": "weapon",
+      "name_key": "supply.w_hatchet.name",
+      "desc_key": "supply.w_hatchet.desc",
+      "sell": 2,
+      "copies": 1,
+      "attack": 2,
+      "range": 1,
+      "slots": 1,
+      "on_hit": [
+        {
+          "block": "poison",
+          "turns": 1,
+          "label": "bleed"
+        }
+      ]
+    },
+    {
+      "id": "w_bat",
+      "kind": "weapon",
+      "name_key": "supply.w_bat.name",
+      "desc_key": "supply.w_bat.desc",
+      "sell": 3,
+      "copies": 1,
+      "attack": 3,
+      "range": 1,
+      "slots": 1
+    },
+    {
+      "id": "w_stunbaton",
+      "kind": "weapon",
+      "name_key": "supply.w_stunbaton.name",
+      "desc_key": "supply.w_stunbaton.desc",
+      "sell": 3,
+      "copies": 1,
+      "attack": 2,
+      "range": 1,
+      "slots": 1,
+      "on_hit": [
+        {
+          "block": "stun",
+          "once_per_chapter": true
+        }
+      ]
+    },
+    {
+      "id": "w_machete",
+      "kind": "weapon",
+      "name_key": "supply.w_machete.name",
+      "desc_key": "supply.w_machete.desc",
+      "sell": 3,
+      "copies": 1,
+      "attack": 2,
+      "range": 1,
+      "slots": 1,
+      "on_hit": [
+        {
+          "block": "lifesteal",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "w_pistol",
+      "kind": "weapon",
+      "name_key": "supply.w_pistol.name",
+      "desc_key": "supply.w_pistol.desc",
+      "sell": 3,
+      "copies": 1,
+      "attack": 2,
+      "range": 2,
+      "slots": 1
+    },
+    {
+      "id": "w_netgun",
+      "kind": "weapon",
+      "name_key": "supply.w_netgun.name",
+      "desc_key": "supply.w_netgun.desc",
+      "sell": 3,
+      "copies": 1,
+      "attack": 1,
+      "range": 2,
+      "slots": 1,
+      "on_hit": [
+        {
+          "block": "root"
+        }
+      ]
+    },
+    {
+      "id": "w_blowgun",
+      "kind": "weapon",
+      "name_key": "supply.w_blowgun.name",
+      "desc_key": "supply.w_blowgun.desc",
+      "sell": 3,
+      "copies": 1,
+      "attack": 1,
+      "range": 3,
+      "slots": 1,
+      "on_hit": [
+        {
+          "block": "poison",
+          "turns": 2
+        }
+      ]
+    },
+    {
+      "id": "w_shotgun",
+      "kind": "weapon",
+      "name_key": "supply.w_shotgun.name",
+      "desc_key": "supply.w_shotgun.desc",
+      "sell": 4,
+      "copies": 1,
+      "attack": 3,
+      "range": 1,
+      "slots": 1,
+      "on_hit": [
+        {
+          "block": "splash_damage",
+          "range": 1,
+          "once_per_chapter": true
+        }
+      ]
+    },
+    {
+      "id": "w_ar",
+      "kind": "weapon",
+      "name_key": "supply.w_ar.name",
+      "desc_key": "supply.w_ar.desc",
+      "sell": 5,
+      "copies": 1,
+      "attack": 2,
+      "range": 3,
+      "slots": 2
+    },
+    {
+      "id": "w_crossbow",
+      "kind": "weapon",
+      "name_key": "supply.w_crossbow.name",
+      "desc_key": "supply.w_crossbow.desc",
+      "sell": 4,
+      "copies": 1,
+      "attack": 2,
+      "range": 3,
+      "slots": 1,
+      "on_hit": [
+        {
+          "block": "knockback"
+        }
+      ]
+    },
+    {
+      "id": "w_sr",
+      "kind": "weapon",
+      "name_key": "supply.w_sr.name",
+      "desc_key": "supply.w_sr.desc",
+      "sell": 6,
+      "copies": 1,
+      "attack": 3,
+      "range": 5,
+      "slots": 3,
+      "passive": [
+        {
+          "block": "ignore_armor"
+        }
+      ]
+    },
+    {
+      "id": "a_leather",
+      "kind": "armor",
+      "name_key": "supply.a_leather.name",
+      "sell": 1,
+      "copies": 2,
+      "defense": 1
+    },
+    {
+      "id": "a_stabvest",
+      "kind": "armor",
+      "name_key": "supply.a_stabvest.name",
+      "sell": 2,
+      "copies": 1,
+      "defense": 2
+    },
+    {
+      "id": "a_tactical",
+      "kind": "armor",
+      "name_key": "supply.a_tactical.name",
+      "desc_key": "supply.a_tactical.desc",
+      "sell": 3,
+      "copies": 1,
+      "defense": 2,
+      "passive": [
+        {
+          "block": "stat_mod",
+          "stat": "bag",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "a_heavy",
+      "kind": "armor",
+      "name_key": "supply.a_heavy.name",
+      "desc_key": "supply.a_heavy.desc",
+      "sell": 4,
+      "copies": 1,
+      "defense": 4,
+      "passive": [
+        {
+          "block": "stat_mod",
+          "stat": "move",
+          "amount": -1
+        }
+      ]
+    },
+    {
+      "id": "a_shield",
+      "kind": "armor",
+      "name_key": "supply.a_shield.name",
+      "desc_key": "supply.a_shield.desc",
+      "sell": 3,
+      "copies": 1,
+      "defense": 3,
+      "passive": [
+        {
+          "block": "forbid_evade"
+        }
+      ]
+    },
+    {
+      "id": "x_grapple",
+      "kind": "accessory",
+      "once_per_round": true,
+      "name_key": "supply.x_grapple.name",
+      "desc_key": "supply.x_grapple.desc",
+      "sell": 2,
+      "copies": 2,
+      "passive": [
+        {
+          "block": "allow_grapple"
+        }
+      ]
+    },
+    {
+      "id": "x_pouch",
+      "kind": "accessory",
+      "name_key": "supply.x_pouch.name",
+      "desc_key": "supply.x_pouch.desc",
+      "sell": 2,
+      "copies": 2,
+      "passive": [
+        {
+          "block": "stat_mod",
+          "stat": "bag",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "c_revive_kit",
+      "kind": "consumable",
+      "name_key": "supply.c_revive_kit.name",
+      "desc_key": "supply.c_revive_kit.desc",
+      "sell": 3,
+      "copies": 3,
+      "range": 1,
+      "effect": [
+        {
+          "block": "revive",
+          "hp": "half_round_up",
+          "stamina": "full"
+        }
+      ],
+      "_range_note": "2026-10-18 사용자 피드백: 같은 칸(0)이면 한 칸에 하나 규칙에서 다른 캐릭터에게 못 쓰는 것처럼 보임 → 거리 1(엔진은 10-17부터 0을 옆 칸까지로 처리해 왔음, 문구와 데이터를 맞춤)"
+    },
+    {
+      "id": "c_bandage",
+      "kind": "consumable",
+      "name_key": "supply.c_bandage.name",
+      "desc_key": "supply.c_bandage.desc",
+      "sell": 1,
+      "copies": 4,
+      "effect": [
+        {
+          "block": "heal",
+          "hp": 3
+        }
+      ]
+    },
+    {
+      "id": "c_energy",
+      "kind": "consumable",
+      "name_key": "supply.c_energy.name",
+      "desc_key": "supply.c_energy.desc",
+      "sell": 1,
+      "copies": 3,
+      "effect": [
+        {
+          "block": "restore_stamina",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "id": "c_painkiller",
+      "kind": "consumable",
+      "name_key": "supply.c_painkiller.name",
+      "desc_key": "supply.c_painkiller.desc",
+      "sell": 1,
+      "copies": 3,
+      "timing": "on_hit",
+      "effect": [
+        {
+          "block": "reduce_damage",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "c_molotov",
+      "kind": "consumable",
+      "name_key": "supply.c_molotov.name",
+      "desc_key": "supply.c_molotov.desc",
+      "sell": 2,
+      "copies": 2,
+      "range": 2,
+      "effect": [
+        {
+          "block": "deal_damage",
+          "amount": 3,
+          "no_dice": true
+        },
+        {
+          "block": "noise",
+          "at": "self"
+        }
+      ]
+    },
+    {
+      "id": "c_smoke",
+      "kind": "consumable",
+      "name_key": "supply.c_smoke.name",
+      "desc_key": "supply.c_smoke.desc",
+      "sell": 2,
+      "copies": 2,
+      "effect": [
+        {
+          "block": "grant_status",
+          "duration": "enemy_turn",
+          "status": "untargetable"
+        }
+      ],
+      "_effect_note": "2026-10-18 사용자 결정: 예전 '이번 차례 동안 적이 있는 칸에서 행동해도 공격받지 않음'(ignore_zone_attacks, this_turn)은 한 칸에 하나 규칙에서 효과가 없음 → 이번 적 차례에 공격받지 않음(암살자 연막과 같은 untargetable)"
+    },
+    {
+      "id": "r_scrap",
+      "kind": "material",
+      "name_key": "supply.r_scrap.name",
+      "desc_key": "supply.r_scrap.desc",
+      "sell": 1,
+      "copies": 4,
+      "material": "part",
+      "amount": 2
+    },
+    {
+      "id": "r_junk",
+      "kind": "material",
+      "name_key": "supply.r_junk.name",
+      "desc_key": "supply.r_junk.desc",
+      "sell": 1,
+      "sell_coins": 1,
+      "copies": 2,
+      "material": "part",
+      "amount": 1,
+      "_note": "2026-10-04 사용자 피드백 신규 4: 팔면 코인 +1 · 부품 +1(코인 하나로 바꿀 수 없는 구성). 고철 더미 6장 중 2장을 이 카드로"
+    },
+    {
+      "id": "t_ring",
+      "kind": "treasure",
+      "name_key": "supply.t_ring.name",
+      "desc_key": "supply.t_ring.desc",
+      "sell": 4,
+      "copies": 3
+    },
+    {
+      "id": "t_watch",
+      "kind": "treasure",
+      "name_key": "supply.t_watch.name",
+      "desc_key": "supply.t_watch.desc",
+      "sell": 6,
+      "copies": 2
+    },
+    {
+      "id": "trap_booby",
+      "kind": "trap",
+      "name_key": "supply.trap_booby.name",
+      "desc_key": "supply.trap_booby.desc",
+      "sell": 0,
+      "copies": 2,
+      "effect": [
+        {
+          "block": "take_damage",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "trap_alarm",
+      "kind": "trap",
+      "name_key": "supply.trap_alarm.name",
+      "desc_key": "supply.trap_alarm.desc",
+      "sell": 0,
+      "copies": 2,
+      "effect": [
+        {
+          "block": "noise",
+          "at": "self"
+        }
+      ]
+    },
+    {
+      "id": "trap_tainted",
+      "kind": "trap",
+      "name_key": "supply.trap_tainted.name",
+      "desc_key": "supply.trap_tainted.desc",
+      "sell": 0,
+      "copies": 1,
+      "effect": [
+        {
+          "block": "lose_stamina",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "e_crawler",
+      "kind": "enemy",
+      "name_key": "supply.e_crawler.name",
+      "desc_key": "supply.e_crawler.desc",
+      "sell": 0,
+      "copies": 3,
+      "effect": [
+        {
+          "block": "spawn_enemy",
+          "enemy": "crawler"
+        }
+      ]
+    },
+    {
+      "id": "e_walker",
+      "kind": "enemy",
+      "name_key": "supply.e_walker.name",
+      "desc_key": "supply.e_walker.desc",
+      "sell": 0,
+      "copies": 1,
+      "effect": [
+        {
+          "block": "spawn_enemy",
+          "enemy": "walker"
+        }
+      ]
+    },
+    {
+      "id": "e_runner",
+      "kind": "enemy",
+      "name_key": "supply.e_runner.name",
+      "desc_key": "supply.e_runner.desc",
+      "sell": 0,
+      "copies": 1,
+      "effect": [
+        {
+          "block": "spawn_enemy",
+          "enemy": "runner"
+        }
+      ]
+    }
+  ]
+}

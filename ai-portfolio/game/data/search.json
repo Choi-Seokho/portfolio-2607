@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "note": "수색 카드(? 칸, 2026-10-01 F3b · 노션 AC-5). ? 칸에서 상호작용하면 수색 덱 맨 위 한 장을 공개하고 effect를 처리한 뒤 수색 버린 더미로. 적 카드는 그 적이 쓰러지거나 챕터가 끝나면 버린 더미로. 덱 구성(장수)은 맵 데이터의 search_deck에 적는다(맵마다 다르게). 수색 덱은 챕터 시작 때 버린 더미와 합쳐 다시 섞는다.",
+  "cards": [
+    { "id": "sr_supply", "kind": "search", "name_key": "search.sr_supply.name", "desc_key": "search.sr_supply.desc", "effect": [{ "block": "draw_supply", "amount": 1 }] },
+    { "id": "sr_parts", "kind": "search", "name_key": "search.sr_parts.name", "desc_key": "search.sr_parts.desc", "effect": [{ "block": "gain_material", "material": "part", "amount": 1 }] },
+    { "id": "sr_coins", "kind": "search", "name_key": "search.sr_coins.name", "desc_key": "search.sr_coins.desc", "effect": [{ "block": "gain_coin", "amount": 2 }] },
+    { "id": "sr_clue", "kind": "search", "name_key": "search.sr_clue.name", "desc_key": "search.sr_clue.desc", "effect": [{ "block": "draw_investigation", "amount": 1 }] },
+    { "id": "sr_survivor", "kind": "search", "name_key": "search.sr_survivor.name", "desc_key": "search.sr_survivor.desc", "effect": [{ "block": "gain_token", "token": "survivor", "amount": 1 }] },
+    { "id": "sr_alarm", "kind": "search", "name_key": "search.sr_alarm.name", "desc_key": "search.sr_alarm.desc", "effect": [{ "block": "noise", "at": "self" }] },
+    { "id": "sr_walker", "kind": "search", "name_key": "search.sr_walker.name", "desc_key": "search.sr_walker.desc", "effect": [{ "block": "spawn_enemy", "enemy": "walker" }] },
+    { "id": "sr_runner", "kind": "search", "name_key": "search.sr_runner.name", "desc_key": "search.sr_runner.desc", "effect": [{ "block": "spawn_enemy", "enemy": "runner" }] },
+    { "id": "sr_spitter", "kind": "search", "name_key": "search.sr_spitter.name", "desc_key": "search.sr_spitter.desc", "effect": [{ "block": "spawn_enemy", "enemy": "spitter" }] }
+  ]
+}

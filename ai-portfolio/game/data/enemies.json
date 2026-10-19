@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "note": "적 6종 + 임시 보스 3종. 노션 '적' 페이지와 동기화. 실제 보스(추격자·마녀·실험체)는 미정, 프로토타입은 임시 보스 사용 2026-10-03: 처치 보상의 코인을 승점으로(사용자 결정) · 챕터별 수치 by_chapter(카드에 Ⅰ·Ⅱ·Ⅲ 3칸, 적힌 값만 덮음) — 1차 값, AI 대전으로 조정 예정 2026-10-03: 보스 체력 ×0.7(캐릭터마다 행동 2번 규칙에서 한 캐릭터가 몰아서 때리기 어려워져 보스 처치 3.3 → 2.4)",
+  "enemies": [
+    {
+      "id": "walker",
+      "name_key": "enemy.walker.name",
+      "move": 2,
+      "attack": 2,
+      "hp": 4,
+      "sight": 2,
+      "range": 1,
+      "reward": [
+        {
+          "block": "gain_vp",
+          "amount": 1
+        },
+        {
+          "block": "draw_supply",
+          "amount": 1
+        }
+      ],
+      "by_chapter": {
+        "2": {
+          "hp": 5
+        },
+        "3": {
+          "hp": 6,
+          "attack": 3,
+          "reward": [
+            {
+              "block": "gain_vp",
+              "amount": 2
+            },
+            {
+              "block": "draw_supply",
+              "amount": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "runner",
+      "name_key": "enemy.runner.name",
+      "move": 4,
+      "attack": 2,
+      "hp": 2,
+      "sight": 3,
+      "range": 1,
+      "reward": [
+        {
+          "block": "gain_vp",
+          "amount": 1
+        },
+        {
+          "block": "draw_supply",
+          "amount": 1
+        }
+      ],
+      "by_chapter": {
+        "2": {
+          "hp": 3
+        },
+        "3": {
+          "hp": 3,
+          "attack": 3,
+          "move": 5,
+          "reward": [
+            {
+              "block": "gain_vp",
+              "amount": 2
+            },
+            {
+              "block": "draw_supply",
+              "amount": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "spitter",
+      "name_key": "enemy.spitter.name",
+      "move": 2,
+      "attack": 3,
+      "hp": 2,
+      "sight": 4,
+      "range": 3,
+      "reward": [
+        {
+          "block": "gain_vp",
+          "amount": 2
+        },
+        {
+          "block": "draw_supply",
+          "amount": 2
+        }
+      ],
+      "by_chapter": {
+        "2": {
+          "hp": 3
+        },
+        "3": {
+          "hp": 4,
+          "attack": 4,
+          "range": 4,
+          "reward": [
+            {
+              "block": "gain_vp",
+              "amount": 3
+            },
+            {
+              "block": "draw_supply",
+              "amount": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "bomber",
+      "name_key": "enemy.bomber.name",
+      "move": 3,
+      "attack": 2,
+      "hp": 5,
+      "sight": 2,
+      "range": 1,
+      "reward": [
+        {
+          "block": "gain_vp",
+          "amount": 2
+        },
+        {
+          "block": "draw_supply",
+          "amount": 2
+        }
+      ],
+      "special": "explode_on_death",
+      "by_chapter": {
+        "2": {
+          "hp": 6
+        },
+        "3": {
+          "hp": 7,
+          "attack": 3,
+          "reward": [
+            {
+              "block": "gain_vp",
+              "amount": 3
+            },
+            {
+              "block": "draw_supply",
+              "amount": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "charger",
+      "name_key": "enemy.charger.name",
+      "move": 5,
+      "attack": 3,
+      "hp": 7,
+      "sight": 3,
+      "range": 3,
+      "reward": [],
+      "special": "charge_attack"
+    },
+    {
+      "id": "crawler",
+      "name_key": "enemy.crawler.name",
+      "move": 1,
+      "attack": 1,
+      "hp": 2,
+      "sight": 1,
+      "range": 0,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 1
+        }
+      ],
+      "desc_key": "enemy.crawler.desc"
+    },
+    {
+      "id": "dummy",
+      "name_key": "enemy.dummy.name",
+      "move": 0,
+      "attack": 0,
+      "hp": 99,
+      "sight": 0,
+      "range": 0,
+      "reward": [],
+      "idle": true,
+      "test_only": true,
+      "_note": "2026-10-17 테스트 맵 전용 허수아비: 적 차례에 아무것도 안 함(idle). 실제 게임 덱 · 카드 도감 · 미션에는 안 나옴(test_only)"
+    }
+  ],
+  "bosses": [
+    {
+      "id": "boss_temp_walker",
+      "name_key": "boss.boss_temp_walker.name",
+      "move": 2,
+      "attack": 5,
+      "hp": 7,
+      "sight": 3,
+      "range": 2,
+      "reward": [
+        {
+          "block": "gain_vp",
+          "amount": 5
+        },
+        {
+          "block": "gain_coin",
+          "amount": 10
+        },
+        {
+          "block": "draw_supply",
+          "amount": 5
+        }
+      ],
+      "temporary": true
+    },
+    {
+      "id": "boss_temp_runner",
+      "name_key": "boss.boss_temp_runner.name",
+      "move": 4,
+      "attack": 5,
+      "hp": 5,
+      "sight": 4,
+      "range": 2,
+      "reward": [
+        {
+          "block": "gain_vp",
+          "amount": 5
+        },
+        {
+          "block": "gain_coin",
+          "amount": 10
+        },
+        {
+          "block": "draw_supply",
+          "amount": 5
+        }
+      ],
+      "temporary": true
+    },
+    {
+      "id": "boss_temp_spitter",
+      "name_key": "boss.boss_temp_spitter.name",
+      "move": 1,
+      "attack": 5,
+      "hp": 4,
+      "sight": 5,
+      "range": 4,
+      "reward": [
+        {
+          "block": "gain_vp",
+          "amount": 7
+        },
+        {
+          "block": "gain_coin",
+          "amount": 15
+        },
+        {
+          "block": "draw_supply",
+          "amount": 5
+        }
+      ],
+      "temporary": true
+    }
+  ]
+}

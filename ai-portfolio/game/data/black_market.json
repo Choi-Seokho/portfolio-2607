@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "note": "암시장 카드 10종 × 1장. 1 · 2챕터 정비에서 플레이어 수만큼 공개. cost = 구매가(코인), sell = 판매가. 노션 '암시장' 페이지와 동기화",
+  "cards": [
+    {
+      "id": "bm_rifle",
+      "kind": "weapon",
+      "name_key": "bm.bm_rifle.name",
+      "cost": 7,
+      "sell": 6,
+      "copies": 1,
+      "attack": 3,
+      "range": 4,
+      "slots": 2
+    },
+    {
+      "id": "bm_ballista",
+      "kind": "weapon",
+      "name_key": "bm.bm_ballista.name",
+      "desc_key": "bm.bm_ballista.desc",
+      "cost": 7,
+      "sell": 6,
+      "copies": 1,
+      "attack": 3,
+      "range": 3,
+      "slots": 3,
+      "on_hit": [
+        {
+          "block": "knockback",
+          "collision": 1
+        }
+      ]
+    },
+    {
+      "id": "bm_body_armor",
+      "kind": "armor",
+      "name_key": "bm.bm_body_armor.name",
+      "desc_key": "bm.bm_body_armor.desc",
+      "cost": 6,
+      "sell": 5,
+      "copies": 1,
+      "defense": 3,
+      "passive": [
+        {
+          "block": "stat_mod",
+          "stat": "bag",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "bm_nvg",
+      "kind": "accessory",
+      "name_key": "bm.bm_nvg.name",
+      "desc_key": "bm.bm_nvg.desc",
+      "cost": 5,
+      "sell": 4,
+      "copies": 1,
+      "passive": [
+        {
+          "block": "stat_mod",
+          "stat": "weapon_range",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "bm_defib",
+      "kind": "consumable",
+      "name_key": "bm.bm_defib.name",
+      "desc_key": "bm.bm_defib.desc",
+      "cost": 5,
+      "sell": 4,
+      "copies": 1,
+      "range": 1,
+      "effect": [
+        {
+          "block": "revive",
+          "hp": "full",
+          "stamina": "full"
+        }
+      ]
+    },
+    {
+      "id": "bm_ration",
+      "kind": "consumable",
+      "name_key": "bm.bm_ration.name",
+      "desc_key": "bm.bm_ration.desc",
+      "cost": 3,
+      "sell": 2,
+      "copies": 1,
+      "effect": [
+        {
+          "block": "heal",
+          "hp": "full"
+        },
+        {
+          "block": "restore_stamina",
+          "amount": "full"
+        }
+      ]
+    },
+    {
+      "id": "bm_grenade",
+      "kind": "consumable",
+      "name_key": "bm.bm_grenade.name",
+      "desc_key": "bm.bm_grenade.desc",
+      "cost": 4,
+      "sell": 3,
+      "copies": 1,
+      "range": 2,
+      "effect": [
+        {
+          "block": "deal_damage",
+          "amount": 4,
+          "no_dice": true,
+          "target": "all_enemies_in_cell"
+        },
+        {
+          "block": "noise",
+          "at": "self"
+        }
+      ]
+    },
+    {
+      "id": "bm_pass",
+      "kind": "consumable",
+      "name_key": "bm.bm_pass.name",
+      "desc_key": "bm.bm_pass.desc",
+      "cost": 3,
+      "sell": 2,
+      "copies": 1,
+      "effect": [
+        {
+          "block": "grant_status",
+          "duration": "this_turn",
+          "status": "pass_through_enemies"
+        },
+        {
+          "block": "grant_status",
+          "duration": "this_turn",
+          "status": "ignore_zone_attacks"
+        }
+      ]
+    },
+    {
+      "id": "bm_boss_intel",
+      "kind": "special",
+      "name_key": "bm.bm_boss_intel.name",
+      "desc_key": "bm.bm_boss_intel.desc",
+      "cost": 4,
+      "sell": 3,
+      "copies": 1,
+      "passive": [
+        {
+          "block": "wild_investigation"
+        }
+      ]
+    },
+    {
+      "id": "bm_parts_box",
+      "kind": "material",
+      "name_key": "bm.bm_parts_box.name",
+      "desc_key": "bm.bm_parts_box.desc",
+      "cost": 4,
+      "sell": 3,
+      "copies": 1,
+      "material": "part",
+      "amount": 4
+    },
+    {
+      "id": "bm_gold",
+      "kind": "treasure",
+      "name_key": "bm.bm_gold.name",
+      "desc_key": "bm.bm_gold.desc",
+      "cost": 6,
+      "sell": 7,
+      "copies": 1
+    }
+  ]
+}

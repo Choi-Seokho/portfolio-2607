@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "note": "카드 · 규칙 문구 안의 아이콘 표기({move}+2 등). 번역 문구는 이 id를 {id}로 적고, 화면은 아이콘으로 그린다. glyph는 임시 기호(F2c에서 그림 파일로 교체 → art 경로 추가). 이름은 번역 키(icon.*)로 툴팁 · 인쇄 범례에 쓴다. id는 한번 정하면 바꾸지 않는다.",
+  "icons": [
+    { "id": "move", "glyph": "👣", "name_key": "icon.move", "color": "#3F8F5A" },
+    { "id": "range", "glyph": "🎯", "name_key": "icon.range", "color": "#7A6AA8" },
+    { "id": "atk", "glyph": "⚔️", "name_key": "icon.atk", "color": "#B0573F" },
+    { "id": "def", "glyph": "🛡️", "name_key": "icon.def", "color": "#5F7F9C" },
+    { "id": "dmg", "glyph": "💥", "name_key": "icon.dmg", "color": "#C0392B" },
+    { "id": "hp", "glyph": "❤️", "name_key": "icon.hp", "color": "#E0554A" },
+    { "id": "st", "glyph": "⚡", "name_key": "icon.st", "color": "#3F7FC0" },
+    { "id": "coin", "glyph": "🪙", "name_key": "icon.coin", "color": "#C9962E" },
+    { "id": "part", "glyph": "⚙️", "name_key": "icon.part", "color": "#7A6048" },
+    { "id": "vp", "glyph": "⭐", "name_key": "icon.vp", "color": "#8C4AA0" },
+    { "id": "dice", "glyph": "🧿", "name_key": "icon.dice", "color": "#5A5A6A" },
+    { "id": "skull", "glyph": "💀", "name_key": "icon.skull", "color": "#3A3A44" },
+    { "id": "noise", "glyph": "🔊", "name_key": "icon.noise", "color": "#C77A2E" },
+    { "id": "action", "glyph": "🔶", "name_key": "icon.action", "color": "#F08A24" },
+    { "id": "bag", "glyph": "🎒", "name_key": "icon.bag", "color": "#8B5E3C" },
+    { "id": "card", "glyph": "🂠", "name_key": "icon.card", "color": "#5A6A8A" },
+    { "id": "supply", "glyph": "📦", "name_key": "icon.supply", "color": "#8A6A48" },
+    { "id": "inv", "glyph": "🔍", "name_key": "icon.inv", "color": "#4F6F8C" },
+    { "id": "enemy", "glyph": "☠️", "name_key": "icon.enemy", "color": "#8C3A30" },
+    { "id": "boss", "glyph": "👑", "name_key": "icon.boss", "color": "#7A4A8C" },
+    { "id": "research", "glyph": "🧪", "name_key": "icon.research", "color": "#4F6F8C" },
+    { "id": "survivor", "glyph": "🧑", "name_key": "icon.survivor", "color": "#4F9A6A" },
+    { "id": "exhausted", "glyph": "💤", "name_key": "icon.exhausted", "color": "#6A6A7A" },
+    { "id": "marker", "glyph": "🔖", "name_key": "icon.marker", "color": "#7A4A8C" }
+  ]
+}

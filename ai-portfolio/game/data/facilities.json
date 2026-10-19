@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "note": "시설물 4종 (프로토타입). 비용은 부품, staff = 동작에 필요한 생존자(없으면 효과 없음, 레벨업 자체는 가능). 선행 조건(예: 제작대 → 제련소)은 1차 프로토에서 제외. 노션 '시설물' 페이지와 동기화 2026-10-02: 레벨마다 코인 비용 cost_coins 추가(1레벨 1 · 2레벨 2 · 3레벨 3, 무전실 2 — 코인이 최종 점수의 큰 비중이라 코인을 시설로 돌리게). 2026-10-18: 5번째 시설 연구실(f_lab) 추가 — 연구 카드 사용 조건.",
+  "facilities": [
+    {
+      "id": "f_infirmary",
+      "name_key": "facility.f_infirmary.name",
+      "max_level": 2,
+      "starts_usable": true,
+      "levels": [
+        {
+          "level": 1,
+          "cost_parts": 2,
+          "cost_coins": 1,
+          "vp": 1,
+          "staff": null,
+          "effect": [
+            {
+              "block": "mod_revive",
+              "hp": "full"
+            }
+          ],
+          "desc_key": "facility.f_infirmary.lv1"
+        },
+        {
+          "level": 2,
+          "cost_parts": 3,
+          "cost_coins": 2,
+          "vp": 1,
+          "staff": {
+            "human": 1
+          },
+          "effect": [
+            {
+              "block": "mod_revive",
+              "cost": -2
+            }
+          ],
+          "desc_key": "facility.f_infirmary.lv2"
+        }
+      ],
+      "first_max_bonus": 3,
+      "lv0_key": "facility.f_infirmary.lv0"
+    },
+    {
+      "id": "f_workshop",
+      "name_key": "facility.f_workshop.name",
+      "max_level": 3,
+      "levels": [
+        {
+          "level": 1,
+          "cost_parts": 2,
+          "cost_coins": 1,
+          "vp": 1,
+          "staff": null,
+          "effect": [
+            {
+              "block": "mod_upgrade_cost",
+              "amount": -1,
+              "target": "other_facilities"
+            }
+          ],
+          "desc_key": "facility.f_workshop.lv1"
+        },
+        {
+          "level": 2,
+          "cost_parts": 3,
+          "cost_coins": 2,
+          "vp": 1,
+          "staff": {
+            "human": 1
+          },
+          "effect": [
+            {
+              "block": "mod_upgrade_cost",
+              "amount": -2,
+              "target": "other_facilities"
+            }
+          ],
+          "desc_key": "facility.f_workshop.lv2"
+        },
+        {
+          "level": 3,
+          "cost_parts": 4,
+          "cost_coins": 3,
+          "vp": 2,
+          "staff": {
+            "human": 1
+          },
+          "effect": [
+            {
+              "block": "mod_upgrade_cost",
+              "amount": -2,
+              "target": "other_facilities"
+            },
+            {
+              "block": "gain_material",
+              "material": "part",
+              "amount": 2,
+              "timing": "maintenance"
+            }
+          ],
+          "desc_key": "facility.f_workshop.lv3"
+        }
+      ],
+      "first_max_bonus": 5
+    },
+    {
+      "id": "f_garden",
+      "name_key": "facility.f_garden.name",
+      "max_level": 2,
+      "levels": [
+        {
+          "level": 1,
+          "cost_parts": 2,
+          "cost_coins": 1,
+          "vp": 1,
+          "staff": {
+            "animal": 1
+          },
+          "effect": [
+            {
+              "block": "heal",
+              "hp": 1,
+              "timing": "turn_end",
+              "target": "own_active_character"
+            }
+          ],
+          "desc_key": "facility.f_garden.lv1"
+        },
+        {
+          "level": 2,
+          "cost_parts": 3,
+          "cost_coins": 2,
+          "vp": 1,
+          "staff": {
+            "animal": 1
+          },
+          "effect": [
+            {
+              "block": "heal",
+              "hp": 2,
+              "timing": "turn_end",
+              "target": "own_active_character"
+            }
+          ],
+          "desc_key": "facility.f_garden.lv2"
+        }
+      ],
+      "first_max_bonus": 3
+    },
+    {
+      "id": "f_radio",
+      "name_key": "facility.f_radio.name",
+      "max_level": 1,
+      "levels": [
+        {
+          "level": 1,
+          "cost_parts": 3,
+          "cost_coins": 2,
+          "vp": 2,
+          "staff": {
+            "human": 1
+          },
+          "effect": [
+            {
+              "block": "mod_mission_draw",
+              "amount": 1,
+              "timing": "chapter_start"
+            },
+            {
+              "block": "draw_investigation",
+              "amount": 1,
+              "timing": "chapter_start"
+            }
+          ],
+          "desc_key": "facility.f_radio.lv1"
+        }
+      ],
+      "first_max_bonus": 1
+    },
+    {
+      "id": "f_lab",
+      "name_key": "facility.f_lab.name",
+      "max_level": 3,
+      "_note": "2026-10-18 사용자 결정: 연구 카드는 연구실 레벨 조건(카드 lab_level)으로 쓰게 — 약한 카드 Lv1 · 중간 Lv2 · 강한 카드 Lv3. 비용 · 승점은 작업장과 같은 줄(초안). 레벨 효과는 '해당 레벨 연구 카드 사용'뿐이라 생존자(staff) 없이 동작",
+      "levels": [
+        {
+          "level": 1,
+          "cost_parts": 2,
+          "cost_coins": 1,
+          "vp": 1,
+          "staff": null,
+          "effect": [],
+          "desc_key": "facility.f_lab.lv1"
+        },
+        {
+          "level": 2,
+          "cost_parts": 3,
+          "cost_coins": 2,
+          "vp": 1,
+          "staff": null,
+          "effect": [],
+          "desc_key": "facility.f_lab.lv2"
+        },
+        {
+          "level": 3,
+          "cost_parts": 4,
+          "cost_coins": 3,
+          "vp": 2,
+          "staff": null,
+          "effect": [],
+          "desc_key": "facility.f_lab.lv3"
+        }
+      ],
+      "first_max_bonus": 3,
+      "lv0_key": "facility.f_lab.lv0"
+    }
+  ]
+}

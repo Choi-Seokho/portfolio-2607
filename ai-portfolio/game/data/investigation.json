@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "note": "조사 카드 20장 (색마다 6 + 만능 2). 카드마다 flavor 문구가 다름. 같은 색 3장(만능 포함)을 소모해 그 색 보스를 배치. 노션 '조사' 페이지와 동기화. 문구는 마을 맵 기준",
+  "zone_boss": {
+    "blue": "boss_temp_walker",
+    "yellow": "boss_temp_runner",
+    "red": "boss_temp_spitter"
+  },
+  "cards": [
+    {
+      "id": "inv_blue_clue_1",
+      "color": "blue",
+      "kind": "clue",
+      "name_key": "inv.clue.name",
+      "desc_key": "inv.clue.desc",
+      "flavor_key": "inv.flavor.inv_blue_clue_1",
+      "effect": []
+    },
+    {
+      "id": "inv_blue_clue_2",
+      "color": "blue",
+      "kind": "clue",
+      "name_key": "inv.clue.name",
+      "desc_key": "inv.clue.desc",
+      "flavor_key": "inv.flavor.inv_blue_clue_2",
+      "effect": []
+    },
+    {
+      "id": "inv_blue_clue_3",
+      "color": "blue",
+      "kind": "clue",
+      "name_key": "inv.clue.name",
+      "desc_key": "inv.clue.desc",
+      "flavor_key": "inv.flavor.inv_blue_clue_3",
+      "effect": []
+    },
+    {
+      "id": "inv_blue_cache",
+      "color": "blue",
+      "kind": "cache",
+      "name_key": "inv.cache.name",
+      "desc_key": "inv.cache.desc",
+      "flavor_key": "inv.flavor.inv_blue_cache",
+      "effect": [
+        {
+          "block": "gain_coin",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "inv_blue_supply",
+      "color": "blue",
+      "kind": "supply",
+      "name_key": "inv.supply.name",
+      "desc_key": "inv.supply.desc",
+      "flavor_key": "inv.flavor.inv_blue_supply",
+      "effect": [
+        {
+          "block": "draw_supply",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "inv_blue_noise",
+      "color": "blue",
+      "kind": "noise",
+      "name_key": "inv.noise.name",
+      "desc_key": "inv.noise.desc",
+      "flavor_key": "inv.flavor.inv_blue_noise",
+      "effect": [
+        {
+          "block": "noise",
+          "at": "self"
+        }
+      ]
+    },
+    {
+      "id": "inv_yellow_clue_1",
+      "color": "yellow",
+      "kind": "clue",
+      "name_key": "inv.clue.name",
+      "desc_key": "inv.clue.desc",
+      "flavor_key": "inv.flavor.inv_yellow_clue_1",
+      "effect": []
+    },
+    {
+      "id": "inv_yellow_clue_2",
+      "color": "yellow",
+      "kind": "clue",
+      "name_key": "inv.clue.name",
+      "desc_key": "inv.clue.desc",
+      "flavor_key": "inv.flavor.inv_yellow_clue_2",
+      "effect": []
+    },
+    {
+      "id": "inv_yellow_clue_3",
+      "color": "yellow",
+      "kind": "clue",
+      "name_key": "inv.clue.name",
+      "desc_key": "inv.clue.desc",
+      "flavor_key": "inv.flavor.inv_yellow_clue_3",
+      "effect": []
+    },
+    {
+      "id": "inv_yellow_cache",
+      "color": "yellow",
+      "kind": "cache",
+      "name_key": "inv.cache.name",
+      "desc_key": "inv.cache.desc",
+      "flavor_key": "inv.flavor.inv_yellow_cache",
+      "effect": [
+        {
+          "block": "gain_coin",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "inv_yellow_supply",
+      "color": "yellow",
+      "kind": "supply",
+      "name_key": "inv.supply.name",
+      "desc_key": "inv.supply.desc",
+      "flavor_key": "inv.flavor.inv_yellow_supply",
+      "effect": [
+        {
+          "block": "draw_supply",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "inv_yellow_noise",
+      "color": "yellow",
+      "kind": "noise",
+      "name_key": "inv.noise.name",
+      "desc_key": "inv.noise.desc",
+      "flavor_key": "inv.flavor.inv_yellow_noise",
+      "effect": [
+        {
+          "block": "noise",
+          "at": "self"
+        }
+      ]
+    },
+    {
+      "id": "inv_red_clue_1",
+      "color": "red",
+      "kind": "clue",
+      "name_key": "inv.clue.name",
+      "desc_key": "inv.clue.desc",
+      "flavor_key": "inv.flavor.inv_red_clue_1",
+      "effect": []
+    },
+    {
+      "id": "inv_red_clue_2",
+      "color": "red",
+      "kind": "clue",
+      "name_key": "inv.clue.name",
+      "desc_key": "inv.clue.desc",
+      "flavor_key": "inv.flavor.inv_red_clue_2",
+      "effect": []
+    },
+    {
+      "id": "inv_red_clue_3",
+      "color": "red",
+      "kind": "clue",
+      "name_key": "inv.clue.name",
+      "desc_key": "inv.clue.desc",
+      "flavor_key": "inv.flavor.inv_red_clue_3",
+      "effect": []
+    },
+    {
+      "id": "inv_red_cache",
+      "color": "red",
+      "kind": "cache",
+      "name_key": "inv.cache.name",
+      "desc_key": "inv.cache.desc",
+      "flavor_key": "inv.flavor.inv_red_cache",
+      "effect": [
+        {
+          "block": "gain_coin",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "inv_red_supply",
+      "color": "red",
+      "kind": "supply",
+      "name_key": "inv.supply.name",
+      "desc_key": "inv.supply.desc",
+      "flavor_key": "inv.flavor.inv_red_supply",
+      "effect": [
+        {
+          "block": "draw_supply",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "inv_red_noise",
+      "color": "red",
+      "kind": "noise",
+      "name_key": "inv.noise.name",
+      "desc_key": "inv.noise.desc",
+      "flavor_key": "inv.flavor.inv_red_noise",
+      "effect": [
+        {
+          "block": "noise",
+          "at": "self"
+        }
+      ]
+    },
+    {
+      "id": "inv_wild_1",
+      "color": "wild",
+      "kind": "wild",
+      "name_key": "inv.wild.name",
+      "desc_key": "inv.wild.desc",
+      "flavor_key": "inv.flavor.inv_wild_1",
+      "effect": [],
+      "wild": true
+    },
+    {
+      "id": "inv_wild_2",
+      "color": "wild",
+      "kind": "wild",
+      "name_key": "inv.wild.name",
+      "desc_key": "inv.wild.desc",
+      "flavor_key": "inv.flavor.inv_wild_2",
+      "effect": [],
+      "wild": true
+    }
+  ]
+}

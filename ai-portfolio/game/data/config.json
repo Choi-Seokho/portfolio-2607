@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "id": "proto_small_v1",
+  "note": "축소 웹 프로토타입 설정값 (2026-09-28 확정, 같은 날 챕터제로 변경). 정식판 값은 note_full 참조",
+  "players": {
+    "default": 4,
+    "min": 2,
+    "max": 4,
+    "characters_per_player": 2
+  },
+  "chapters": 3,
+  "rounds_per_chapter": 5,
+  "game_lengths": [
+    { "id": "full", "name_key": "ui.length.full", "config": {} },
+    { "id": "short", "name_key": "ui.length.short", "config": { "chapters": 1 } }
+  ],
+  "_game_lengths_note": "2026-10-17 포트폴리오 데모 준비: 시작 화면에서 판 길이를 고른다(첫 항목이 기본). config = 이번 판만 덮어쓸 설정값(engine newGame의 config). 짧은 판(1챕터)은 정비 뒤 바로 끝나서 암시장이 없다",
+  "rule_sets": [
+    { "id": "basic", "name_key": "ui.rules.basic", "config": {} },
+    { "id": "cards", "name_key": "ui.rules.cards", "config": {
+      "turn_mode": "cards",
+      "recovery": { "round_end": { "stamina": "full" } },
+      "hand": { "round_end_fill_to": 5, "limit_at": "turn_end", "turn_end_keep": 5 },
+      "card_mode": {
+        "basic_stamina": 1, "basic_cost": { "move": 1, "attack": 1, "draw": 0 }, "basic_draw": 2, "item_stamina": 1,
+        "level_up_at": [1, 2],
+        "characters": ["c_fighter", "c_hunter", "c_assassin", "c_savior"],
+        "_note": "2026-10-19 사용자 결정: 기본 기능 뽑기 = 2장 · 스테미너 0, 챕터 1 · 2 끝에 레벨업, (임시) 이 4캐릭터만 카드가 있어 고를 수 있음 — 플레이어끼리는 겹쳐도 됨"
+      }
+    } }
+  ],
+  "_rule_sets_note": "2026-10-18 사용자 결정(A/B 테스트): 시작 화면에서 규칙 버전을 고른다(첫 항목이 기본). basic = 기본 행동 버전(지금 규칙 그대로) · cards = 카드 운용 버전(docs/rules-b-cards.md — 기본 이동 · 공격 없이 카드로, 라운드 끝 스테미너 최대 회복 · 손패 5장까지 보충(같은 날 첫 안은 3장 뽑기 round_end_draw), 차례 중 손패 한도 없음 · 차례 끝 5장까지 버리기, 아이템 사용 스테미너 1). config = 이번 판만 덮어쓸 설정값(game_lengths와 같이 합쳐짐)",
+  "actions_per_turn": 4,
+  "center_reward": {
+    "note": "2026-10-04 사용자 결정: 중앙부는 위험하지만 보상이 큰 영역. 칸 등급 = 시작 칸에서 먼 정도(engine cellTier: 0 바깥 · 1 중간 · 2 중앙). amount = 금품 · 부품 +n, extra_card = 보급품 · 조사 카드 +n장, vp = 상호작용 승점(캠프 제외)",
+    "tiers": { "1": { "amount": 1 }, "2": { "amount": 2, "extra_card": 1, "vp": 1 } }
+  },
+  "token_cards": true,
+  "_token_cards_note": "2026-10-07 사용자 결정: 연구 · 생존자 토큰도 카드 — 얻으면 캐릭터 가방으로(가방 칸 차지 · 약탈 · 탈진으로 잃을 수 있음). 연구 카드는 아이템처럼 사용, 생존자 카드는 정비 때 시설 아래에 겹쳐 배치(빼면 창고)",
+  "turn_mode": "activation",
+  "activation_move_bonus": 0,
+  "_activation_move_bonus_note": "활성화 방식 이동력 보정. 2026-10-04 큰 맵에서 +2(중앙 13%) → 2026-10-07 사용자 결정: 이동력은 그대로(0), 대신 맵을 줄임 — 중간 맵 + 보정 0에서 중앙 지역 진출 18%(보통 AI 120판)",
+  "_turn_mode_note": "2026-10-04 사용자 결정(수정 사항 신규 9): 'activation' = 캐릭터마다 차례에 한 번 — 이동 1번 · 공격(약탈) 1번을 순서 자유로(2026-10-17 사용자 결정 — 예전엔 이동은 공격 전에만) → 상호작용(하면 끝) 또는 행동 끝. 기본 휴식 행동 없음(공용 카드 '숨 고르기'), 캠프 = recovery.camp. 'actions' = 예전 행동 n번(actions_per_character)",
+  "actions_per_character": 2,
+  "actions_per_character_note": "숫자 n = 캐릭터마다 행동 n번(남은 행동은 다른 캐릭터에게 못 넘김, 2026-10-03 사용자 결정 — 한 캐릭터만 움직이던 차례 73% → 1%, 캐릭터 쏠림 완화). 0 · null = 예전 규칙(행동 actions_per_turn번을 아무 캐릭터나). 캠프는 그 캐릭터의 남은 행동만 끝냄",
+  "starting_coins_by_order": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "hand": {
+    "note": "2026-09-30 AC-1: 손패 · 덱 · 버린 카드는 플레이어 공용(두 캐릭터가 같이 씀). 덱 = 공용 카드 1벌 + 두 캐릭터 전용 카드, 전용 카드는 그 캐릭터만 사용, 스테미너는 쓰는 캐릭터가 냄. 게임 시작 때 한도까지 + 멀리건 1회(플레이어당), 자동 보충 없음 — 캠프는 한도까지, 휴식은 1장. 2026-10-01: 재정비 행동 제거(손패 7장 채우기가 너무 강함) — resupply_action \"none\"(되살리려면 \"fill_to_max\") 2026-10-01: 시작 손패 7 → 5장(한도는 7장 그대로).",
+    "max_per_player": 7,
+    "initial": 5,
+    "chapter_start_fill_to": 5,
+    "mulligan": "every_chapter_start",
+    "_chapter_start_note": "2026-10-18 사용자 결정: 챕터 시작마다 손패를 chapter_start_fill_to장까지 보충(넘치면 그대로) + 멀리건 1회. 예전 규칙으로 돌리려면 chapter_start_fill_to 0 · mulligan \"once_at_game_start\"(1챕터만 멀리건, 2챕터부터 손패 그대로)",
+    "draw_at_turn_end": 0,
+    "reset_at": null,
+    "resupply_action": "none",
+    "camp": "fill_to_max",
+    "rest_draw": 1
+  },
+  "missions": {
+    "types": 28,
+    "copies_per_type": 1,
+    "draw_per_player_per_chapter": 3,
+    "max_in_hand": 2,
+    "vp_range": [
+      2,
+      4
+    ],
+    "progress": "markers",
+    "unkept": "deck_bottom",
+    "note": "2026-09-30 AD: 미션 1장씩(맵에 없는 적 미션 제외). 고르지 않은 · 내려놓은 미션은 상자가 아니라 미션 덱 맨 아래로(재활용), 완료한 미션만 게임에서 빠짐"
+  },
+  "supply_open_slots": 3,
+  "black_market": {
+    "enabled": true,
+    "bidding": true,
+    "at": "every_chapter_end",
+    "skip_last_chapter": true
+  },
+  "scoring": {
+    "boss_kill_order_bonus": [
+      10,
+      5,
+      2,
+      1,
+      1
+    ],
+    "pvp_exhaust": 5,
+    "coin_value": 0.5,
+    "coin_value_note": "최종 점수에 더하는 코인 1개당 점수. 2026-10-02: 1 → 0.5(코인 2개 = 1점, 나머지 버림) — 밸런스 보고서에서 코인이 최종 점수의 61%"
+  },
+  "bosses": {
+    "mode": "temporary",
+    "count": 3,
+    "count_by_players": {
+      "1": 3,
+      "2": 3,
+      "3": 4,
+      "4": 5
+    },
+    "copies_per_type": 2,
+    "note": "2026-09-30 사용자 결정: 보스 카드는 종류마다 2장(6장) — 같은 보스가 동시에 두 마리 나올 수 있고, 한 종류는 게임 전체에서 copies_per_type번까지(보드 위 + 처치). 게임 전체 보스 수 = 인원수 + 1(인원수별 표). count는 표에 없는 인원수일 때 기본값"
+  },
+  "materials": {
+    "types": [
+      "part"
+    ]
+  },
+  "facilities": {
+    "enabled": true,
+    "count_range": [
+      3,
+      4
+    ]
+  },
+  "disabled_features": [
+    "milestone_cards",
+    "blueprints",
+    "upgrade_modules",
+    "solo_mode"
+  ],
+  "note_full": {
+    "chapters": 3,
+    "rounds_per_chapter": 5,
+    "characters": 12,
+    "bosses": [
+      "chaser",
+      "witch",
+      "experiment"
+    ]
+  },
+  "recovery": {
+    "round_end": {
+      "hp": 0,
+      "stamina": 0
+    },
+    "chapter_end": "full",
+    "camp": { "hp": 4, "stamina": "full", "draw": 2, "note": "2026-10-04 활성화 방식의 캠프 = 휴식: 체력 +4 · 스테미너 전부 · 카드 2장(예전 휴식보다 강하고, 예전 캠프 — 전부 회복 + 손패 7장까지 — 보다 약하게)" },
+    "rest": {
+      "hp": 2,
+      "stamina": 2,
+      "choice": true,
+      "note": "2026-10-02: 휴식 = 회복(체력 +2 · 스테미너 +2) 또는 카드 1장 뽑기 중 하나(choice). 예전: 체력 +1 · 스테미너 +2 + 카드 1장 모두"
+    }
+  },
+  "board_reset_at": "chapter_start",
+  "revive": {
+    "infirmary_cost_by_chapter": [
+      2,
+      4,
+      6
+    ],
+    "same_cost_within_chapter": true,
+    "placement": "exhausted_cell",
+    "hp": "half_round_up",
+    "stamina": "full",
+    "item_can_target_other_players": true,
+    "note": "2026-10-01: 의무실 부활 위치 = 쓰러진 자리(exhausted_cell). 예전 방식은 empty_start_point"
+  },
+  "enemy_cells": {
+    "reveal": "chapter_start",
+    "note": "적 칸의 적 공개 시점. chapter_start = 챕터 시작 때 모든 적 칸에 적 카드 공개(2026-10-01 사용자 결정, F3b) · on_enter = 캐릭터가 들어설 때 공개(예전, 감춰진 적 칸)"
+  },
+  "milestone": {
+    "enabled": false,
+    "at_chapter_end": [
+      1,
+      2
+    ]
+  },
+  "turn_order": {
+    "first_player": "random",
+    "rotate": "clockwise_each_chapter",
+    "changes_mid_round": false
+  },
+  "combat": {
+    "weapon_range": "segments",
+    "min_range": 0,
+    "line_of_sight": false,
+    "reaction_order": [
+      "guardian_intercept",
+      "evade_or_defense_cards",
+      "roll_dice",
+      "apply_damage",
+      "fighter_counter"
+    ],
+    "trap_damage": "armor_only",
+    "reaction_timing": "before_dice",
+    "attack_mods_timing": "before_dice",
+    "x2_applies": "after_all_bonuses",
+    "damage_reduction_applies": "after_defense",
+    "counter_is_attack": false,
+    "attack_action_exempts_all_zone_enemies": true,
+    "exhausted_by_zone_attack_consumes_action": true,
+    "counter_damage": {
+      "type": "fixed",
+      "amount": 2
+    },
+    "shotgun_splash_hits_characters": true,
+    "pouch_note": "2026-10-04 사용자 결정(수정 사항 25): 주사위 대신 토큰 주머니. 1개 꺼내고 바로 다시 넣는다. 토큰 = 예전 주사위 면(+2 +1 0 -1 -2 x2=치명 skull=빗나감). 캐릭터마다 pouch(characters.json), 적은 enemy_pouch(적 카드에 pouch가 있으면 그것)",
+    "pouches": {
+      "basic":   { "+2": 1, "+1": 3, "0": 4, "-1": 2, "x2": 1, "skull": 1 },
+      "precise": { "+1": 2, "0": 5, "-1": 1, "x2": 3, "skull": 1 },
+      "heavy":   { "+2": 3, "+1": 2, "0": 2, "-1": 2, "-2": 1, "x2": 1, "skull": 1 },
+      "steady":  { "+1": 4, "0": 6, "-1": 1, "skull": 1 }
+    },
+    "enemy_pouch": "basic"
+  },
+  "enemy_ai": {
+    "act_order": "reveal_order",
+    "bosses_act": "after_normal_enemies_in_spawn_order",
+    "stop_when_target_in_range": true,
+    "can_pass_occupied_cells": true,
+    "path_tie_break": [
+      "closer_segment_distance_to_target",
+      "first_player_chooses"
+    ],
+    "zone_attacks_per_enemy": true
+  },
+  "timing": {
+    "equip_and_item_use": [
+      "own_turn",
+      "maintenance"
+    ],
+    "boss_spawn_windows": [
+      "own_turn",
+      "between_turns",
+      "before_enemy_turn"
+    ],
+    "mission_reveal": "automatic",
+    "trade_requires_consent": true
+  },
+  "hotseat": {
+    "note": "V-3 결정. 멀티플레이 전까지의 임시 방식, 나중에 다시 정비",
+    "maintenance": "sequential_from_first_player",
+    "black_market_bids": "sequential_hidden_then_reveal",
+    "hide_private_info": true,
+    "reveal_all_debug_mode": true,
+    "character_draft": "snake_as_rulebook"
+  },
+  "storage": {
+    "warehouse_capacity": null,
+    "black_market_to_warehouse": true,
+    "survivor_tokens_use_bag": false
+  }
+}

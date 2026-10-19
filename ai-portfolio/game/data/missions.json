@@ -1,0 +1,523 @@
+{
+  "schema_version": 1,
+  "note": "미션 카드 (2026-09-30 재설계, 노션 '추가 작업 필요 내용' AC-4 · AD). 모든 미션이 서로 다른 내용, 1장씩. trigger = 마커가 올라가는 사건(적힌 값이 모두 같을 때 진행, count가 있으면 그 수만큼), target = 완료에 필요한 마커 수, reward = 효과 블록. 조건은 칸 종류가 아니라 얻은 결과 기준(육각 맵 대비). 적 종류 미션은 맵에 그 적이 없으면 게임에서 빠진다. 노션 '미션' 페이지와 동기화",
+  "copies_per_type": 1,
+  "missions": [
+    {
+      "id": "m_search_blue",
+      "name_key": "mission.search_blue.name",
+      "desc_key": "mission.search_blue.desc",
+      "category": "explore",
+      "trigger": {
+        "type": "interact_cell",
+        "zone": "blue"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "draw_investigation",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_search_yellow",
+      "name_key": "mission.search_yellow.name",
+      "desc_key": "mission.search_yellow.desc",
+      "category": "explore",
+      "trigger": {
+        "type": "interact_cell",
+        "zone": "yellow"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "draw_investigation",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_search_red",
+      "name_key": "mission.search_red.name",
+      "desc_key": "mission.search_red.desc",
+      "category": "explore",
+      "trigger": {
+        "type": "interact_cell",
+        "zone": "red"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "draw_investigation",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_clear_blue",
+      "name_key": "mission.clear_blue.name",
+      "desc_key": "mission.clear_blue.desc",
+      "category": "combat",
+      "trigger": {
+        "type": "enemy_killed",
+        "exclude_boss": true,
+        "zone": "blue"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_clear_yellow",
+      "name_key": "mission.clear_yellow.name",
+      "desc_key": "mission.clear_yellow.desc",
+      "category": "combat",
+      "trigger": {
+        "type": "enemy_killed",
+        "exclude_boss": true,
+        "zone": "yellow"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_clear_red",
+      "name_key": "mission.clear_red.name",
+      "desc_key": "mission.clear_red.desc",
+      "category": "combat",
+      "trigger": {
+        "type": "enemy_killed",
+        "exclude_boss": true,
+        "zone": "red"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_salvage",
+      "name_key": "mission.salvage.name",
+      "desc_key": "mission.salvage.desc",
+      "category": "explore",
+      "trigger": {
+        "type": "gain_card",
+        "kind": "supply"
+      },
+      "target": 4,
+      "vp": 2,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_clues",
+      "name_key": "mission.clues.name",
+      "desc_key": "mission.clues.desc",
+      "category": "explore",
+      "trigger": {
+        "type": "gain_card",
+        "kind": "investigation"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_funds",
+      "name_key": "mission.funds.name",
+      "desc_key": "mission.funds.desc",
+      "category": "economy",
+      "trigger": {
+        "type": "gain_coin"
+      },
+      "target": 6,
+      "vp": 2,
+      "reward": [
+        {
+          "block": "gain_material",
+          "material": "part",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_materials",
+      "name_key": "mission.materials.name",
+      "desc_key": "mission.materials.desc",
+      "category": "shelter",
+      "trigger": {
+        "type": "gain_material",
+        "material": "part"
+      },
+      "target": 3,
+      "vp": 2,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_rescue",
+      "name_key": "mission.rescue.name",
+      "desc_key": "mission.rescue.desc",
+      "category": "shelter",
+      "trigger": {
+        "type": "gain_token",
+        "token": "survivor"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_material",
+          "material": "part",
+          "amount": 1
+        },
+        {
+          "block": "gain_coin",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_research",
+      "name_key": "mission.research.name",
+      "desc_key": "mission.research.desc",
+      "category": "explore",
+      "trigger": {
+        "type": "gain_token",
+        "token": "research"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_hunt",
+      "name_key": "mission.hunt.name",
+      "desc_key": "mission.hunt.desc",
+      "category": "combat",
+      "trigger": {
+        "type": "enemy_killed",
+        "exclude_boss": true
+      },
+      "target": 4,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "draw_supply",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_boss_hunt",
+      "name_key": "mission.boss_hunt.name",
+      "desc_key": "mission.boss_hunt.desc",
+      "category": "boss",
+      "trigger": {
+        "type": "attack_damaged",
+        "target_kind": "boss"
+      },
+      "target": 3,
+      "vp": 4,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "id": "m_escape",
+      "name_key": "mission.escape.name",
+      "desc_key": "mission.escape.desc",
+      "category": "risk",
+      "trigger": {
+        "type": "evade_success"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        },
+        {
+          "block": "draw_player_card",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_rebuild",
+      "name_key": "mission.rebuild.name",
+      "desc_key": "mission.rebuild.desc",
+      "category": "shelter",
+      "trigger": {
+        "type": "facility_level_up"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_material",
+          "material": "part",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_complete",
+      "name_key": "mission.complete.name",
+      "desc_key": "mission.complete.desc",
+      "category": "shelter",
+      "trigger": {
+        "type": "facility_max"
+      },
+      "target": 1,
+      "vp": 4,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_staffing",
+      "name_key": "mission.staffing.name",
+      "desc_key": "mission.staffing.desc",
+      "category": "shelter",
+      "trigger": {
+        "type": "survivor_assigned"
+      },
+      "target": 2,
+      "vp": 2,
+      "reward": [
+        {
+          "block": "gain_material",
+          "material": "part",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_deal",
+      "name_key": "mission.deal.name",
+      "desc_key": "mission.deal.desc",
+      "category": "economy",
+      "trigger": {
+        "type": "bm_bought"
+      },
+      "target": 1,
+      "vp": 2,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_armed",
+      "name_key": "mission.armed.name",
+      "desc_key": "mission.armed.desc",
+      "category": "gear",
+      "trigger": {
+        "type": "full_equip"
+      },
+      "target": 1,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_recharge",
+      "name_key": "mission.recharge.name",
+      "desc_key": "mission.recharge.desc",
+      "category": "risk",
+      "trigger": {
+        "type": "interact_cell",
+        "cell_type": "camp"
+      },
+      "target": 2,
+      "vp": 2,
+      "reward": [
+        {
+          "block": "draw_player_card",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_raider",
+      "name_key": "mission.raider.name",
+      "desc_key": "mission.raider.desc",
+      "category": "pvp",
+      "trigger": {
+        "type": "attack_damaged",
+        "target_kind": "other_player_character"
+      },
+      "target": 3,
+      "vp": 4,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "id": "m_spoils",
+      "name_key": "mission.spoils.name",
+      "desc_key": "mission.spoils.desc",
+      "category": "pvp",
+      "trigger": {
+        "type": "looted"
+      },
+      "target": 1,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_kill_walker",
+      "name_key": "mission.kill_walker.name",
+      "desc_key": "mission.kill_walker.desc",
+      "category": "combat",
+      "trigger": {
+        "type": "enemy_killed",
+        "exclude_boss": true,
+        "enemy": "walker"
+      },
+      "target": 3,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_kill_runner",
+      "name_key": "mission.kill_runner.name",
+      "desc_key": "mission.kill_runner.desc",
+      "category": "combat",
+      "trigger": {
+        "type": "enemy_killed",
+        "exclude_boss": true,
+        "enemy": "runner"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "draw_supply",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_kill_spitter",
+      "name_key": "mission.kill_spitter.name",
+      "desc_key": "mission.kill_spitter.desc",
+      "category": "combat",
+      "trigger": {
+        "type": "enemy_killed",
+        "exclude_boss": true,
+        "enemy": "spitter"
+      },
+      "target": 2,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "m_kill_crawler",
+      "name_key": "mission.kill_crawler.name",
+      "desc_key": "mission.kill_crawler.desc",
+      "category": "combat",
+      "trigger": {
+        "type": "enemy_killed",
+        "exclude_boss": true,
+        "enemy": "crawler"
+      },
+      "target": 2,
+      "vp": 2,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "m_kill_bomber",
+      "name_key": "mission.kill_bomber.name",
+      "desc_key": "mission.kill_bomber.desc",
+      "category": "combat",
+      "trigger": {
+        "type": "enemy_killed",
+        "exclude_boss": true,
+        "enemy": "bomber"
+      },
+      "target": 1,
+      "vp": 3,
+      "reward": [
+        {
+          "block": "gain_coin",
+          "amount": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>AI 프로젝트 | AI 프로젝트 포트폴리오 | Choi Seokho</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/icons/favicon-16.png" />
+<link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
+<link rel="stylesheet" href="../assets/css/style.css" />
+<link rel="stylesheet" href="ai-portfolio.css" />
+<script data-goatcounter="https://choi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <nav class="site-nav">
+    <a class="brand" href="index.html">Choi Seokho</a>
+    <ul>
+      <li><a class="nav-link" href="index.html">소개</a></li>
+      <li><a class="nav-link active" href="project.html">AI 프로젝트</a></li>
+      <li><a class="nav-link" href="career/index.html">경력기술서</a></li>
+      <li><a class="nav-link" href="prototypes/craft-station/design.html">포트폴리오</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="page">
+  <nav class="subtab-nav">
+    <a class="active" href="project.html">개요와 플레이</a>
+    <a href="project-build.html">만든 방법</a>
+    <a href="project-verify.html">검증과 개선</a>
+  </nav>
+
+  <section class="ap-page-head">
+    <p class="eyebrow">AI PROJECT</p>
+    <h1>Extraction B (가칭): 규칙서에서 끝까지 플레이할 수 있는 게임으로</h1>
+    <p class="lead">직접 기획한 보드게임 규칙을 Claude Code와 함께 실제 작업 18일 만에 정식 한 판을 문제없이 끝까지 플레이할 수 있는 3D 웹 게임으로 만든 개인 프로젝트입니다. 글을 읽기 전에 먼저 해 보실 수 있도록 데모를 맨 위에 두었습니다.</p>
+  </section>
+
+  <section class="ap-section" id="play">
+    <h2>바로 플레이</h2>
+    <p class="ap-sub">AI 상대와 한 판을 끝까지 해 볼 수 있는 정식 판입니다. 실행하면 전체 화면으로 열립니다.</p>
+
+    <div class="ap-stat-grid" style="margin-bottom:16px;">
+      <div class="ap-stat"><strong>45~60<small>분</small></strong><span>정식 판 (3챕터 × 5라운드)</span></div>
+      <div class="ap-stat"><strong>약 15<small>분</small></strong><span>짧은 판 (1챕터). 시작 화면의 "판 길이"에서 고릅니다</span></div>
+      <div class="ap-stat"><strong>자동 저장</strong><span>창을 닫거나 새로 고침해도 시작 화면의 "이어 하기"로 계속할 수 있습니다</span></div>
+    </div>
+
+    <div class="ap-embed ap-game" id="gameEmbed">
+      <div class="ap-embed-bar">
+        <span class="label"><span class="ap-live-dot"></span>Extraction B (가칭) 플레이 데모. Esc로 전체 화면이 닫혀도 이 자리에서 이어집니다</span>
+        <button type="button" class="ap-embed-btn" id="gameFull" hidden>전체 화면으로 보기</button>
+      </div>
+      <div class="ap-game-stage" id="gameStage" data-src="game/web/game3d.html" data-title="Extraction B (가칭) 플레이 데모">
+        <button type="button" class="ap-proto-start" id="gameStart">
+          <img src="assets/shots/eb/00-start-1019.jpg" alt="" />
+          <span class="cta">
+            <span class="play">데모 실행하기</span>
+            <span class="hint">3D 화면이라 처음 불러올 때 몇 초 걸릴 수 있습니다</span>
+          </span>
+        </button>
+        <div class="ap-proto-loading" id="gameLoading" hidden><span class="spinner"></span>게임 불러오는 중...</div>
+      </div>
+    </div>
+    <p class="ap-note">PC 브라우저(마우스와 키보드) 기준으로 만들어 휴대폰에서는 조작이 어렵습니다. 규칙 검증용으로 만든 개발 중 프로토타입이라 그래픽과 문구는 임시입니다 (2026년 10월 19일 버전).</p>
+
+    <div class="ap-block">
+      <h3>시작하는 방법</h3>
+      <ol class="feature-list">
+        <li>시작 화면의 좌석은 기본으로 <strong>P1 사람(나) + P2 AI 쉬움</strong>입니다. AI 난이도는 쉬움, 보통, 높음 중에서 고를 수 있습니다.</li>
+        <li><strong>판 길이</strong>에서 정식 판 또는 짧은 판을 고릅니다. 처음이라면 짧은 판을 추천합니다.</li>
+        <li><strong>규칙 버전</strong>은 기본 행동 버전이 기본값입니다. 함께 들어 있는 카드 운용 버전(실험 중)은 <a href="project-verify.html#ab">검증과 개선</a>에서 설명합니다.</li>
+        <li><strong>"무작위로 빠른 시작"</strong>을 누르면 미션 고르기, 처음 손패, 시작 칸에 캐릭터 놓기를 거쳐 첫 차례가 시작됩니다.</li>
+        <li>막히면 <strong>F1</strong>로 게임 안 설명서를 열거나, 오른쪽 아래 <strong>?</strong> 버튼으로 칸 색과 단축키 안내를 볼 수 있습니다.</li>
+      </ol>
+    </div>
+
+    <div class="ap-block">
+      <h3>조작</h3>
+      <ul class="ap-keys">
+        <li><kbd>캐릭터 보드</kbd><span>행동할 캐릭터 고르기 (보드 위 말을 눌러도 됩니다)</span></li>
+        <li><kbd>흰색 칸</kbd><span>이동 미리 보기, 다른 칸을 눌러 다시 고르기</span></li>
+        <li><kbd>빨간 적</kbd><span>공격 창 열기</span></li>
+        <li><kbd>Space</kbd><span>행동 끝: 이동 확정 + 지금 칸 상호작용</span></li>
+        <li><kbd>Esc</kbd><span>고른 것 취소, 창 닫기</span></li>
+        <li><kbd>T</kbd><span>위협 지도 (적이 닿는 칸)</span></li>
+        <li><kbd>S</kbd><span>내 쉘터 보기</span></li>
+        <li><kbd>휠, 드래그</kbd><span>보드 확대, 축소, 둘러보기</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ap-section" id="overview">
+    <h2>프로젝트 개요</h2>
+    <div class="ap-table-wrap">
+      <table class="ap-table">
+        <tbody>
+          <tr><td>게임</td><td>1~4인 PvPvE 익스트랙션 보드게임. 좀비로 무너진 도시에 캐릭터 2명을 내보내 물자를 챙기고, 모은 물자로 쉘터를 키웁니다. 보상이 큰 도시 중앙일수록 좀비와 다른 플레이어가 몰립니다.</td></tr>
+          <tr><td>목표</td><td>규칙을 확정하기 전에, 재미가 있는지 직접 해 보고 숫자로 확인할 수 있는 플레이어블을 먼저 만들기</td></tr>
+          <tr><td>기간</td><td>2026년 9월 21일 ~ 10월 19일 중 <strong>실제 작업일 18일</strong> (규칙서 정리 6일, 프로토타입 제작 12일). 첫 플레이어블은 9일째인 9월 30일에 나왔고, 나머지는 검증하고 다듬어 정식 판으로 만든 기간입니다.</td></tr>
+          <tr><td>역할</td><td>게임 기획, 규칙과 밸런스 결정, 플레이 피드백, 작업 범위 판단은 직접 했고, 구현과 반복 실험은 Claude Code가 했습니다. 자세한 분담은 <a href="project-build.html#role">만든 방법</a>에 있습니다.</td></tr>
+          <tr><td>결과물</td><td>브라우저에서 끝까지 플레이할 수 있는 3D 웹 게임, AI 상대 3단계, 자동 테스트, AI 대전 밸런스 보고서, 규칙 A/B 비교 환경, 직접 수정용 맵 편집기</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ap-section" id="numbers">
+    <h2>숫자로 보는 결과물</h2>
+    <p class="ap-sub">2026년 10월 19일 기준입니다.</p>
+    <div class="ap-stat-grid">
+      <div class="ap-stat"><strong>18<small>일</small></strong><span>실제 작업일. 첫 플레이어블은 9일째, 이후는 검증하고 다듬어 정식 판과 규칙 A/B 테스트까지</span></div>
+      <div class="ap-stat"><strong>136<small>건</small></strong><span>작업 이력으로 남긴 결정과 변경 (커밋 144개)</span></div>
+      <div class="ap-stat"><strong>약 1만 5천<small>줄</small></strong><span>게임 코드. 룰 엔진 약 4,500줄, AI 약 2,100줄, 화면 약 8,500줄</span></div>
+      <div class="ap-stat"><strong>312<small>개</small></strong><span>규칙 시나리오 테스트, 전부 통과. 카드 132장 전수 테스트도 문제 없음</span></div>
+      <div class="ap-stat"><strong>150<small>판</small></strong><span>규칙을 바꿀 때마다 돌리는 AI 대전 밸런스 보고서 1회 분량, 약 4분</span></div>
+      <div class="ap-stat"><strong>3<small>단계</small></strong><span>AI 상대 (쉬움, 보통, 높음). 높음은 상대 손패를 추정해 여러 경우를 시험해 보고 고릅니다</span></div>
+    </div>
+  </section>
+
+  <section class="ap-section" id="screens">
+    <h2>화면</h2>
+    <p class="ap-sub">데모에서 직접 볼 수 있는 장면입니다. 자동 진행 중에 찍어 P1의 선택도 AI가 했습니다.</p>
+    <div class="shot-gallery ap-gallery">
+      <div class="shot-card">
+        <img src="assets/shots/eb/02-player-turn.jpg" alt="육각 도시 보드와 캐릭터 보드, 손패, 행동 바가 보이는 내 차례 화면" loading="lazy" />
+        <p class="caption">내 차례: 3D 보드, 캐릭터 보드, 손패, 행동 바</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/shots/eb/03-mission-pick.jpg" alt="챕터를 시작할 때 미션 카드를 고르는 화면" loading="lazy" />
+        <p class="caption">챕터 시작: 미션 고르기</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/shots/eb/04-attacked.jpg" alt="적에게 공격받을 때 막을 카드를 고르는 반응 창" loading="lazy" />
+        <p class="caption">적에게 공격받을 때 반응 카드 고르기</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/shots/eb/06-maintenance.jpg" alt="챕터가 끝난 뒤 장비 정리, 판매, 시설 업그레이드를 하는 정비 화면" loading="lazy" />
+        <p class="caption">챕터 끝 정비: 끌어다 놓기로 장비, 판매, 시설 관리</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/shots/eb/07-black-market.jpg" alt="플레이어마다 원하는 카드를 고르는 암시장 화면" loading="lazy" />
+        <p class="caption">암시장: 원하는 카드를 동시에 골라 경쟁</p>
+      </div>
+      <div class="shot-card">
+        <img src="assets/shots/eb/08-result.jpg" alt="게임이 끝난 뒤 최종 순위와 점수 구성을 보여 주는 결과 화면" loading="lazy" />
+        <p class="caption">게임 결과: 순위와 점수 구성</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="ap-pager" aria-label="이전, 다음 페이지">
+    <a class="prev" href="index.html"><span>이전</span>← 소개</a>
+    <a class="next" href="project-build.html"><span>다음</span>AI 프로젝트: 만든 방법 →</a>
+  </nav>
+
+</main>
+
+<footer class="site-footer">
+  <p>본 페이지는 채용 지원 목적의 비공개 포트폴리오이므로 작성자의 동의 없는 무단 사용을 금지합니다.</p>
+  <p>게시가 허가된 내용으로만 구성되어 있으며 보안을 위해 일부 내용이 변형되어있을 수 있습니다.</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+<script src="../assets/js/back-to-top.js"></script>
+<script src="assets/game-embed.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,2118 @@
+{
+  "schema_version": 1,
+  "note": "캐릭터 9종. 노션 '캐릭터' 페이지와 동기화. 마일스톤 카드는 미설계(1·2챕터 종료 시점) · color(캐릭터 고유 색, 팀 색 빨강 · 파랑 · 초록 · 노랑과 겹치지 않게) · icon(임시 기호, 아이콘 그림으로 교체 예정)은 화면 · 3D 말 · 인쇄 공용 (2026-10-01 F2c) · 2026-10-18 카드 운용 버전: 전용 카드마다 basic(기본 아이콘 move/attack — 기능 대신 기본 이동 · 공격으로 쓸 수 있음) · copies_by_turn_mode.cards(3 · 2 · 2장 = 7장). 초안, 사용자 검토 대기",
+  "characters": [
+    {
+      "id": "c_fighter",
+      "name_key": "char.c_fighter.name",
+      "color": "#E07B2E",
+      "icon": "✊",
+      "move": 4,
+      "hp": 20,
+      "pouch": "heavy",
+      "stamina": 10,
+      "stamina_by_turn_mode": {
+        "cards": 4
+      },
+      "_stamina_by_turn_mode_note": "2026-10-19 사용자 결정(\"한 캐릭터만 운용하는 건 스테미너가 너무 많아서 — 자주 쓰는 캐릭터 위주로 줄이기\"): 카드 운용 버전 AI 150판 라운드당 카드 사냥꾼 2.35 · 암살자 1.96 · 싸움꾼 1.84 · 구원자 1.32(스테미너 7~10이라 한도가 안 됨) → 많이 쓰는 순으로 3 · 4 · 4 · 5",
+      "bag": 5,
+      "starting_weapon": {
+        "name_key": "char.c_fighter.weapon",
+        "kind": "melee",
+        "attack": 2,
+        "range": 1,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_fighter_card1",
+          "name_key": "ccard.c_fighter_card1.name",
+          "kind": "유틸리티",
+          "stamina": 2,
+          "desc_key": "ccard.c_fighter_card1.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "grant_status",
+              "status": "taunt",
+              "range": 2,
+              "duration": "enemy_turn"
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_fighter_card2",
+          "name_key": "ccard.c_fighter_card2.name",
+          "kind": "방어",
+          "stamina": 1,
+          "desc_key": "ccard.c_fighter_card2.desc",
+          "copies": 2,
+          "timing": "on_hit",
+          "effect": [
+            {
+              "block": "reduce_damage",
+              "amount": 1
+            }
+          ],
+          "basic": "draw",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_fighter_card3",
+          "name_key": "ccard.c_fighter_card3.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_fighter_card3.desc",
+          "copies": 2,
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "dice_advantage",
+              "rolls": 2
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_fighter_cm_charge",
+          "name_key": "ccard.c_fighter_cm_charge.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_fighter_cm_charge.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "combo",
+              "steps": [
+                {
+                  "move": 3
+                },
+                {
+                  "attack": {}
+                }
+              ]
+            }
+          ],
+          "basic": "attack",
+          "level": 1,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_fighter_cm_sweep",
+          "name_key": "ccard.c_fighter_cm_sweep.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_fighter_cm_sweep.desc",
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "attack_area",
+              "radius": 1
+            }
+          ],
+          "basic": "move",
+          "level": 1,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_fighter_cm_rage2",
+          "name_key": "ccard.c_fighter_cm_rage2.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_fighter_cm_rage2.desc",
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "dice_advantage",
+              "rolls": 2
+            },
+            {
+              "block": "attack_bonus",
+              "amount": 2
+            }
+          ],
+          "basic": "attack",
+          "level": 2,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_fighter_cm_hold2",
+          "name_key": "ccard.c_fighter_cm_hold2.name",
+          "kind": "방어",
+          "stamina": 1,
+          "desc_key": "ccard.c_fighter_cm_hold2.desc",
+          "timing": "on_hit",
+          "effect": [
+            {
+              "block": "reduce_damage",
+              "amount": 2
+            }
+          ],
+          "basic": "draw",
+          "level": 2,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_fighter_cm_whirl3",
+          "name_key": "ccard.c_fighter_cm_whirl3.name",
+          "kind": "공격 강화",
+          "stamina": 3,
+          "desc_key": "ccard.c_fighter_cm_whirl3.desc",
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "attack_area",
+              "radius": 1,
+              "bonus": 1
+            },
+            {
+              "block": "attack_bonus",
+              "amount": 1
+            }
+          ],
+          "basic": "attack",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_fighter_cm_berserk3",
+          "name_key": "ccard.c_fighter_cm_berserk3.name",
+          "kind": "공격 강화",
+          "stamina": 3,
+          "desc_key": "ccard.c_fighter_cm_berserk3.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "combo",
+              "steps": [
+                {
+                  "move": 4
+                },
+                {
+                  "attack": {}
+                },
+                {
+                  "attack": {}
+                }
+              ]
+            }
+          ],
+          "basic": "move",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_fighter_cm_warcry3",
+          "name_key": "ccard.c_fighter_cm_warcry3.name",
+          "kind": "유틸리티",
+          "stamina": 2,
+          "desc_key": "ccard.c_fighter_cm_warcry3.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "grant_status",
+              "status": "taunt",
+              "range": 3,
+              "duration": "enemy_turn"
+            },
+            {
+              "block": "grant_status",
+              "status": "defense_up",
+              "amount": 2,
+              "duration": "round"
+            }
+          ],
+          "basic": "move",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "on_attack",
+          "condition": {
+            "distance_max": 2
+          },
+          "effect": [
+            {
+              "block": "attack_bonus",
+              "amount": 2
+            }
+          ],
+          "text_key": "char.c_fighter.perk1"
+        },
+        {
+          "hook": "on_hit",
+          "effect": [
+            {
+              "block": "counter_attack",
+              "on_dice": [
+                "+1",
+                "+2",
+                "x2"
+              ],
+              "max_distance": 1,
+              "damage": 2
+            }
+          ],
+          "text_key": "char.c_fighter.perk2"
+        }
+      ],
+      "note": "2026-10-03: 이동력 3 → 4(캐릭터마다 행동 2번 규칙 보완 — 4번 몰아 달리기가 없어져 느린 캐릭터가 불리)"
+    },
+    {
+      "id": "c_hunter",
+      "name_key": "char.c_hunter.name",
+      "color": "#8DB33A",
+      "icon": "🏹",
+      "move": 5,
+      "hp": 12,
+      "pouch": "precise",
+      "stamina": 7,
+      "stamina_by_turn_mode": {
+        "cards": 3
+      },
+      "_stamina_by_turn_mode_note": "2026-10-19 사용자 결정(\"한 캐릭터만 운용하는 건 스테미너가 너무 많아서 — 자주 쓰는 캐릭터 위주로 줄이기\"): 카드 운용 버전 AI 150판 라운드당 카드 사냥꾼 2.35 · 암살자 1.96 · 싸움꾼 1.84 · 구원자 1.32(스테미너 7~10이라 한도가 안 됨) → 많이 쓰는 순으로 3 · 4 · 4 · 5",
+      "bag": 6,
+      "starting_weapon": {
+        "name_key": "char.c_hunter.weapon",
+        "kind": "ranged",
+        "attack": 1,
+        "range": 3,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_hunter_card1",
+          "name_key": "ccard.c_hunter_card1.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_hunter_card1.desc",
+          "copies": 2,
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "extra_attack",
+              "condition": "not_skull"
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_hunter_card2",
+          "name_key": "ccard.c_hunter_card2.name",
+          "kind": "공격 강화",
+          "stamina": 1,
+          "desc_key": "ccard.c_hunter_card2.desc",
+          "copies": 2,
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "ricochet",
+              "range": 1,
+              "damage": 1
+            }
+          ],
+          "_effect_note": "2026-10-18 사용자 결정: 예전 '저격 태세'(이번 공격 사거리 +2, range_bonus)는 공격할 때 대상을 이미 고른 뒤라 쓸 방법이 없었음 → '도탄 사격'(맞으면 맞은 적 주변 1칸 이내 다른 적 모두 고정 피해 1)",
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_hunter_card3",
+          "name_key": "ccard.c_hunter_card3.name",
+          "kind": "유틸리티",
+          "stamina": 2,
+          "desc_key": "ccard.c_hunter_card3.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "move_then_attack",
+              "max_move": 2
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_hunter_cm_aim",
+          "name_key": "ccard.c_hunter_cm_aim.name",
+          "kind": "공격 강화",
+          "stamina": 1,
+          "desc_key": "ccard.c_hunter_cm_aim.desc",
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "range_bonus",
+              "amount": 2
+            },
+            {
+              "block": "attack_bonus",
+              "amount": 1
+            }
+          ],
+          "basic": "move",
+          "level": 1,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_hunter_cm_prep",
+          "name_key": "ccard.c_hunter_cm_prep.name",
+          "kind": "유틸리티",
+          "stamina": 0,
+          "desc_key": "ccard.c_hunter_cm_prep.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "restore_stamina",
+              "amount": 2
+            },
+            {
+              "block": "draw_player_card",
+              "amount": 1
+            }
+          ],
+          "basic": "draw",
+          "level": 1,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_hunter_cm_rapid2",
+          "name_key": "ccard.c_hunter_cm_rapid2.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_hunter_cm_rapid2.desc",
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "extra_attack",
+              "condition": "not_skull"
+            },
+            {
+              "block": "attack_bonus",
+              "amount": 1
+            }
+          ],
+          "basic": "attack",
+          "level": 2,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_hunter_cm_prep2",
+          "name_key": "ccard.c_hunter_cm_prep2.name",
+          "kind": "유틸리티",
+          "stamina": 0,
+          "desc_key": "ccard.c_hunter_cm_prep2.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "restore_stamina",
+              "amount": 3
+            },
+            {
+              "block": "draw_player_card",
+              "amount": 2
+            }
+          ],
+          "basic": "draw",
+          "level": 2,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_hunter_cm_volley3",
+          "name_key": "ccard.c_hunter_cm_volley3.name",
+          "kind": "공격 강화",
+          "stamina": 3,
+          "desc_key": "ccard.c_hunter_cm_volley3.desc",
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "attack_area",
+              "radius": 1
+            },
+            {
+              "block": "range_bonus",
+              "amount": 1
+            }
+          ],
+          "basic": "attack",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_hunter_cm_skirmish3",
+          "name_key": "ccard.c_hunter_cm_skirmish3.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_hunter_cm_skirmish3.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "combo",
+              "steps": [
+                {
+                  "move": 3
+                },
+                {
+                  "attack": {}
+                },
+                {
+                  "move": 3
+                }
+              ]
+            }
+          ],
+          "basic": "move",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_hunter_cm_snipe3",
+          "name_key": "ccard.c_hunter_cm_snipe3.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_hunter_cm_snipe3.desc",
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "range_bonus",
+              "amount": 3
+            },
+            {
+              "block": "attack_bonus",
+              "amount": 3
+            }
+          ],
+          "basic": "move",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "on_attack",
+          "condition": {
+            "distance_min": 4
+          },
+          "effect": [
+            {
+              "block": "extra_attack",
+              "condition": "not_skull"
+            }
+          ],
+          "text_key": "char.c_hunter.perk1"
+        },
+        {
+          "hook": "passive",
+          "condition": {
+            "hp_at_most_half": true
+          },
+          "effect": [
+            {
+              "block": "stat_mod",
+              "stat": "move",
+              "amount": 1
+            }
+          ],
+          "text_key": "char.c_hunter.perk2"
+        }
+      ]
+    },
+    {
+      "id": "c_assassin",
+      "name_key": "char.c_assassin.name",
+      "color": "#3C3C46",
+      "icon": "🗡️",
+      "move": 5,
+      "hp": 10,
+      "pouch": "precise",
+      "stamina": 10,
+      "stamina_by_turn_mode": {
+        "cards": 4
+      },
+      "_stamina_by_turn_mode_note": "2026-10-19 사용자 결정(\"한 캐릭터만 운용하는 건 스테미너가 너무 많아서 — 자주 쓰는 캐릭터 위주로 줄이기\"): 카드 운용 버전 AI 150판 라운드당 카드 사냥꾼 2.35 · 암살자 1.96 · 싸움꾼 1.84 · 구원자 1.32(스테미너 7~10이라 한도가 안 됨) → 많이 쓰는 순으로 3 · 4 · 4 · 5",
+      "bag": 7,
+      "starting_weapon": {
+        "name_key": "char.c_assassin.weapon",
+        "kind": "melee",
+        "attack": 1,
+        "range": 1,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_assassin_card1",
+          "name_key": "ccard.c_assassin_card1.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_assassin_card1.desc",
+          "copies": 2,
+          "timing": "on_move",
+          "effect": [
+            {
+              "block": "move_bonus",
+              "amount": 2
+            },
+            {
+              "block": "deal_damage",
+              "amount": 1,
+              "no_dice": true,
+              "target": "adjacent_weakest_enemy",
+              "after": "move"
+            }
+          ],
+          "note": "2026-10-03: 한 칸에 하나 규칙으로 \"적 칸에서 행동해도 안 맞음\"이 사라져 → 기습(사용자 승인). 그 전 2026-10-01: 암살자 특성과 겹쳐 바꿈",
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_assassin_card2",
+          "exile": true,
+          "name_key": "ccard.c_assassin_card2.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_assassin_card2.desc",
+          "copies": 2,
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "attack_override",
+              "mode": "double_weapon",
+              "max_range": 1
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_assassin_card3",
+          "name_key": "ccard.c_assassin_card3.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_assassin_card3.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "grant_status",
+              "status": "untargetable",
+              "duration": "enemy_turn"
+            }
+          ],
+          "basic": "draw",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_assassin_cm_flurry",
+          "name_key": "ccard.c_assassin_cm_flurry.name",
+          "kind": "공격 강화",
+          "stamina": 3,
+          "desc_key": "ccard.c_assassin_cm_flurry.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "combo",
+              "steps": [
+                {
+                  "move": 2
+                },
+                {
+                  "attack": {
+                    "range": 1
+                  }
+                },
+                {
+                  "move": 2
+                },
+                {
+                  "attack": {
+                    "range": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "basic": "attack",
+          "level": 1,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_assassin_cm_sneak",
+          "name_key": "ccard.c_assassin_cm_sneak.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_assassin_cm_sneak.desc",
+          "timing": "on_move",
+          "effect": [
+            {
+              "block": "move_bonus",
+              "amount": 3
+            },
+            {
+              "block": "grant_status",
+              "status": "pass_through_enemies",
+              "count": 1,
+              "duration": "this_move"
+            }
+          ],
+          "basic": "move",
+          "level": 1,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_assassin_cm_flurry2",
+          "name_key": "ccard.c_assassin_cm_flurry2.name",
+          "kind": "공격 강화",
+          "stamina": 3,
+          "desc_key": "ccard.c_assassin_cm_flurry2.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "combo",
+              "steps": [
+                {
+                  "move": 3
+                },
+                {
+                  "attack": {
+                    "range": 1,
+                    "bonus": 1
+                  }
+                },
+                {
+                  "move": 3
+                },
+                {
+                  "attack": {
+                    "range": 1,
+                    "bonus": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "basic": "attack",
+          "level": 2,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_assassin_cm_ambush2",
+          "name_key": "ccard.c_assassin_cm_ambush2.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_assassin_cm_ambush2.desc",
+          "timing": "on_move",
+          "effect": [
+            {
+              "block": "move_bonus",
+              "amount": 3
+            },
+            {
+              "block": "deal_damage",
+              "amount": 2,
+              "no_dice": true,
+              "target": "adjacent_weakest_enemy",
+              "after": "move"
+            }
+          ],
+          "basic": "move",
+          "level": 2,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_assassin_cm_kill3",
+          "name_key": "ccard.c_assassin_cm_kill3.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_assassin_cm_kill3.desc",
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "attack_override",
+              "mode": "double_weapon",
+              "max_range": 1
+            },
+            {
+              "block": "attack_bonus",
+              "amount": 2
+            }
+          ],
+          "basic": "attack",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_assassin_cm_dance3",
+          "name_key": "ccard.c_assassin_cm_dance3.name",
+          "kind": "공격 강화",
+          "stamina": 4,
+          "desc_key": "ccard.c_assassin_cm_dance3.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "combo",
+              "steps": [
+                {
+                  "move": 2
+                },
+                {
+                  "attack": {
+                    "range": 1
+                  }
+                },
+                {
+                  "move": 2
+                },
+                {
+                  "attack": {
+                    "range": 1
+                  }
+                },
+                {
+                  "move": 2
+                },
+                {
+                  "attack": {
+                    "range": 1
+                  }
+                }
+              ]
+            }
+          ],
+          "basic": "attack",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_assassin_cm_smoke3",
+          "name_key": "ccard.c_assassin_cm_smoke3.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_assassin_cm_smoke3.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "grant_status",
+              "status": "untargetable",
+              "duration": "enemy_turn"
+            },
+            {
+              "block": "draw_player_card",
+              "amount": 2
+            }
+          ],
+          "basic": "draw",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "passive",
+          "effect": [
+            {
+              "block": "pass_enemies"
+            }
+          ],
+          "text_key": "char.c_assassin.perk1"
+        },
+        {
+          "hook": "passive",
+          "effect": [
+            {
+              "block": "free_card_use",
+              "kind": "회피",
+              "per": "round",
+              "count": 1
+            }
+          ],
+          "text_key": "char.c_assassin.perk2"
+        }
+      ]
+    },
+    {
+      "id": "c_savior",
+      "name_key": "char.c_savior.name",
+      "color": "#D65C9E",
+      "icon": "✚",
+      "move": 4,
+      "hp": 15,
+      "pouch": "steady",
+      "stamina": 8,
+      "stamina_by_turn_mode": {
+        "cards": 5
+      },
+      "_stamina_by_turn_mode_note": "2026-10-19 사용자 결정(\"한 캐릭터만 운용하는 건 스테미너가 너무 많아서 — 자주 쓰는 캐릭터 위주로 줄이기\"): 카드 운용 버전 AI 150판 라운드당 카드 사냥꾼 2.35 · 암살자 1.96 · 싸움꾼 1.84 · 구원자 1.32(스테미너 7~10이라 한도가 안 됨) → 많이 쓰는 순으로 3 · 4 · 4 · 5",
+      "bag": 8,
+      "starting_weapon": {
+        "name_key": "char.c_savior.weapon",
+        "kind": "melee",
+        "attack": 1,
+        "range": 1,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_savior_card1",
+          "name_key": "ccard.c_savior_card1.name",
+          "kind": "회복",
+          "stamina": 1,
+          "desc_key": "ccard.c_savior_card1.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "heal",
+              "hp": 2,
+              "target": "same_cell_ally"
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_savior_card2",
+          "name_key": "ccard.c_savior_card2.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_savior_card2.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "transfer_stamina",
+              "amount": 2,
+              "target": "same_cell_ally"
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_savior_card3",
+          "name_key": "ccard.c_savior_card3.name",
+          "kind": "회복",
+          "stamina": 2,
+          "desc_key": "ccard.c_savior_card3.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "heal",
+              "hp": 4
+            },
+            {
+              "block": "restore_stamina",
+              "amount": "full"
+            }
+          ],
+          "condition": {
+            "at_cell_type": "camp"
+          },
+          "_note": "2026-10-17 사용자 결정: 휴식 행동이 없어져 쓸 수 없던 카드(예전 on_rest 휴식 회복 ×2) → 캠프 칸에서 쓰면 캠프 회복량 ×2(체력 +4 · 스테미너 전부를 한 번 더)",
+          "basic": "draw",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "level": 1
+        },
+        {
+          "id": "c_savior_cm_mend",
+          "name_key": "ccard.c_savior_cm_mend.name",
+          "kind": "회복",
+          "stamina": 2,
+          "desc_key": "ccard.c_savior_cm_mend.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "heal",
+              "hp": 2,
+              "target": "my_chars_in_range",
+              "range": 2
+            }
+          ],
+          "basic": "move",
+          "level": 1,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_savior_cm_cheer",
+          "name_key": "ccard.c_savior_cm_cheer.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_savior_cm_cheer.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "restore_stamina",
+              "amount": 3,
+              "target": "my_char"
+            }
+          ],
+          "basic": "attack",
+          "level": 1,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 2
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_savior_cm_aid2",
+          "name_key": "ccard.c_savior_cm_aid2.name",
+          "kind": "회복",
+          "stamina": 1,
+          "desc_key": "ccard.c_savior_cm_aid2.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "heal",
+              "hp": 4,
+              "target": "same_cell_ally"
+            }
+          ],
+          "basic": "move",
+          "level": 2,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_savior_cm_cheer2",
+          "name_key": "ccard.c_savior_cm_cheer2.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_savior_cm_cheer2.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "restore_stamina",
+              "amount": 4,
+              "target": "my_char"
+            },
+            {
+              "block": "draw_player_card",
+              "amount": 1
+            }
+          ],
+          "basic": "attack",
+          "level": 2,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_savior_cm_light3",
+          "name_key": "ccard.c_savior_cm_light3.name",
+          "kind": "회복",
+          "stamina": 2,
+          "desc_key": "ccard.c_savior_cm_light3.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "heal",
+              "hp": 3,
+              "target": "my_chars_in_range",
+              "range": 3
+            },
+            {
+              "block": "restore_stamina",
+              "amount": 1,
+              "target": "my_chars_in_range",
+              "range": 3
+            }
+          ],
+          "basic": "move",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_savior_cm_link3",
+          "name_key": "ccard.c_savior_cm_link3.name",
+          "kind": "회복",
+          "stamina": 1,
+          "desc_key": "ccard.c_savior_cm_link3.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "heal",
+              "hp": 4,
+              "target": "my_char"
+            }
+          ],
+          "basic": "attack",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        },
+        {
+          "id": "c_savior_cm_prayer3",
+          "name_key": "ccard.c_savior_cm_prayer3.name",
+          "kind": "회복",
+          "stamina": 2,
+          "desc_key": "ccard.c_savior_cm_prayer3.desc",
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "heal",
+              "hp": 2,
+              "target": "my_chars"
+            },
+            {
+              "block": "restore_stamina",
+              "amount": 2,
+              "target": "my_chars"
+            }
+          ],
+          "basic": "draw",
+          "level": 3,
+          "only_turn_mode": "cards",
+          "copies_by_turn_mode": {
+            "cards": 0
+          },
+          "_note": "2026-10-19 카드 운용 버전 카드(사용자 결정: 전용 10장 × 2캐릭터, Lv2 2장 · Lv3 3장 레벨업). 초안 — 사용자 검토 대기"
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "passive",
+          "effect": [
+            {
+              "block": "card_bonus_recover",
+              "kind": "회복",
+              "hp": 2,
+              "stamina": 2,
+              "per": "round",
+              "count": 1
+            }
+          ],
+          "text_key": "char.c_savior.perk1",
+          "_note": "2026-10-17 사용자 결정: 예전 '휴식 시 회복량 +1'(on_rest rest_bonus)은 휴식 행동이 없어져 발동 안 함 → 회복 카드 사용 시 라운드당 1번, 거리 무관 내 캐릭터 하나 체력 +2 · 스테미너 +2"
+        },
+        {
+          "hook": "passive",
+          "effect": [
+            {
+              "block": "free_card_use",
+              "kind": "회복",
+              "per": "round",
+              "count": 1
+            }
+          ],
+          "text_key": "char.c_savior.perk2"
+        }
+      ],
+      "note": "2026-10-03: 이동력 3 → 4(캐릭터마다 행동 2번 규칙 보완 — 4번 몰아 달리기가 없어져 느린 캐릭터가 불리)"
+    },
+    {
+      "id": "c_oracle",
+      "name_key": "char.c_oracle.name",
+      "color": "#8A5CC7",
+      "icon": "👁️",
+      "move": 4,
+      "hp": 12,
+      "pouch": "basic",
+      "stamina": 12,
+      "bag": 5,
+      "starting_weapon": {
+        "name_key": "char.c_oracle.weapon",
+        "kind": "ranged",
+        "attack": 1,
+        "range": 2,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_oracle_card1",
+          "name_key": "ccard.c_oracle_card1.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_oracle_card1.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "look_top_take",
+              "look": 3,
+              "take": 1
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 3
+          }
+        },
+        {
+          "id": "c_oracle_card2",
+          "name_key": "ccard.c_oracle_card2.name",
+          "kind": "유틸리티",
+          "stamina": 2,
+          "desc_key": "ccard.c_oracle_card2.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "cycle_hand"
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_oracle_card3",
+          "name_key": "ccard.c_oracle_card3.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_oracle_card3.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "peek_player_card"
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "on_draw",
+          "effect": [
+            {
+              "block": "draw_look_extra",
+              "amount": 1,
+              "decks": [
+                "player"
+              ]
+            }
+          ],
+          "text_key": "char.c_oracle.perk1"
+        },
+        {
+          "hook": "on_draw",
+          "effect": [
+            {
+              "block": "draw_look_extra",
+              "amount": 1,
+              "decks": [
+                "supply",
+                "enemy"
+              ],
+              "per": "round",
+              "count": 1
+            }
+          ],
+          "text_key": "char.c_oracle.perk2"
+        }
+      ],
+      "note": "2026-10-03: 이동력 3 → 4(캐릭터마다 행동 2번 규칙 보완 — 4번 몰아 달리기가 없어져 느린 캐릭터가 불리)"
+    },
+    {
+      "id": "c_porter",
+      "name_key": "char.c_porter.name",
+      "color": "#8B5E3C",
+      "icon": "🎒",
+      "move": 4,
+      "hp": 12,
+      "pouch": "heavy",
+      "stamina": 8,
+      "bag": 10,
+      "starting_weapon": {
+        "name_key": "char.c_porter.weapon",
+        "kind": "melee",
+        "attack": 2,
+        "range": 1,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_porter_card1",
+          "name_key": "ccard.c_porter_card1.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_porter_card1.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "bag_overflow",
+              "amount": 1,
+              "duration": "this_action"
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 3
+          }
+        },
+        {
+          "id": "c_porter_card2",
+          "name_key": "ccard.c_porter_card2.name",
+          "kind": "유틸리티",
+          "stamina": 2,
+          "desc_key": "ccard.c_porter_card2.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "access_storage"
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_porter_card3",
+          "name_key": "ccard.c_porter_card3.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_porter_card3.desc",
+          "copies": 2,
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "attack_bonus",
+              "per": "bag_count",
+              "max": 3
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "passive",
+          "condition": {
+            "bag_count_min": 7
+          },
+          "effect": [
+            {
+              "block": "stat_mod",
+              "stat": "defense",
+              "amount": 2
+            }
+          ],
+          "text_key": "char.c_porter.perk1"
+        },
+        {
+          "hook": "passive",
+          "condition": {
+            "bag_full": true
+          },
+          "effect": [
+            {
+              "block": "stat_mod",
+              "stat": "move",
+              "amount": 2
+            }
+          ],
+          "text_key": "char.c_porter.perk2"
+        }
+      ],
+      "note": "2026-10-03: 이동력 3 → 4(캐릭터마다 행동 2번 규칙 보완 — 4번 몰아 달리기가 없어져 느린 캐릭터가 불리)"
+    },
+    {
+      "id": "c_guardian",
+      "name_key": "char.c_guardian.name",
+      "color": "#3F4FA0",
+      "icon": "🛡️",
+      "move": 4,
+      "hp": 18,
+      "pouch": "steady",
+      "stamina": 9,
+      "bag": 6,
+      "starting_weapon": {
+        "name_key": "char.c_guardian.weapon",
+        "kind": "melee",
+        "attack": 1,
+        "range": 1,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_guardian_card1",
+          "name_key": "ccard.c_guardian_card1.name",
+          "kind": "방어",
+          "stamina": 1,
+          "desc_key": "ccard.c_guardian_card1.desc",
+          "copies": 2,
+          "timing": "on_hit",
+          "effect": [
+            {
+              "block": "reduce_damage",
+              "amount": 1,
+              "target": "same_cell_ally"
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_guardian_card2",
+          "name_key": "ccard.c_guardian_card2.name",
+          "kind": "방어",
+          "stamina": 2,
+          "desc_key": "ccard.c_guardian_card2.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "grant_status",
+              "status": "defense_up",
+              "amount": 2,
+              "duration": "round"
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_guardian_card3",
+          "name_key": "ccard.c_guardian_card3.name",
+          "kind": "유틸리티",
+          "stamina": 2,
+          "desc_key": "ccard.c_guardian_card3.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "pull_ally",
+              "range": 2
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 3
+          }
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "on_hit",
+          "effect": [
+            {
+              "block": "intercept"
+            }
+          ],
+          "text_key": "char.c_guardian.perk1"
+        },
+        {
+          "hook": "passive",
+          "condition": {
+            "armor_equipped": true
+          },
+          "effect": [
+            {
+              "block": "stat_mod",
+              "stat": "defense",
+              "amount": 1
+            }
+          ],
+          "text_key": "char.c_guardian.perk2"
+        }
+      ],
+      "note": "2026-10-03: 이동력 3 → 4(캐릭터마다 행동 2번 규칙 보완 — 4번 몰아 달리기가 없어져 느린 캐릭터가 불리)"
+    },
+    {
+      "id": "c_tracker",
+      "name_key": "char.c_tracker.name",
+      "color": "#2A9D8F",
+      "icon": "🐾",
+      "move": 4,
+      "hp": 13,
+      "pouch": "basic",
+      "stamina": 9,
+      "bag": 6,
+      "starting_weapon": {
+        "name_key": "char.c_tracker.weapon",
+        "kind": "ranged",
+        "attack": 1,
+        "range": 2,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_tracker_card1",
+          "name_key": "ccard.c_tracker_card1.name",
+          "kind": "공격 강화",
+          "stamina": 1,
+          "desc_key": "ccard.c_tracker_card1.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "grant_status",
+              "status": "marked",
+              "target": "chosen_enemy",
+              "duration": "round"
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 3
+          }
+        },
+        {
+          "id": "c_tracker_card2",
+          "name_key": "ccard.c_tracker_card2.name",
+          "kind": "유틸리티",
+          "stamina": 2,
+          "desc_key": "ccard.c_tracker_card2.desc",
+          "copies": 2,
+          "timing": "on_move",
+          "effect": [
+            {
+              "block": "grant_status",
+              "status": "pass_through_enemies",
+              "count": 1,
+              "duration": "this_move"
+            },
+            {
+              "block": "grant_status",
+              "status": "ignore_zone_attacks",
+              "duration": "this_move"
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_tracker_card3",
+          "name_key": "ccard.c_tracker_card3.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_tracker_card3.desc",
+          "copies": 2,
+          "timing": "on_move",
+          "condition": {
+            "destination_has_boss": true
+          },
+          "effect": [
+            {
+              "block": "move_bonus",
+              "amount": 2
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "on_interact",
+          "cell_type": "investigate",
+          "effect": [
+            {
+              "block": "draw_investigation",
+              "amount": 1
+            }
+          ],
+          "text_key": "char.c_tracker.perk1"
+        },
+        {
+          "hook": "on_boss_kill",
+          "effect": [
+            {
+              "block": "gain_vp",
+              "amount": 2
+            }
+          ],
+          "text_key": "char.c_tracker.perk2"
+        }
+      ]
+    },
+    {
+      "id": "c_broker",
+      "name_key": "char.c_broker.name",
+      "color": "#7D8590",
+      "icon": "💰",
+      "move": 4,
+      "hp": 12,
+      "pouch": "basic",
+      "stamina": 7,
+      "bag": 8,
+      "starting_weapon": {
+        "name_key": "char.c_broker.weapon",
+        "kind": "ranged",
+        "attack": 1,
+        "range": 2,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_broker_card1",
+          "name_key": "ccard.c_broker_card1.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_broker_card1.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "pay_coin",
+              "amount": 2
+            },
+            {
+              "block": "take_open_supply"
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 3
+          }
+        },
+        {
+          "id": "c_broker_card2",
+          "name_key": "ccard.c_broker_card2.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_broker_card2.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "sell_now",
+              "count": 1
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_broker_card3",
+          "exile": true,
+          "name_key": "ccard.c_broker_card3.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_broker_card3.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "pay_coin",
+              "amount": 3
+            },
+            {
+              "block": "gain_vp",
+              "amount": 2
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "on_sell",
+          "effect": [
+            {
+              "block": "gain_coin",
+              "amount": 1
+            }
+          ],
+          "text_key": "char.c_broker.perk1"
+        },
+        {
+          "hook": "passive",
+          "effect": [
+            {
+              "block": "mod_black_market_cost",
+              "amount": -2
+            }
+          ],
+          "text_key": "char.c_broker.perk2"
+        }
+      ],
+      "note": "2026-10-03: 돈 쪽 강점(사용자 결정) — 판매 +1은 내 캐릭터 누가 팔아도 · 암시장 혼자 구매 -2 · 뇌물/자산 정리 구현 · 거래의 달인 → 투자(코인 3 → 승점 2)"
+    },
+    {
+      "id": "c_raider",
+      "name_key": "char.c_raider.name",
+      "color": "#8B1E3F",
+      "icon": "🪓",
+      "move": 4,
+      "hp": 12,
+      "pouch": "heavy",
+      "stamina": 9,
+      "bag": 6,
+      "starting_weapon": {
+        "name_key": "char.c_raider.weapon",
+        "kind": "melee",
+        "attack": 2,
+        "range": 1,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_raider_card1",
+          "name_key": "ccard.c_raider_card1.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_raider_card1.desc",
+          "copies": 2,
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "draw_supply",
+              "amount": 1
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_raider_card2",
+          "name_key": "ccard.c_raider_card2.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_raider_card2.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "gain_coin",
+              "amount": 2
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 3
+          }
+        },
+        {
+          "id": "c_raider_card3",
+          "name_key": "ccard.c_raider_card3.name",
+          "kind": "공격 강화",
+          "stamina": 1,
+          "desc_key": "ccard.c_raider_card3.desc",
+          "copies": 2,
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "attack_bonus",
+              "amount": 2
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "on_kill",
+          "effect": [
+            {
+              "block": "gain_coin",
+              "amount": 1
+            }
+          ],
+          "text_key": "char.c_raider.perk1"
+        },
+        {
+          "hook": "on_loot",
+          "effect": [
+            {
+              "block": "gain_coin",
+              "amount": 1
+            }
+          ],
+          "text_key": "char.c_raider.perk2"
+        }
+      ],
+      "note": "2026-10-08 신규 직업(수정 사항 오늘 13 · AF-3 추천안). 수치는 초안 — 밸런스 보고서로 조정"
+    },
+    {
+      "id": "c_dismantler",
+      "name_key": "char.c_dismantler.name",
+      "color": "#B8A97A",
+      "icon": "🔧",
+      "move": 4,
+      "hp": 11,
+      "pouch": "precise",
+      "stamina": 10,
+      "bag": 7,
+      "starting_weapon": {
+        "name_key": "char.c_dismantler.weapon",
+        "kind": "melee",
+        "attack": 1,
+        "range": 1,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_dismantler_card1",
+          "name_key": "ccard.c_dismantler_card1.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_dismantler_card1.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "grant_status",
+              "status": "marked",
+              "target": "chosen_enemy",
+              "duration": "round"
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_dismantler_card2",
+          "name_key": "ccard.c_dismantler_card2.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_dismantler_card2.desc",
+          "copies": 2,
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "dice_advantage",
+              "rolls": 2
+            },
+            {
+              "block": "attack_bonus",
+              "amount": 1
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_dismantler_card3",
+          "name_key": "ccard.c_dismantler_card3.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_dismantler_card3.desc",
+          "copies": 2,
+          "timing": "anytime",
+          "effect": [
+            {
+              "block": "gain_material",
+              "material": "part",
+              "amount": 1
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 3
+          }
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "on_kill",
+          "effect": [
+            {
+              "block": "gain_material",
+              "material": "part",
+              "amount": 1
+            }
+          ],
+          "text_key": "char.c_dismantler.perk1"
+        },
+        {
+          "hook": "passive",
+          "effect": [
+            {
+              "block": "skull_reroll"
+            }
+          ],
+          "text_key": "char.c_dismantler.perk2"
+        }
+      ],
+      "note": "2026-10-08 신규 직업(수정 사항 오늘 13 · AF-3 추천안). 수치는 초안 — 밸런스 보고서로 조정"
+    },
+    {
+      "id": "c_ninja",
+      "name_key": "char.c_ninja.name",
+      "color": "#8A8A2B",
+      "icon": "🥷",
+      "move": 6,
+      "hp": 9,
+      "pouch": "basic",
+      "stamina": 10,
+      "bag": 5,
+      "starting_weapon": {
+        "name_key": "char.c_ninja.weapon",
+        "kind": "melee",
+        "attack": 1,
+        "range": 1,
+        "tradeable": false,
+        "upgrade_slots": 0
+      },
+      "signature_cards": [
+        {
+          "id": "c_ninja_card1",
+          "name_key": "ccard.c_ninja_card1.name",
+          "kind": "유틸리티",
+          "stamina": 1,
+          "desc_key": "ccard.c_ninja_card1.desc",
+          "copies": 2,
+          "timing": "on_move",
+          "effect": [
+            {
+              "block": "move_bonus",
+              "amount": 2
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 3
+          }
+        },
+        {
+          "id": "c_ninja_card2",
+          "name_key": "ccard.c_ninja_card2.name",
+          "kind": "공격 강화",
+          "stamina": 2,
+          "desc_key": "ccard.c_ninja_card2.desc",
+          "copies": 2,
+          "timing": "on_attack",
+          "effect": [
+            {
+              "block": "dice_advantage",
+              "rolls": 2
+            }
+          ],
+          "basic": "attack",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        },
+        {
+          "id": "c_ninja_card3",
+          "name_key": "ccard.c_ninja_card3.name",
+          "kind": "방어",
+          "stamina": 1,
+          "desc_key": "ccard.c_ninja_card3.desc",
+          "copies": 2,
+          "timing": "on_hit",
+          "effect": [
+            {
+              "block": "reduce_damage",
+              "amount": 2
+            }
+          ],
+          "basic": "move",
+          "copies_by_turn_mode": {
+            "cards": 2
+          }
+        }
+      ],
+      "deck_note": "시작 덱 10장 = 공용 카드 4장(각 1) + 전용 카드 6장(3종 × 각 2)",
+      "perks": [
+        {
+          "hook": "passive",
+          "effect": [
+            {
+              "block": "rough_free"
+            }
+          ],
+          "text_key": "char.c_ninja.perk1"
+        },
+        {
+          "hook": "passive",
+          "effect": [
+            {
+              "block": "allow_grapple",
+              "once_per_round": true
+            }
+          ],
+          "text_key": "char.c_ninja.perk2"
+        }
+      ],
+      "note": "2026-10-08 신규 직업(수정 사항 오늘 13 · AF-3 추천안). 수치는 초안 — 밸런스 보고서로 조정"
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "note": "공용 카드 4종 (모든 캐릭터 시작 덱에 각 1장). 전용 카드는 characters.json 참조. 노션 '플레이어 카드' 페이지와 동기화 · 2026-10-18 카드 운용 버전(turn_mode cards): 공용 10장 = 이동 4 · 공격 4 · 숨 고르기 2(나머지 공용 4종은 빼고), 전용 카드는 3 · 2 · 2장 · 2026-10-19: 카드 운용 버전은 공용 카드 없이 전용 10장 × 2(이동 · 공격 카드는 장수 0으로 남겨 둠, 숨 고르기는 기본 행동 버전 전용으로 되돌림)",
+  "common_cards": [
+    {
+      "id": "pc_emergency_firepower",
+      "name_key": "pcard.pc_emergency_firepower.name",
+      "kind": "공격 강화",
+      "stamina": 2,
+      "desc_key": "pcard.pc_emergency_firepower.desc",
+      "effect": [
+        {
+          "block": "pay_coin",
+          "amount": 2
+        },
+        {
+          "block": "attack_bonus",
+          "amount": 3
+        }
+      ],
+      "timing": "on_attack",
+      "exclude_turn_modes": [
+        "cards"
+      ]
+    },
+    {
+      "id": "pc_desperate_defense",
+      "name_key": "pcard.pc_desperate_defense.name",
+      "kind": "방어",
+      "stamina": 1,
+      "desc_key": "pcard.pc_desperate_defense.desc",
+      "effect": [
+        {
+          "block": "defense_bonus",
+          "amount": 2
+        }
+      ],
+      "timing": "on_hit",
+      "exclude_turn_modes": [
+        "cards"
+      ]
+    },
+    {
+      "id": "pc_evasive_maneuver",
+      "name_key": "pcard.pc_evasive_maneuver.name",
+      "kind": "회피",
+      "stamina": 1,
+      "desc_key": "pcard.pc_evasive_maneuver.desc",
+      "effect": [
+        {
+          "block": "discard_supply",
+          "min_sell": 2
+        },
+        {
+          "block": "evade"
+        }
+      ],
+      "timing": "on_hit",
+      "exclude_turn_modes": [
+        "cards"
+      ]
+    },
+    {
+      "id": "pc_sprint",
+      "name_key": "pcard.pc_sprint.name",
+      "kind": "유틸리티",
+      "stamina": 1,
+      "desc_key": "pcard.pc_sprint.desc",
+      "effect": [
+        {
+          "block": "bonus_move",
+          "max_move": 2
+        }
+      ],
+      "timing": "anytime",
+      "_effect_note": "2026-10-18 사용자 결정: 예전엔 이동할 때 같이 쓰는 '이번 이동 +2'(on_move move_bonus) → 카드를 쓰면 이동 행동과 별개로 2칸 따로 이동(치고 빠지기와 같은 느낌)",
+      "exclude_turn_modes": [
+        "cards"
+      ]
+    },
+    {
+      "id": "pc_breather",
+      "name_key": "pcard.pc_breather.name",
+      "kind": "회복",
+      "stamina": 0,
+      "desc_key": "pcard.pc_breather.desc",
+      "copies": 2,
+      "only_turn_mode": "activation",
+      "_note": "2026-10-04 사용자 결정(신규 9): 기본 휴식 행동을 없애고 공용 카드로. 행동을 쓰지 않음",
+      "effect": [
+        {
+          "block": "heal",
+          "hp": 2
+        },
+        {
+          "block": "restore_stamina",
+          "amount": 2
+        }
+      ],
+      "timing": "anytime"
+    },
+    {
+      "id": "pc_move",
+      "name_key": "pcard.pc_move.name",
+      "kind": "이동",
+      "stamina": 1,
+      "desc_key": "pcard.pc_move.desc",
+      "copies": 4,
+      "only_turn_mode": "cards",
+      "basic": "move",
+      "timing": "basic",
+      "effect": [],
+      "_note": "2026-10-18 사용자 결정(카드 운용 버전 B안): 기본 이동이 없어져 공용 이동 카드로. 캐릭터 이동력만큼 이동",
+      "copies_by_turn_mode": {
+        "cards": 0
+      }
+    },
+    {
+      "id": "pc_attack",
+      "name_key": "pcard.pc_attack.name",
+      "kind": "공격",
+      "stamina": 1,
+      "desc_key": "pcard.pc_attack.desc",
+      "copies": 4,
+      "only_turn_mode": "cards",
+      "basic": "attack",
+      "timing": "basic",
+      "effect": [],
+      "_note": "2026-10-18 사용자 결정(카드 운용 버전 B안): 기본 공격이 없어져 공용 공격 카드로. 무기로 공격하거나 쓰러진 캐릭터 약탈",
+      "copies_by_turn_mode": {
+        "cards": 0
+      }
+    }
+  ]
+}

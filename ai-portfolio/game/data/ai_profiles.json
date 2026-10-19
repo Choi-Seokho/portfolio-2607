@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "note": "AI 난이도별 수치(2026-09-30). 코드를 고치지 않고 난이도를 조정하기 위한 데이터. 설계는 docs/ai-design.md. 보통 · 높음은 A-3 · A-5에서 추가",
+  "profiles": {
+    "easy": {
+      "name_key": "ai.easy.name",
+      "desc_key": "ai.easy.desc",
+      "kind": "easy",
+      "pvp_attack": false,
+      "loot": false,
+      "mistake_rate": 0.15,
+      "attack_min_hp": 0.5,
+      "rest_below_hp": 0.5,
+      "react_rate": 0.5,
+      "trade_accept": 0.85,
+      "mulligan_rate": 0.2,
+      "boss_spawn_rate": 0.3,
+      "bm_place_rate": 0.3,
+      "think_ms": [
+        400,
+        900
+      ]
+    },
+    "normal": {
+      "name_key": "ai.normal.name",
+      "desc_key": "ai.normal.desc",
+      "kind": "normal",
+      "pvp_attack": false,
+      "loot": true,
+      "draft_priority": [
+        "c_tracker",
+        "c_hunter",
+        "c_fighter",
+        "c_assassin",
+        "c_broker",
+        "c_porter",
+        "c_guardian",
+        "c_savior",
+        "c_oracle",
+        "c_raider",
+        "c_ninja",
+        "c_dismantler"
+      ],
+      "w": {
+        "min_gain": 0.15,
+        "gamma": 0.8,
+        "arrive": 0.85,
+        "dz_risk": 1,
+        "action": 1.5,
+        "hp": 0.35,
+        "exhaust": 8,
+        "stamina": 0.15,
+        "part": 1.8,
+        "supply_draw": 1.6,
+        "survivor": 1.2,
+        "investigate": 2.0,
+        "investigate_stack": 1.5,
+        "research": 0.4,
+        "boss_chase": 1.0,
+        "boss_chip": 0.6,
+        "boss_min_actions": 3,
+        "boss_spawn_confidence": 0.8,
+        "char_round": 2.0,
+        "react_min_damage": 2.5,
+        "trade_margin": 0.5,
+        "bm_margin": 0.5,
+        "vp_bias": 1.3,
+        "_vp_bias_note": "2026-10-04 사용자 결정: 승점을 가장 많이 받는 행동 우선 — 직접 승점(처치 · 보스 · 중앙 칸)에 ×1.3"
+      },
+      "think_ms": [
+        500,
+        1100
+      ]
+    },
+    "hard": {
+      "name_key": "ai.hard.name",
+      "desc_key": "ai.hard.desc",
+      "kind": "hard",
+      "pvp_attack": false,
+      "loot": true,
+      "draft_priority": [
+        "c_tracker",
+        "c_hunter",
+        "c_fighter",
+        "c_assassin",
+        "c_broker",
+        "c_porter",
+        "c_guardian",
+        "c_savior",
+        "c_oracle",
+        "c_raider",
+        "c_ninja",
+        "c_dismantler"
+      ],
+      "w": {
+        "min_gain": 0.15,
+        "gamma": 0.8,
+        "arrive": 0.85,
+        "dz_risk": 1,
+        "action": 1.5,
+        "hp": 0.35,
+        "exhaust": 8,
+        "stamina": 0.15,
+        "part": 2.3,
+        "supply_draw": 1.6,
+        "survivor": 1.2,
+        "investigate": 3.0,
+        "investigate_stack": 3.2,
+        "research": 0.4,
+        "boss_chase": 1.6,
+        "boss_chip": 0.9,
+        "boss_min_actions": 3,
+        "boss_spawn_confidence": 0.8,
+        "char_round": 2.0,
+        "react_min_damage": 2.5,
+        "trade_margin": 0.5,
+        "bm_margin": 0.5,
+        "vp_bias": 1.3
+      },
+      "think_ms": [
+        300,
+        700
+      ],
+      "search": {
+        "top_k": 5,
+        "min_score": 0.2,
+        "min_worlds": 3,
+        "max_worlds": 8,
+        "budget_ms": 250,
+        "max_steps": 24
+      },
+      "eval": {
+        "equipped": 1.0,
+        "exhausted_round": 3.0,
+        "exhausted": 4.0,
+        "position": 0.15,
+        "missing_hp": 0.4,
+        "card": 0.3,
+        "stamina": 0.05,
+        "mission_progress": 0.6,
+        "boss_progress": 0.35
+      }
+    }
+  }
+}
