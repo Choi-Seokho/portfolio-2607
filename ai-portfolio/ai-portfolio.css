@@ -298,3 +298,33 @@
 /* 첫 화면 구성 카드: 대표 카드 + 2장 */
 .ap-guide.ap-guide-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 760px) { .ap-guide.ap-guide-2 { grid-template-columns: 1fr; } }
+
+/* ===== 스크린샷 크게 보기 (assets/lightbox.js) ===== */
+.lb-zoomable { cursor: zoom-in; }
+.lb-zoomable:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+html.lb-open { overflow: hidden; }
+.ap-lightbox {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 24px 16px; background: rgba(10, 12, 11, 0.95);
+}
+.ap-lightbox[hidden] { display: none; }
+.ap-lightbox figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 100%; min-width: 0; }
+.ap-lightbox img { max-width: min(1600px, 100%); max-height: calc(100vh - 110px); object-fit: contain; border-radius: 6px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); background: #111; cursor: default; }
+.ap-lightbox figcaption { color: #e3e6e4; font-size: 0.9rem; text-align: center; max-width: 900px; line-height: 1.5; }
+.ap-lightbox .lb-count { color: #9aa49f; margin-right: 10px; font-variant-numeric: tabular-nums; }
+.ap-lightbox button {
+  flex: none; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.08);
+  color: #fff; cursor: pointer; font: inherit; line-height: 1;
+}
+.ap-lightbox button:hover { background: rgba(255, 255, 255, 0.18); }
+.ap-lightbox .lb-close { position: absolute; top: 14px; right: 16px; width: 40px; height: 40px; border-radius: 50%; font-size: 1.6rem; }
+.ap-lightbox .lb-nav { width: 44px; height: 64px; border-radius: 10px; font-size: 2rem; }
+.ap-lightbox .lb-nav[hidden] { display: none; }
+@media (max-width: 600px) {
+  .ap-lightbox { padding: 56px 8px 16px; }
+  .ap-lightbox .lb-nav { position: absolute; bottom: 14px; width: 48px; height: 44px; }
+  .ap-lightbox .lb-prev { left: 16px; }
+  .ap-lightbox .lb-next { right: 16px; }
+  .ap-lightbox img { max-height: calc(100vh - 170px); }
+}
